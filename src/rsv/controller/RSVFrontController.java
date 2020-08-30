@@ -1,4 +1,4 @@
-package rsv.action;
+package rsv.controller;
 
 import java.io.IOException;
 
@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import rsv.action.RsvSubminProAction;
 import vo.ActionForward;
 
 @WebServlet("*.rsv")
 public class RSVFrontController extends HttpServlet{
 
-	
-
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		
 		request.setCharacterEncoding("UTF-8");
+		System.out.println("RSVFrontController");
 		String command = request.getServletPath();
 		Action action = null;
 		ActionForward forward = null;
@@ -28,26 +28,24 @@ public class RSVFrontController extends HttpServlet{
 			
 			forward = new ActionForward();
 			forward.setPath("/rsv/main.jsp");
-			forward.setRedirect(false);
 			
 		}else if(command.equals("/RsvView.rsv")) {
 			
 			forward = new ActionForward();
 			forward.setPath("/rsv/view.jsp");
-			forward.setRedirect(false);
 			
+		}else if(command.equals("/RsvSubmitProAction.rsv")) {
+			action=new RsvSubminProAction();
+			try {
+				forward=action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/RsvResult.rsv")) {
+			forward=new ActionForward();
+			forward.setPath("/rsv/cal.jsp");
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		
 		
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
@@ -70,12 +68,7 @@ public class RSVFrontController extends HttpServlet{
 			
 		}
 		
-		
-		
-		
-		
-		
-		
+			//---------------------------------------------------------------------------
 		
 	}
 	@Override
