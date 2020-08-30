@@ -36,5 +36,29 @@ public class RsvSubmitProService {
 		close(con);
 		return isResultInsert;
 	}
+	
+	//Host로 부터 예약 결과에 대한 값을 리턴 받은 후 예약 상태를 바꾸기 위한메서드
+	public boolean modifyRsv(RsvDTO dto) {
+		//작업의 성공여부를 리턴받고 외부로 리턴하기 위한 변수 설정
+		boolean isModifyResult=false;
+		
+		//Connection 지정을 위한 작업
+		Connection con=getConnection();
+		RsvDAO dao=RsvDAO.getInstance();
+		dao.setConnection(con);
+		
+		int resultModify=dao.updateRsv(dto);
+		if(resultModify==1) {//작업이 성공했을 경우 리턴값을 true로 변경
+			commit(con);
+			isModifyResult=true;
+		}else {//작업이 실패했을 경우
+			rollback(con);
+		}
+		
+		//연결을 끊기 위한 메서드
+		close(con);
+		
+		return isModifyResult;
+	}
 
 }

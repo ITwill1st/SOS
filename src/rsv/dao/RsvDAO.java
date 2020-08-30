@@ -72,4 +72,39 @@ public class RsvDAO {
 		return insertResult;
 	}
 	
+	//Host로 리턴값을 받고 예약상태를 변경하기 위한 메서드 정의
+	public int updateRsv(RsvDTO dto) {
+		int resultUpdate=0;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+				
+		try {
+			//예약번호를 지정하기 위해서 예약 번호가 있는지 조회 후 +1 추가를 위한 sql
+			String sql="select max(rsv_num) from reservation";
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			int num=1;//예약번호가 없다면 초기값 1을 지정
+			if(rs.next()) {
+				num=rs.getInt(1)+1;
+			}
+			
+			sql="insert into reservation values(?,?,?,?,?)";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, num);
+			pstmt.setString(2,dto.getRsv_date());
+			pstmt.setInt(3, dto.getRsv_pax());
+			pstmt.setInt(4, dto.getRsv_check());
+			pstmt.setString(5, dto.getMem_email());
+			
+			//예약 내용을 DB에 저장완료 후 리턴값 지정
+			resultUpdate=pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("RsvDAO - updateRsv() 오류");
+		}
+		
+		return resultUpdate;
+	}
+	
 }

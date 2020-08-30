@@ -13,6 +13,10 @@
 String rsv_date=request.getParameter("date");
 int pax=Integer.parseInt(request.getParameter("pax"));
 String rsv_time=request.getParameter("time");
+String id=(String)session.getAttribute("id");
+String ip=request.getRemoteAddr();
+
+if(id==null){
 
 %>
 <form action="RsvSubmitProAction.rsv" method="post">
@@ -24,5 +28,14 @@ email : <input type="email" name="email"><br>
 알러지 : <input type="text" name="allergy"><br>
 <input type="submit" value="예약접수">
 </form>
+<%}
+else{%>
+<form action="RsvSubmitProAction.rsv" method="post">
+예약날짜 : <input type="date" name="rsv_date" value="<%=rsv_date %>"><br>
+예약인원 : <input type="text" name="pax" value="<%=pax%>"><br>
+예약시간 : <input type="time" name="rsv_time" value="<%=rsv_time %>"><br>
+<input type="submit" value="예약접수">
+</form>
+<%}%>
 </body>
 </html>
