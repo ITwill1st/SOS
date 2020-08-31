@@ -235,11 +235,11 @@ header {
  ///////////////////////////////////////////////////////
  
  //JSON 으로 예약가능한 날짜 가져오기
- $.getJSON('datevalue.jsp',function({data:year,month}){
-	 $.each(data,function(item){
+//  $.getJSON('datevalue.jsp',function({data:year,month}){
+// 	 $.each(data,function(item){
 		 
-	 });
- });
+// 	 });
+//  });
  
  
  //현재월의날짜기입////////////////////////////////////
