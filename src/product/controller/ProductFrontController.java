@@ -1,4 +1,4 @@
-package product.action;
+package product.controller;
 
 import java.io.IOException;
 
@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import product.action.ProductDetailAction;
 import vo.ActionForward;
 
 @WebServlet("*.po")
@@ -36,9 +37,13 @@ public class ProductFrontController extends HttpServlet{
 			
 		}else if(command.equals("/ProductDetail.po")) {
 			
-			forward = new ActionForward();
-			forward.setPath("/product/detail.jsp");
-			forward.setRedirect(false);
+			action = new ProductDetailAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 		}else if(command.equals("/ProductInsert.po")) {
 			
