@@ -44,6 +44,9 @@ public class RSVFrontController extends HttpServlet{
 		}else if(command.equals("/RsvResult.rsv")) {
 			forward=new ActionForward();
 			forward.setPath("/rsv/cal.jsp");
+		}else if(command.equals("/RsvCheck.rsv")) {
+			forward=new ActionForward();
+			forward.setPath("/rsv/cal.jsp");
 		}
 
 		
