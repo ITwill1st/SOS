@@ -12,7 +12,7 @@ import rsv.svc.RsvSubmitProService;
 import vo.ActionForward;
 import vo.RsvDTO;
 
-public class RsvSubminProAction implements Action {
+public class RsvSubmitProAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {

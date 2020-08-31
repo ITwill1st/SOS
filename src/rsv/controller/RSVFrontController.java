@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import rsv.action.RsvSubminProAction;
+import rsv.action.RsvSubmitProAction;
 import vo.ActionForward;
 
 @WebServlet("*.rsv")
@@ -35,7 +35,7 @@ public class RSVFrontController extends HttpServlet{
 			forward.setPath("/rsv/view.jsp");
 			
 		}else if(command.equals("/RsvSubmitProAction.rsv")) {
-			action=new RsvSubminProAction();
+			action=new RsvSubmitProAction();
 			try {
 				forward=action.execute(request, response);
 			} catch (Exception e) {
