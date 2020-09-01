@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import board.action.BoardWriteProAction;
 import vo.ActionForward;
 
 @WebServlet("*.tb")
@@ -34,11 +35,20 @@ public class TableFrontController extends HttpServlet{
 			forward.setPath("/table/main.jsp");
 			forward.setRedirect(false);
 			
-		}else if(command.equals("/TablesEdit.tb")) {
+		}else if(command.equals("/TablesEdit.tb")) {//edit.jsp 실행
 			
-			forward = new ActionForward();
-			forward.setPath("/table/edit.jsp");
-			forward.setRedirect(false);
+			action = new TableInfoProAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+//			forward = new ActionForward();
+//			forward.setPath("/table/edit.jsp");
+//			forward.setRedirect(false);
 			
 		}else if(command.equals("/TableDetail.tb")) {
 			
@@ -47,11 +57,7 @@ public class TableFrontController extends HttpServlet{
 			forward.setRedirect(false);
 			
 		}
-		
-
-		
-		
-		
+	
 		
 		
 		

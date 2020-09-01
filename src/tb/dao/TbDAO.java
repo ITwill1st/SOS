@@ -1,6 +1,14 @@
 package tb.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import vo.TableDTO;
+
+import static db.JdbcUtil.*;
 
 public class TbDAO {
 
@@ -23,8 +31,60 @@ public class TbDAO {
 	public void setConnection(Connection con) {
 		this.con = con;
 	}
+
+	public ArrayList<TableDTO> tableInfoProService() {
+		
+		ArrayList<TableDTO> list = new ArrayList<TableDTO>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;		
+		
+		String sql = "SELECT * FROM tableinfo";
+		
+		try {
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {				
+				
+				TableDTO tdto = new TableDTO();
+				tdto.setTable_no(rs.getInt(1));
+				tdto.setTable_x(rs.getInt(2));
+				tdto.setTable_y(rs.getInt(3));
+				tdto.setTable_w(rs.getInt(4));
+				tdto.setTable_h(rs.getInt(5));
+				
+				list.add(tdto);
+				
+			}
+			
+			if(list.isEmpty()) {
+				
+				TableDTO tdto = new TableDTO();
+				tdto.setTable_no(1);
+				tdto.setTable_x(200);
+				tdto.setTable_y(200);
+				tdto.setTable_w(500);
+				tdto.setTable_h(500);		
+				
+				list.add(tdto);
+				
+			}
+			
+
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return list;
+	}
 	
-	//여기서 부터 필요한 메서드를 적으면됩니다.
 	
 	
 	
