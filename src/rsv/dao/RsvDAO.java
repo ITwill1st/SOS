@@ -4,6 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import vo.RsvDTO;
 import static db.JdbcUtil.*;
@@ -105,6 +109,33 @@ public class RsvDAO {
 		}
 		
 		return resultUpdate;
+	}
+	
+	//year와 month 정보를 받아와서 해당하는 월의 예약내역을 뽑아가는 메서드 정의
+	public JSONArray selectDate(String year, String month) {
+		JSONArray dateList=new JSONArray();
+		
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		try {
+			String sql="select rsv_date from reservation where rsv_date like ?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, year+"-"+month+"-%");
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				JSONObject jo=new JSONObject();
+				jo.put("date",rs.getString("rsv_date"));
+				dateList.add(jo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("RsvDAO - selectDate() 오류");
+		}
+		
+		
+		return dateList;
 	}
 	
 	
