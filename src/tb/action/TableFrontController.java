@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import board.action.BoardWriteProAction;
 import vo.ActionForward;
 
 @WebServlet("*.tb")
@@ -56,9 +55,20 @@ public class TableFrontController extends HttpServlet{
 			forward.setPath("/table/detail.jsp");
 			forward.setRedirect(false);
 			
+		}else if(command.equals("/SaveTables.tb")) {
+			
+			action = new TableInfoSaveAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
 	
-		
+			
 		
 		
 		

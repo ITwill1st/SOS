@@ -10,7 +10,10 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
-<script>var pst = [
+
+<script>
+
+var pst = [
 <%
 ArrayList<TableDTO> list = (ArrayList<TableDTO>)request.getAttribute("tableInfo");
 
@@ -25,6 +28,7 @@ for(int i=0;i<list.size();i++){
 }
 %>
 ];
+
 </script>
 <h1>edit.jsp</h1>
 	<button id="addTable">테이블추가</button>

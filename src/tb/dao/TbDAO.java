@@ -32,7 +32,7 @@ public class TbDAO {
 		this.con = con;
 	}
 
-	public ArrayList<TableDTO> tableInfoProService() {
+	public ArrayList<TableDTO> tableInfoProView() {
 		
 		ArrayList<TableDTO> list = new ArrayList<TableDTO>();
 		
@@ -64,8 +64,8 @@ public class TbDAO {
 				tdto.setTable_no(1);
 				tdto.setTable_x(200);
 				tdto.setTable_y(200);
-				tdto.setTable_w(500);
-				tdto.setTable_h(500);		
+				tdto.setTable_w(300);
+				tdto.setTable_h(300);		
 				
 				list.add(tdto);
 				
@@ -84,6 +84,70 @@ public class TbDAO {
 		
 		return list;
 	}
+
+	public boolean tableInfoSave(ArrayList<TableDTO> list) {
+
+		
+		boolean isSuccess = false;
+		PreparedStatement pstmt = null;
+		
+		
+		
+		
+		try {	
+			
+			for(int i = 0; i< list.size(); i++) {
+				
+				String sql = "insert into tableinfo values (?,?,?,?,?)";		
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, (list.get(i).getTable_no()));
+				pstmt.setInt(2, (list.get(i).getTable_x()));
+				pstmt.setInt(3, (list.get(i).getTable_y()));
+				pstmt.setInt(4, (list.get(i).getTable_w()));
+				pstmt.setInt(5, (list.get(i).getTable_h()));	
+				pstmt.executeUpdate();	
+				
+			}
+						
+				isSuccess = true;
+				
+				System.out.println(list.get(0).getTable_no());
+				System.out.println(list.get(0).getTable_x());
+				System.out.println(list.get(0).getTable_y());
+				System.out.println(list.get(0).getTable_w());
+				System.out.println(list.get(0).getTable_h());
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}	
+		
+		return isSuccess;
+	}
+	
+
+//	public boolean truncateTable() {
+//		
+//		PreparedStatement pstmt = null;
+//		
+//		try {
+//			String sql = "truncate table tableinfo";
+//			pstmt = con.prepareStatement(sql);
+//			pstmt.executeUpdate();
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}finally {
+//			close(pstmt);
+//		}
+//		
+//		
+//		
+//		
+//		return true;
+//	}
 	
 	
 	

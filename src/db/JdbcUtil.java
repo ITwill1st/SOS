@@ -37,6 +37,7 @@ public class JdbcUtil {
 //			con = ds.getConnection("root", "1234")// Context.xml 내에 user,pass 미입력시
 			
 			
+			//auto commit의 기본값은 true
 			con.setAutoCommit(false);
 			
 		} catch (NamingException e) {

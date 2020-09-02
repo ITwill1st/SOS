@@ -22,7 +22,7 @@ public class TableInfoProService {
 		
 		tbdao.setConnection(con);
 		
-		list = tbdao.tableInfoProService();
+		list = tbdao.tableInfoProView();
 		
 		close(con);
 		
