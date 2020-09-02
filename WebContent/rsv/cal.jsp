@@ -1,144 +1,152 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
+
 <%
-String year = request.getParameter("year");
+	String year = request.getParameter("year");
 String month = request.getParameter("month");
 String date = request.getParameter("date");
 
-String id=(String)session.getAttribute("id");
+String id = (String) session.getAttribute("id");
 
-
-
-if(year == null){
+if (year == null) {
 	year = "0";
 }
-if(month == null){
+if (month == null) {
 	month = "0";
 }
-if(date == null){
+if (date == null) {
 	date = "0";
 }
-%>	
-	
-	
+%>
+
+
 <!DOCTYPE html>
 <html lang="en">
- <head>
-  <meta charset="UTF-8">
-  <meta name="Generator" content="EditPlus®">
-  <meta name="Author" content="">
-  <meta name="Keywords" content="">
-  <meta name="Description" content="">
-  <title>Calendar</title>
+<head>
+<meta charset="UTF-8">
+<meta name="Generator" content="EditPlus®">
+<meta name="Author" content="">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>Calendar</title>
 
-  <style>
-  body {
-  font-family: Tahoma;
+<style>
+body {
+	font-family: Tahoma;
 }
+
 header {
-  text-align: center;
-  
+	text-align: center;
 }
-
 
 #calendar {
-  width: 100%;
+	width: 100%;
 }
+
 #calendar a {
-  color: #8e352e;
-  text-decoration: none;
+	color: #8e352e;
+	text-decoration: none;
 }
+
 #calendar ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  width: 100%;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	width: 100%;
 }
+
 #calendar li {
-  display: block;
-  float: left;
-  width: 14.342%;
-  padding: 5px;
-  box-sizing: border-box;
-  border: 1px solid #ccc;
-  margin-right: -1px;
-  margin-bottom: -1px;
+	display: block;
+	float: left;
+	width: 14.342%;
+	padding: 5px;
+	box-sizing: border-box;
+	border: 1px solid #ccc;
+	margin-right: -1px;
+	margin-bottom: -1px;
 }
+
 #calendar ul.weekdays {
-  height: 40px;
-  background: #8e352e;
+	height: 40px;
+	background: #8e352e;
 }
+
 #calendar ul.weekdays li {
-  text-align: center;
-  text-transform: uppercase;
-  line-height: 20px;
-  border: none !important;
-  padding: 10px 6px;
-  color: #fff;
-  font-size: 13px;
+	text-align: center;
+	text-transform: uppercase;
+	line-height: 20px;
+	border: none !important;
+	padding: 10px 6px;
+	color: #fff;
+	font-size: 13px;
 }
+
 #calendar .days li {
-  height: 180px;
+	height: 180px;
 }
+
 #calendar .days li:hover {
-  background: #d3d3d3;
+	background: #d3d3d3;
 }
+
 #calendar .date {
-  text-align: center;
-  margin-bottom: 5px;
-  padding: 4px;
-  background: #333;
-  color: #fff;
-  width: 20px;
-  border-radius: 50%;
-  float: right;
+	text-align: center;
+	margin-bottom: 5px;
+	padding: 4px;
+	background: #333;
+	color: #fff;
+	width: 20px;
+	border-radius: 50%;
+	float: right;
 }
+
 #calendar .event {
-  clear: both;
-  display: block;
-  font-size: 13px;
-  border-radius: 4px;
-  padding: 5px;
-  margin-top: 40px;
-  margin-bottom: 5px;
-  line-height: 14px;
-  background: #e4f2f2;
-  border: 1px solid #b5dbdc;
-  color: #009aaf;
-  text-decoration: none;
+	clear: both;
+	display: block;
+	font-size: 13px;
+	border-radius: 4px;
+	padding: 5px;
+	margin-top: 40px;
+	margin-bottom: 5px;
+	line-height: 14px;
+	background: #e4f2f2;
+	border: 1px solid #b5dbdc;
+	color: #009aaf;
+	text-decoration: none;
 }
+
 #calendar .event-desc {
-  color: #666;
-  margin: 3px 0 7px 0;
-  text-decoration: none;
+	color: #666;
+	margin: 3px 0 7px 0;
+	text-decoration: none;
 }
+
 #calendar .other-month {
-  background: #f5f5f5;
-  color: #666;
+	background: #f5f5f5;
+	color: #666;
 }
 /* ============================
                 Mobile Responsiveness
    ============================*/
-@media (max-width: 768px) {
-  #calendar .weekdays, #calendar .other-month {
-    display: none;
-  }
-  #calendar li {
-    height: auto !important;
-    border: 1px solid #ededed;
-    width: 100%;
-    padding: 10px;
-    margin-bottom: -1px;
-  }
-  #calendar .date {
-    float: none;
-  }
+@media ( max-width : 768px) {
+	#calendar .weekdays, #calendar .other-month {
+		display: none;
+	}
+	#calendar li {
+		height: auto !important;
+		border: 1px solid #ededed;
+		width: 100%;
+		padding: 10px;
+		margin-bottom: -1px;
+	}
+	#calendar .date {
+		float: none;
+	}
 }
 </style>
- </head>
- <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
- <script type="text/javascript">
+</head>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript">
  
     //변수 초기화
 	var year = "<%=year%>";
@@ -233,13 +241,18 @@ header {
  //상단날짜 삽입////////////////////////////////////////
  $("h1").text(year+"년 "+month+"월");
  ///////////////////////////////////////////////////////
+
  
  //JSON 으로 예약가능한 날짜 가져오기
-//  $.getJSON('datevalue.jsp',function({data:year,month}){
-// 	 $.each(data,function(item){
-		 
-// 	 });
-//  });
+$.ajax('RsvDate.rsv',{
+	dataType:'json',
+	data:{year:year,month:month},
+	success:function(data){
+		alert(data.date);
+	}
+});
+		
+
  
  
  //현재월의날짜기입////////////////////////////////////
@@ -250,7 +263,7 @@ header {
 	 
  //칸 별로 숫자를 카운트시켜줌
 	 $(".date:eq("+firstDayOfWeek+")").text(startDay);
-	 	 
+	 
 	 firstDayOfWeek += 1;
 	 startDay += 1;
 	 
@@ -313,11 +326,11 @@ header {
  
 
  </script>
- 
- 
- 
- 
- <body>
+
+
+
+
+<body>
 
 
 
@@ -327,257 +340,243 @@ header {
 
 
 
-            <header>
+	<header>
 
-              <button id="previous">전달</button>
-                <h1> </h1>
-       		<button id="next">다음달</button>
+		<button id="previous">전달</button>
+		<h1></h1>
+		<button id="next">다음달</button>
 
-            </header>
-  <div id="calendar-wrap">
+	</header>
+	<div id="calendar-wrap">
 
-            <div id="calendar">
-                <ul class="weekdays">
-                    <li>Sunday</li>
-                    <li>Monday</li>
-                    <li>Tuesday</li>
-                    <li>Wednesday</li>
-                    <li>Thursday</li>
-                    <li>Friday</li>
-                    <li>Saturday</li>
-                </ul>
-                
-                
-                
-                <!-- Days from previous month -->
-                <ul class="days">
-                    <li class="day">
-                        <div class="date"></div>                     
-                    </li>
-                    
-                    <li class="day">
-                        <div class="date"></div>                     
-                    </li>
-                    
-                   <a href="#"> <li class="day">
-                        <div class="date"></div>
-                        <div class="event">
-                            <div class="event-desc">
-                                HTML 5 lecture with Brad Traversy from Eduonix
-                             </div>
-                            <div class="event-time">
-                                1:00pm to 3:00pm
-                            </div> 
-                        </div>                    
-                    </li></a>
-                    <li class="day">
-                        <div class="date"></div>                     
-                    </li>
-                    <li class="day">
-                        <div class="date"></div>                     
-                    </li>
-                    <li class="day">
-                        <div class="date"></div>                     
-                    </li>
-                    <!-- Days in current month -->
-                    <li class="day">
-                        <div class="date"></div>                      
-                    </li>
-                </ul>
-                
-                
-                
-                    <!-- Row #2 -->
-                 <ul class="days">
-                    <li class="day">
-                        <div class="date"></div>                     
-                    </li>
-                    
-                    <li class="day">
-                        <div class="date"></div>                     
-                    </li>
-                    
-                    <li class="day">
-                        <div class="date"></div>
-                        <div class="event">
-                            <div class="event-desc">
-                                HTML 5 lecture with Brad Traversy from Eduonix
-                            </div>
-                            <div class="event-time">
-                                1:00pm to 3:00pm
-                            </div>
-                        </div>                     
-                    </li>
-                    <li class="day">
-                        <div class="date"></div>                     
-                    </li>
-                    <li class="day">
-                        <div class="date"></div>                     
-                    </li>
-                    <li class="day">
-                        <div class="date"></div>                     
-                    </li>
-                    <!-- Days in current month -->
-                    <li class="day">
-                        <div class="date"></div>                      
-                    </li>
-                </ul>
-                    <!-- Row #4 -->
-                <ul class="days">
-                    <li class="day">
-                        <div class="date"></div>                     
-                    </li>
-                    
-                    <li class="day">
-                        <div class="date"></div>                     
-                    </li>
-                    
-                    <li class="day">
-                        <div class="date"></div>
-                        <div class="event">
-                            <div class="event-desc">
-                                HTML 5 lecture with Brad Traversy from Eduonix
-                            </div>
-                            <div class="event-time">
-                                1:00pm to 3:00pm
-                            </div>
-                        </div>                     
-                    </li>
-                    <li class="day">
-                        <div class="date"></div>                     
-                    </li>
-                    <li class="day">
-                        <div class="date"></div>                     
-                    </li>
-                    <li class="day">
-                        <div class="date"></div>                     
-                    </li>
-                    <!-- Days in current month -->
-                    <li class="day">
-                        <div class="date"></div>                      
-                    </li>
-                </ul>
-                
-                
-                
-                
-                
-                
-                
-              <!-- Row #3 -->        
-                        
-                <ul class="days">
-                    <li class="day">
-                        <div class="date"></div>                     
-                    </li>
-                    
-                    <li class="day">
-                        <div class="date"></div>                     
-                    </li>
-                    
-                    <li class="day">
-                        <div class="date"></div>
-                        <div class="event">
-                            <div class="event-desc">
-                                HTML 5 lecture with Brad Traversy from Eduonix
-                            </div>
-                            <div class="event-time">
-                                1:00pm to 3:00pm
-                            </div>
-                        </div>                     
-                    </li>
-                    <li class="day">
-                        <div class="date"></div>                     
-                    </li>
-                    <li class="day">
-                        <div class="date"></div>                     
-                    </li>
-                    <li class="day">
-                        <div class="date"></div>                     
-                    </li>
-                    <!-- Days in current month -->
-                    <li class="day">
-                        <div class="date"></div>                      
-                    </li>
-                </ul>
-                
-                
-                <!-- Row #4 -->
-                <ul class="days">
-                    <li class="day">
-                        <div class="date"></div>                     
-                    </li>
-                    
-                    <li class="day">
-                        <div class="date"></div>                     
-                    </li>
-                    
-                    <li class="day">
-                        <div class="date"></div>
-                        <div class="event">
-                            <div class="event-desc">
-                                HTML 5 lecture with Brad Traversy from Eduonix
-                            </div>
-                            <div class="event-time">
-                                1:00pm to 3:00pm
-                            </div>
-                        </div>                     
-                    </li>
-                    <li class="day">
-                        <div class="date"></div>                     
-                    </li>
-                    <li class="day">
-                        <div class="date"></div>                     
-                    </li>
-                    <li class="day">
-                        <div class="date"></div>                     
-                    </li>
-                    <!-- Days in current month -->
-                    <li class="day">
-                        <div class="date"></div>                      
-                    </li>
-                </ul>
-                
-                
-                <!-- Row #5 -->
-                <ul class="days">
-                    <li class="day">
-                        <div class="date"></div>                     
-                    </li>
-                    
-                    <li class="day">
-                        <div class="date"></div>                     
-                    </li>
-                    
-                    <li class="day">
-                        <div class="date"></div>
-                        <div class="event">
-                            <div class="event-desc">
-                                HTML 5 lecture with Brad Traversy from Eduonix
-                            </div>
-                            <div class="event-time">
-                                1:00pm to 3:00pm
-                            </div>
-                        </div>                     
-                    </li>
-                    <li class="day">
-                        <div class="date"></div>                     
-                    </li>
-                    <li class="day">
-                        <div class="date"></div>                     
-                    </li>
-                    <li class="day">
-                        <div class="date"></div>                     
-                    </li>
-                    <!-- Days in current month -->
-                    <li class="day">
-                        <div class="date"></div>                      
-                    </li>
-                </ul>
-            </div><!-- /. calendar -->
-        </div><!-- /. wrap -->
-        
-        
-        
- </body>
-</html> 
+		<div id="calendar">
+			<ul class="weekdays">
+				<li>Sunday</li>
+				<li>Monday</li>
+				<li>Tuesday</li>
+				<li>Wednesday</li>
+				<li>Thursday</li>
+				<li>Friday</li>
+				<li>Saturday</li>
+			</ul>
+
+
+
+			<!-- Days from previous month -->
+			<ul class="days">
+				<li class="day">
+					<div class="date"></div>
+				</li>
+
+				<li class="day">
+					<div class="date"></div>
+				</li>
+
+				<a href="#">
+					<li class="day">
+						<div class="date"></div>
+						<div class="event">
+							<div class="event-desc">HTML 5 lecture with Brad Traversy
+								from Eduonix</div>
+							<div class="event-time">1:00pm to 3:00pm</div>
+						</div>
+				</li>
+				</a>
+				<li class="day">
+					<div class="date"></div>
+				</li>
+				<li class="day">
+					<div class="date"></div>
+				</li>
+				<li class="day">
+					<div class="date"></div>
+				</li>
+				<!-- Days in current month -->
+				<li class="day">
+					<div class="date"></div>
+				</li>
+			</ul>
+
+
+
+			<!-- Row #2 -->
+			<ul class="days">
+				<li class="day">
+					<div class="date"></div>
+				</li>
+
+				<li class="day">
+					<div class="date"></div>
+				</li>
+
+				<li class="day">
+					<div class="date"></div>
+					<div class="event">
+						<div class="event-desc">HTML 5 lecture with Brad Traversy
+							from Eduonix</div>
+						<div class="event-time">1:00pm to 3:00pm</div>
+					</div>
+				</li>
+				<li class="day">
+					<div class="date"></div>
+				</li>
+				<li class="day">
+					<div class="date"></div>
+				</li>
+				<li class="day">
+					<div class="date"></div>
+				</li>
+				<!-- Days in current month -->
+				<li class="day">
+					<div class="date"></div>
+				</li>
+			</ul>
+			<!-- Row #4 -->
+			<ul class="days">
+				<li class="day">
+					<div class="date"></div>
+				</li>
+
+				<li class="day">
+					<div class="date"></div>
+				</li>
+
+				<li class="day">
+					<div class="date"></div>
+					<div class="event">
+						<div class="event-desc">HTML 5 lecture with Brad Traversy
+							from Eduonix</div>
+						<div class="event-time">1:00pm to 3:00pm</div>
+					</div>
+				</li>
+				<li class="day">
+					<div class="date"></div>
+				</li>
+				<li class="day">
+					<div class="date"></div>
+				</li>
+				<li class="day">
+					<div class="date"></div>
+				</li>
+				<!-- Days in current month -->
+				<li class="day">
+					<div class="date"></div>
+				</li>
+			</ul>
+
+
+
+
+
+
+
+			<!-- Row #3 -->
+
+			<ul class="days">
+				<li class="day">
+					<div class="date"></div>
+				</li>
+
+				<li class="day">
+					<div class="date"></div>
+				</li>
+
+				<li class="day">
+					<div class="date"></div>
+					<div class="event">
+						<div class="event-desc">HTML 5 lecture with Brad Traversy
+							from Eduonix</div>
+						<div class="event-time">1:00pm to 3:00pm</div>
+					</div>
+				</li>
+				<li class="day">
+					<div class="date"></div>
+				</li>
+				<li class="day">
+					<div class="date"></div>
+				</li>
+				<li class="day">
+					<div class="date"></div>
+				</li>
+				<!-- Days in current month -->
+				<li class="day">
+					<div class="date"></div>
+				</li>
+			</ul>
+
+
+			<!-- Row #4 -->
+			<ul class="days">
+				<li class="day">
+					<div class="date"></div>
+				</li>
+
+				<li class="day">
+					<div class="date"></div>
+				</li>
+
+				<li class="day">
+					<div class="date"></div>
+					<div class="event">
+						<div class="event-desc">HTML 5 lecture with Brad Traversy
+							from Eduonix</div>
+						<div class="event-time">1:00pm to 3:00pm</div>
+					</div>
+				</li>
+				<li class="day">
+					<div class="date"></div>
+				</li>
+				<li class="day">
+					<div class="date"></div>
+				</li>
+				<li class="day">
+					<div class="date"></div>
+				</li>
+				<!-- Days in current month -->
+				<li class="day">
+					<div class="date"></div>
+				</li>
+			</ul>
+
+
+			<!-- Row #5 -->
+			<ul class="days">
+				<li class="day">
+					<div class="date"></div>
+				</li>
+
+				<li class="day">
+					<div class="date"></div>
+				</li>
+
+				<li class="day">
+					<div class="date"></div>
+					<div class="event">
+						<div class="event-desc">HTML 5 lecture with Brad Traversy
+							from Eduonix</div>
+						<div class="event-time">1:00pm to 3:00pm</div>
+					</div>
+				</li>
+				<li class="day">
+					<div class="date"></div>
+				</li>
+				<li class="day">
+					<div class="date"></div>
+				</li>
+				<li class="day">
+					<div class="date"></div>
+				</li>
+				<!-- Days in current month -->
+				<li class="day">
+					<div class="date"></div>
+				</li>
+			</ul>
+		</div>
+		<!-- /. calendar -->
+	</div>
+	<!-- /. wrap -->
+
+
+
+</body>
+</html>
