@@ -33,7 +33,7 @@ public class TableInfoSaveAction implements Action {
 
 			out.println("<script>");
 			out.println("alert('테이블 저장 성공!')");// 메세지 출력
-			out.println("location.href='TablesEdit.tb'");// 페이지 새로고침
+			out.println("location.href='TablesMain.tb'");// 페이지 새로고침
 			out.println("</script>");
 			
 		}else if(!isSuccess){
@@ -43,14 +43,14 @@ public class TableInfoSaveAction implements Action {
 
 			out.println("<script>");
 			out.println("alert('테이블 저장 실패!')");// 오류메세지 출력
-			out.println("location.href='TablesEdit.tb'");// 페이지 새로고침
+			out.println("location.href='TablesMain.tb'");// 페이지 새로고침
 			out.println("</script>");			
 		
 		}else {
 			
 			forward = new ActionForward();
 			forward.setRedirect(true); // redirect 방식 지정
-			forward.setPath("TablesEdit.tb");// 포워딩 주소 지정		
+			forward.setPath("TablesMain.tb");// 포워딩 주소 지정		
 		}		
 		
 		return forward;

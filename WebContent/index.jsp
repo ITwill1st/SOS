@@ -17,7 +17,7 @@
 	<h1><a href="MyOrderList.me">MyOrderList</a></h1>
 	<h1><a href="MyRsvList.me">MyRsvList</a></h1>
 	<h1><a href="MyProfile.me">MyProfile</a></h1>
-	<h1><a href="Tables.tb">Tables</a></h1>
+	<h1><a href="TablesMain.tb">Tables</a></h1>
 	<h1><a href="ProductMGM.po">ProductMGM</a></h1>
 	<h1><a href="ProfitAnalysis.pa">ProfitAnalysis</a></h1>
 	

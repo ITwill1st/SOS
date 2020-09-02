@@ -22,19 +22,18 @@ public class TableFrontController extends HttpServlet{
 		Action action = null;
 		ActionForward forward = null;
 		
-		if(command.equals("/Tables.tb")) {
+		if(command.equals("/TablesMain.tb")) {
 			
-			forward = new ActionForward();
-			forward.setPath("/table/main.jsp");
-			forward.setRedirect(false);
+			action = new TablesMainAction();
 			
-		}else if(command.equals("/Tables.tb")) {
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
-			forward = new ActionForward();
-			forward.setPath("/table/main.jsp");
-			forward.setRedirect(false);
-			
-		}else if(command.equals("/TablesEdit.tb")) {//edit.jsp 실행
+		}else if(command.equals("/TablesEditForm.tb")) {//edit.jsp 실행
 			
 			action = new TableInfoProAction();
 			

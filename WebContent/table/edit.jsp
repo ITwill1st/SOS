@@ -7,10 +7,20 @@
 <head>
 <meta charset="UTF-8">
 <title>edit.jsp</title>
+<style type="text/css">
+body{
+margin:0;
+padding:0;
+}
+</style>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 <body>
-
+	<h1>edit.jsp</h1>
+	<button id="addTable">테이블추가</button>
+	<button id="sizeUp">SizeUp</button>
+	<button id="sizeDown">SizeDown</button>
+	<button id="save">테이블 저장</button>
 <script>
 
 var pst = [
@@ -30,14 +40,10 @@ for(int i=0;i<list.size();i++){
 ];
 
 </script>
-<h1>edit.jsp</h1>
-	<button id="addTable">테이블추가</button>
-	<button id="sizeUp">SizeUp</button>
-	<button id="sizeDown">SizeDown</button>
-	<button id="save">테이블 저장</button>
+
 	<section>
 		<div>
-			<canvas id="canvas" width="1920" height="1080">
+			<canvas id="canvas" width="1200" height="800" style="border:1px solid #000000;">
 This text is displayed if your browser does not support HTML5 Canvas.
 </canvas>
 		</div>
@@ -123,7 +129,11 @@ function draw() {
 			 
 		
 		ctx.fillStyle = "#f2f2f2";
-		rect(pst[i][0] - pos, pst[i][1] - pos, pst[i][2], pst[i][3]);	
+		rect(pst[i][0], pst[i][1], pst[i][2], pst[i][3]);
+		
+		ctx.fillStyle = "#000000";
+		ctx.font = "20pt '맑은 고딕'";
+		ctx.fillText((i+1)+"번",pst[i][0],pst[i][1]);
 
  	}
 	
@@ -136,8 +146,8 @@ function draw() {
 			//dragok=true 면 실행
 			 if (dragok){
 			//도형에 대한 드래그가 끝난 후 도형의 x,y 좌표값을 가져옵니다.
-	 		 pst[object][0] = e.pageX - canvas.offsetLeft;
-	 		 pst[object][1] = e.pageY - canvas.offsetTop;
+	 		 pst[object][0] = e.pageX - (pst[object][2]/2) - canvas.offsetLeft;
+	 		 pst[object][1] = e.pageY - (pst[object][3]/2) - canvas.offsetTop;
 	 		 
 
 	 		}
@@ -153,15 +163,18 @@ function draw() {
 		
 		
 		//마우스커서가 테이블안에 있고 & 테이블 배경도형안에 있을때만  도형을  움직일수 있음
-		 if (e.pageX < pst[i][0] + (pst[i][2]/2) + canvas.offsetLeft && 
-			 e.pageX > pst[i][0] - (pst[i][2]/2)  + canvas.offsetLeft && 
-			 e.pageY < pst[i][1] + (pst[i][3]/2)  + canvas.offsetTop &&
-		 	 e.pageY > pst[i][1] - (pst[i][3]/2)  + canvas.offsetTop){
-			 
+		 
+		if(
+		e.pageX > (pst[i][0]) + canvas.offsetLeft && 
+		e.pageX < (pst[i][0]+(pst[i][2])) + canvas.offsetLeft &&
+		e.pageY > (pst[i][1])+ canvas.offsetTop &&
+		e.pageY < (pst[i][1]+(pst[i][3]))+ canvas.offsetTop
+		){	 
 		  //테이블의 위치를 설정
-		  pst[i][0] = e.pageX - canvas.offsetLeft;
-		  pst[i][1] = e.pageY - canvas.offsetTop;
-		  
+		  pst[i][0] = e.pageX - (pst[i][2]/2) - canvas.offsetLeft;
+		  pst[i][1] = e.pageY - (pst[i][3]/2) - canvas.offsetTop;
+		
+		 console.log((i+1) + "번째 박스" + "좌표X=" + e.pageX + " 좌표Y=" +e.pageY); 
 		  
 		  dragok = true;//myMove함수 실행
 		  //마우스가 움직일때(단 마우스가 클릭되어있는 상태여야함) 계속해서 myMove함수를 재호출한다.
@@ -171,6 +184,8 @@ function draw() {
 		  
 		  //테이블번호를 object에 저장
 		  object = i;
+		 }else{
+			 console.log("좌표X=" + e.pageX + " 좌표Y=" +e.pageY);
 		 }		
 		
 	}
@@ -182,8 +197,6 @@ function draw() {
 		
 	 dragok = false;
 	 //테이블 이동이 완료 되었을 경우 해당 테이블의 위치를 반환한다.(추후 데이터베이스에 테이블 위치를 저장할때 사용함)
-	//  	 alert("해당테이블의 위치 값 x=" + e.pageX + " y=" + e.pageY);
-	 	 		// alert(canvas.offsetLeft);
 	 canvas.onmousemove = null;
 	 canvas.touchmove = null;
 	}
@@ -216,7 +229,7 @@ function draw() {
 			(canvas.width /2),
 			(canvas.height /2),
 			pst[0][2],
-			pst[0][3]			
+			pst[0][3]		
 			]
 
 		pst.push(newTable);
@@ -264,6 +277,8 @@ function draw() {
 				
 	});
 	
+	
+	//디비에 테이블 위치값 저장
 	$('#save').click(function(){
 	
 		var tableParam = "";
@@ -291,5 +306,6 @@ function draw() {
 	
 </script>
 	</section>
+
 </body>
 </html>

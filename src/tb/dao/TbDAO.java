@@ -91,14 +91,22 @@ public class TbDAO {
 		boolean isSuccess = false;
 		PreparedStatement pstmt = null;
 		
-		
-		
+
+			String sql;
+			try {
+				sql = "truncate table tableinfo";
+				pstmt = con.prepareStatement(sql);
+				pstmt.executeUpdate();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}	
 		
 		try {	
 			
 			for(int i = 0; i< list.size(); i++) {
 				
-				String sql = "insert into tableinfo values (?,?,?,?,?)";		
+				sql = "insert into tableinfo values (?,?,?,?,?)";		
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, (list.get(i).getTable_no()));
 				pstmt.setInt(2, (list.get(i).getTable_x()));
@@ -128,26 +136,7 @@ public class TbDAO {
 	}
 	
 
-//	public boolean truncateTable() {
-//		
-//		PreparedStatement pstmt = null;
-//		
-//		try {
-//			String sql = "truncate table tableinfo";
-//			pstmt = con.prepareStatement(sql);
-//			pstmt.executeUpdate();
-//		} catch (SQLException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}finally {
-//			close(pstmt);
-//		}
-//		
-//		
-//		
-//		
-//		return true;
-//	}
+
 	
 	
 	
