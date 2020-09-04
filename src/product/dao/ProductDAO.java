@@ -1,227 +1,223 @@
 package product.dao;
 
-
+import static db.JdbcUtil.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import static db.JdbcUtil.*;
-import vo.ProductDTO;
 
-
+import vo.ProductBean;
 
 public class ProductDAO {
-
+	private ProductDAO () {}
 	private static ProductDAO instance;
-	
-	private ProductDAO() {}
-	
-	public static final ProductDAO getInstance() {
-		//기존 boardDAO 인스턴스가 없을 때만 생성하고 있을떄 생성하지않음
-		if(instance == null) {
+	public static ProductDAO getInstance() {
+		if(instance==null) {
 			instance = new ProductDAO();
 		}
-		
 		return instance;
 	}
-	//---------------------------------------------------------------------------------
-	//Service클래스로부터 jdbcUtil에서 제공받은 Connection객체를 전달받기
 	Connection con;
-	
+
 	public void setConnection(Connection con) {
 		this.con = con;
 	}
+//----------------------------------------------------------------
 	
-	//여기서 부터 필요한 메서드를 적으면됩니다.
-	
-	
-	// ----------------------------상품 등록 메서드--------------------------------------
-	public int insertProduct(ProductDTO pdt) {
-		System.out.println("ProductDAO - insertProduct");
+	public int insertProduct(ProductBean pb) {
+		int insertProduct = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		int insertCount = 0;
-		int item_num = 0;
 		
 		try {
-			String sql = "select max(item_num) from product";
+			String sql = "SELECT MAX(item_num) FROM product";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
+			int num = 1;
+			
 			if(rs.next()) {
-				item_num = rs.getInt(1) + 1;				
+				num = rs.getInt(1)+1;
+						
 			}
 			
-			sql = "insert into product values(?,?,?,?,?,?,?,?,?,1)";
+			sql = "INSERT INTO product VALUES(?,?,?,?,?,?,?,?,?,?)";
+			pstmt=con.prepareStatement(sql);
 			
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, item_num);
-			pstmt.setString(2, pdt.getItem_name());
-			pstmt.setInt(3, pdt.getItem_price());
-			pstmt.setString(4, pdt.getOrigin());
-			pstmt.setInt(5, pdt.getCalorie());
-			pstmt.setString(6, pdt.getItem_info());
-			pstmt.setInt(7, pdt.getItem_category());
-			pstmt.setString(8, pdt.getItem_allergie());
-			pstmt.setString(9, pdt.getItem_img());
+			pstmt.setInt(1,num);
+			pstmt.setString(2,pb.getItem_name());
+			pstmt.setInt(3,pb.getItem_price());
+			pstmt.setString(4,pb.getItem_origin());
+			pstmt.setInt(5,pb.getItem_calorie());
+			pstmt.setString(6,pb.getItem_info());
+			pstmt.setString(7,pb.getItem_category());
+			pstmt.setString(8,pb.getItem_allergie());
+			pstmt.setString(9, pb.getItem_img());
+			pstmt.setInt(10,pb.getItem_show());
 			
-			insertCount  =  pstmt.executeUpdate();
-			
+			insertProduct = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.out.println("ProductDAO - insertProduct() 에러! : " + e.getMessage());
 			e.printStackTrace();
-		} finally {
+		}finally {
+			close(rs);
 			close(pstmt);
 		}
 		
-		return insertCount;
+		return insertProduct;
 	}
 
-	// ----------------------------상품 리스트 가져오는 메서드--------------------------------------
-	public ArrayList<ProductDTO> getProductList() {
-
-		System.out.println("ProductDAO - getProductList");
+	public int selectListCount() {
+		int listCount = 1;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		ArrayList<ProductDTO> productList = new ArrayList<ProductDTO>();
 		
 		try {
-			String sql = "select * from product";
-			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery();
 			
-			while(rs.next()) {
-				ProductDTO pdt = new ProductDTO();
-
-				pdt.setItem_num(rs.getInt("item_num"));
-				pdt.setItem_name(rs.getString("item_name"));
-				pdt.setItem_price(rs.getInt("item_price"));
-				pdt.setOrigin(rs.getString("item_origin"));
-				pdt.setCalorie(rs.getInt("item_calorie"));
-				pdt.setItem_info(rs.getString("item_info"));
-				pdt.setItem_category(rs.getInt("item_category"));
-				pdt.setItem_allergie(rs.getString("item_allergie"));
-				pdt.setItem_img(rs.getString("item_img"));
-				pdt.setItem_show(rs.getInt("item_show"));
-				
-				productList.add(pdt);
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return productList;
-	}
-
-	// ----------------------------상품 리뷰 메서드(미완성)--------------------------------------
-	public int insertComment(int menu_num, int menu_grade, String menu_content) {
-		System.out.println("ProductDAO - insertComment");
-		PreparedStatement pstmt = null;
-		int insertCount = 0;
-		
-		try {
-			String sql = "insert into test_menu_comment values(?,?,?)";
+			String sql = "SELECT COUNT(item_num) FROM product";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, menu_num);
-			pstmt.setString(2, menu_content);
-			pstmt.setInt(3, menu_grade);
-			
-			insertCount = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return insertCount;
-	}
-
-	// ----------------------------상품 정보 가져오기 메서드--------------------------------------
-	public ProductDTO getProduct(int item_num) {
-		System.out.println("ProductDAO - getProduct");
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		ProductDTO bb = new ProductDTO();
-		
-		try {
-			String sql = "select * from product where item_num=?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, item_num);
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				
-				bb.setItem_num(rs.getInt("item_num"));
-				bb.setItem_name(rs.getString("item_name"));
-				bb.setItem_price(rs.getInt("item_price"));
-				bb.setOrigin(rs.getString("item_origin"));
-				bb.setCalorie(rs.getInt("item_calorie"));
-				bb.setItem_info(rs.getString("item_info"));
-				bb.setItem_category(rs.getInt("item_category"));
-				bb.setItem_allergie(rs.getString("item_allergie"));
-				bb.setItem_img(rs.getString("item_img"));
-				bb.setItem_show(rs.getInt("item_show"));
-				
+				listCount = rs.getInt(1);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.out.println("ProductDAO - selectListCount() 에러!");
 			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
 		}
 		
-
-		return bb;
+		
+		return listCount;
 	}
 
-	// ----------------------------구매내역 리스트 가져오기 메서드(미완성)--------------------------------------
-	public ArrayList<ProductDTO> getPurchaseList(int order_num) {
-		
-		System.out.println("ProductDAO - getPurchaseList");
+	public ArrayList<ProductBean> selectProductList(int page, int limit) {
+		ArrayList<ProductBean> productList = null;
 		PreparedStatement pstmt = null;
-		ResultSet rs1 = null;
-		ResultSet rs2= null;
-		ProductDTO pd = null;
-		ArrayList<ProductDTO> purchaseList = new ArrayList<ProductDTO>();
+		ResultSet rs = null;
 		
 		try {
-			String sql = "select item_num from order_test where order_num=?";
+			int startRow = (page - 1) * 10;
+			
+			String sql = "SELECT * FROM product LIMIT ?,?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, order_num);
-			rs1 = pstmt.executeQuery();
-
-			while(rs1.next()) {
+			pstmt.setInt(1,startRow);
+			pstmt.setInt(2,limit);
+			rs =pstmt.executeQuery();
+			
+			productList = new ArrayList<ProductBean>();
+			
+			while(rs.next()) {
+				ProductBean product = new ProductBean();
 				
-				int item_num = rs1.getInt(1);
+				product.setItem_num(rs.getInt("item_num"));
+				product.setItem_name(rs.getString("item_name"));
+				product.setItem_price(rs.getInt("item_price"));
+				product.setItem_origin(rs.getString("item_origin"));
+				product.setItem_calorie(rs.getInt("item_calorie"));
+				product.setItem_info(rs.getString("item_info"));
+				product.setItem_category(rs.getString("item_category"));
+				product.setItem_allergie(rs.getString("item_allergie"));
+				product.setItem_img(rs.getString("item_img"));
 				
-				sql = "select * from product where item_num=?";
-				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, item_num);
-				rs2 = pstmt.executeQuery();
-				
-				if(rs2.next()){
-					pd = new ProductDTO();
-					
-					pd.setItem_num(rs2.getInt("item_num"));
-					pd.setItem_name(rs2.getString("item_name"));
-					pd.setItem_price(rs2.getInt("item_price"));
-					pd.setOrigin(rs2.getString("item_origin"));
-					pd.setCalorie(rs2.getInt("item_calorie"));
-					pd.setItem_info(rs2.getString("item_info"));
-					pd.setItem_category(rs2.getInt("item_category"));
-					pd.setItem_allergie(rs2.getString("item_allergie"));
-					pd.setItem_img(rs2.getString("item_img"));
-					pd.setItem_show(rs2.getInt("item_show"));
-					
-					purchaseList.add(pd);
+				productList.add(product);
 				}
+		} catch (SQLException e) {
+			System.out.println("ProductDAO - selectProductList() 에러!");
+			e.printStackTrace();
+		}
+		return productList;
+	}
+
+	public int deleteProduct(int item_num) {
+		int deleteCount = 0;
+		PreparedStatement pstmt = null;
+		
+		try {
+			String sql = "DELETE FROM product WHERE item_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1,item_num);
+			deleteCount = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("ProductDAO - deleteproduct() 오류!");
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+
+		return deleteCount;
+	}
+
+	public ProductBean selectProduct(int item_num) {
+		ProductBean product = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql ="SELECT * FROM product WHERE item_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1,item_num);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				product = new ProductBean();
+				
+				product.setItem_num(rs.getInt("item_num"));
+				product.setItem_name(rs.getString("item_name"));
+				product.setItem_price(rs.getInt("item_price"));
+				product.setItem_origin(rs.getString("item_origin"));
+				product.setItem_calorie(rs.getInt("item_calorie"));
+				product.setItem_info(rs.getString("item_info"));
+				product.setItem_category(rs.getString("item_category"));
+				product.setItem_allergie(rs.getString("item_allergie"));
+				product.setItem_img(rs.getString("item_img"));
 				
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.out.println("ProductDAO - selectProduct() 실패!");
+			e.printStackTrace();
+		}
+		return product;
+		
+		
+	}
+
+	public int updateProduct(ProductBean productBean) {
+		int updateCount = 0;
+		PreparedStatement pstmt = null;
+		
+		try {
+			String sql = "UPDATE product SET item_name=?, item_price=?,"
+					+ "item_origin=?, item_calorie=?, item_info=?, item_category=?"
+					+ " WHERE item_num=?";
+			pstmt=con.prepareStatement(sql);
+			
+		
+			pstmt.setString(1,productBean.getItem_name());
+			pstmt.setInt(2,productBean.getItem_price());
+			pstmt.setString(3,productBean.getItem_origin());
+			pstmt.setInt(4,productBean.getItem_calorie());
+			pstmt.setString(5,productBean.getItem_info());
+			pstmt.setString(6,productBean.getItem_category());
+//			pstmt.setString(8, productBean.getItem_img());
+			pstmt.setInt(7,productBean.getItem_num());
+			
+			updateCount = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("ProductDAO - updateProduct() 오류!");
 			e.printStackTrace();
 		}
 		
-		return purchaseList;
+		return updateCount;
 	}
+
+	
+	
+	
+	
 }

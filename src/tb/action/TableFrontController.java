@@ -50,9 +50,14 @@ public class TableFrontController extends HttpServlet{
 			
 		}else if(command.equals("/TableDetail.tb")) {
 			
-			forward = new ActionForward();
-			forward.setPath("/table/detail.jsp");
-			forward.setRedirect(false);
+			action = new TableDetailViewAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 		}else if(command.equals("/SaveTables.tb")) {
 			

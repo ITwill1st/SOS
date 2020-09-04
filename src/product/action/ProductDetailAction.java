@@ -1,32 +1,30 @@
 package product.action;
 
-import java.io.IOException;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import product.svc.ProductDetailService;
 import vo.ActionForward;
-import vo.ProductDTO;
+import vo.ProductBean;
 
-public class ProductDetailAction implements Action{
+public class ProductDetailAction implements Action {
 
 	@Override
-	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		System.out.println("ProductDetailAction - execute");
+	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		System.out.println("ProductDetailAction!");
 		ActionForward forward = null;
-		
 		int item_num = Integer.parseInt(request.getParameter("item_num"));
+		String page = request.getParameter("page");
 		
-		ProductDetailService service = new ProductDetailService();
+		ProductDetailService productDetailService = new ProductDetailService();
+		ProductBean product = productDetailService.getProduct(item_num);
 		
-		ProductDTO pdt = service.getProduct(item_num);
-		
-		request.setAttribute("bb", pdt);
+		request.setAttribute("product",product);
+		request.setAttribute("page",page);
 		
 		forward = new ActionForward();
-		forward.setPath("/product/detail.jsp");
+		forward.setPath("/product/product_view.jsp");
 		
 		return forward;
 	}

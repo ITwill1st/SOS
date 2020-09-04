@@ -10,101 +10,115 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import product.action.BoardModifyProAction;
+import product.action.ProductAddAction;
+import product.action.ProductDeleteProAction;
 import product.action.ProductDetailAction;
+import product.action.ProductListAction;
+import product.action.ProductModifyFormAction;
 import vo.ActionForward;
 
-@WebServlet("*.po")
-public class ProductFrontController extends HttpServlet{
 
-	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		
-		request.setCharacterEncoding("UTF-8");
+/**
+ * Servlet implementation class ProductAddFrontController
+ */
+@WebServlet("*.po")
+public class ProductFrontController extends HttpServlet {
+	
+    protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	System.out.println("ProductFrontController");
+    	
+    	request.setCharacterEncoding("UTF-8");
 		String command = request.getServletPath();
-		Action action = null;
+		System.out.println("command: " + command);
+
 		ActionForward forward = null;
-		
-		if(command.equals("/ProductMGM.po")) {
-			
+		Action action = null;
+
+    	
+		if (command.equals("/ProductAddForm.po")) {
 			forward = new ActionForward();
-			forward.setPath("/product/list.jsp");
-			forward.setRedirect(false);
+			forward.setPath("/product/product_add.jsp");
+		}
+		else if (command.equals("/ProductAddPro.po")) {
+			action = new ProductAddAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else if(command.equals("/ProductList.po")) {
+			// 글목록 요청 비즈니스 로직을 위한 Action 클래스 인스턴스 생성
+			// => BoardListAction 클래스 인스턴스 생성 및 공통 메서드 execute() 호출
+			// => 로직 수행 후 ActionForward 객체를 리턴받아 포워딩 작업 수행
+			action = new ProductListAction();
 			
-		}else if(command.equals("/ProductUpload.po")) {
-			
-			forward = new ActionForward();
-			forward.setPath("/product/upload.jsp");
-			forward.setRedirect(false);
-			
-		}else if(command.equals("/ProductDetail.po")) {
-			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else if (command.equals("/ProductDetail.po")) {
 			action = new ProductDetailAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-		}else if(command.equals("/ProductInsert.po")) {
-			
+		}
+		else if (command.equals("/ProductModifyForm.po")) {
+			action = new ProductModifyFormAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		if (command.equals("/ProductModifyPro.po")) {
+			action = new BoardModifyProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		else if (command.equals("/ProductDeleteForm.po")) {
 			forward = new ActionForward();
-			forward.setPath("/product/insert.jsp");
-			forward.setRedirect(false);
+			forward.setPath("/product/product_delete.jsp");
+		}
+		
+		else if (command.equals("/ProductDeletePro.po")) {
+			action = new ProductDeleteProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
 			
-		}else if(command.equals("/ProductDelete.po")) {
-			
-			forward = new ActionForward();
-			forward.setPath("/product/delete.jsp");
-			forward.setRedirect(false);
-			
+				e.printStackTrace();
+			}
 		}
 		
 		
-		
-		
-		
-		
-		
-		
-		
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////		
-		
-		//Redirect 방식과 Dispatch방식에 대한 포워딩을 처리하기 위한 영역
-		//1.ActionForward객체가 null이 아닐때만 포워딩 작업 수행
-		if(forward != null) {
-			
+		if (forward != null) {
 			if(forward.isRedirect()) {
-				//response객체의 sendRedirect() 메서드를 호출하여 ActionForward 객체의 저장되어 있는 URL 정보 전달
 				response.sendRedirect(forward.getPath());
 			}else {
-				//RequestDispatcher 객체를 리턴받기 위해
-				//request 객체의 getRequestDispatcher()메서드를 호출 파라미터로 ActionForward 객체에 저장되어 있는 URL 정보 전달
-				RequestDispatcher dispatcher = 
-						request.getRequestDispatcher(forward.getPath());
-				
+				RequestDispatcher dispatcher = request.getRequestDispatcher(forward.getPath());
 				dispatcher.forward(request, response);
 			}
-			
 		}
-		
-		
-		
-		
-		
-		
-		
-		
 	}
-	@Override
+	
+		
+	
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		doProcess(request, response);
 	}
-	
-	@Override
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		doProcess(request, response);
 	}
-	
+
 }

@@ -1,17 +1,16 @@
 package vo;
 
-public class ProductDTO {
+public class ProductBean {
 	private int item_num;
 	private String item_name;
 	private int item_price;
-	private String origin;
-	private int calorie;
+	private String item_origin;
+	private int item_calorie;
 	private String item_info;
-	private int item_category;
+	private String item_category;
 	private String item_allergie;
 	private String item_img;
 	private int item_show;
-	
 	public int getItem_num() {
 		return item_num;
 	}
@@ -30,17 +29,17 @@ public class ProductDTO {
 	public void setItem_price(int item_price) {
 		this.item_price = item_price;
 	}
-	public String getOrigin() {
-		return origin;
+	public String getItem_origin() {
+		return item_origin;
 	}
-	public void setOrigin(String origin) {
-		this.origin = origin;
+	public void setItem_origin(String item_origin) {
+		this.item_origin = item_origin;
 	}
-	public int getCalorie() {
-		return calorie;
+	public int getItem_calorie() {
+		return item_calorie;
 	}
-	public void setCalorie(int calorie) {
-		this.calorie = calorie;
+	public void setItem_calorie(int item_calorie) {
+		this.item_calorie = item_calorie;
 	}
 	public String getItem_info() {
 		return item_info;
@@ -48,10 +47,10 @@ public class ProductDTO {
 	public void setItem_info(String item_info) {
 		this.item_info = item_info;
 	}
-	public int getItem_category() {
+	public String getItem_category() {
 		return item_category;
 	}
-	public void setItem_category(int item_category) {
+	public void setItem_category(String item_category) {
 		this.item_category = item_category;
 	}
 	public String getItem_allergie() {

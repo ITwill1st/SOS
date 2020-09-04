@@ -1,29 +1,27 @@
 package product.svc;
 
-
 import java.sql.Connection;
-
 import static db.JdbcUtil.*;
-import product.dao.ProductDAO;
-import vo.ProductDTO;
 
+import product.dao.ProductDAO;
+import vo.ProductBean;
 
 public class ProductDetailService {
 
-	public ProductDTO getProduct(int item_num) {
-		System.out.println("ProductDetailService - getProduct");
-		
-		ProductDAO pda = ProductDAO.getInstance();
-		
+	public ProductBean getProduct(int item_num) {
+		System.out.println("ProductDetailService - getArticle()");
 		Connection con = getConnection();
+		ProductDAO productDAO = ProductDAO.getInstance();
+		productDAO.setConnection(con);
 		
-		pda.setConnection(con);
-		
-		ProductDTO pdt = pda.getProduct(item_num);
+		ProductBean product= productDAO.selectProduct(item_num);
 		
 		close(con);
 		
-		return pdt;
+		return product;
 	}
+
+	
+	
 
 }
