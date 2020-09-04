@@ -242,15 +242,19 @@ header {
  $("h1").text(year+"년 "+month+"월");
  ///////////////////////////////////////////////////////
 
- 
+
  //JSON 으로 예약가능한 날짜 가져오기
+	 
 $.ajax('RsvDate.rsv',{
 	dataType:'json',
 	data:{year:year,month:month},
 	success:function(data){
-		alert(data.date);
-	}
-});
+		$.each(data,function(index,item){
+			$('.event-time').text(item.date);
+			
+		})
+		}
+	});
 		
 
  
