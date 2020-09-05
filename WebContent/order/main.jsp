@@ -1,5 +1,21 @@
+<%@page import="vo.BasketBean"%>
+<%@page import="vo.MenuBean"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+      
+<%
+// 임시 id
+String id="jo";
+// 임시 table_num
+int table_num=1;
+// MenuListAction에서 담아온 전체 메뉴
+ArrayList<MenuBean> menuList = (ArrayList<MenuBean>)request.getAttribute("menuList");
+// MenuListAction에서 담아온 장바구니 수량
+int basketCount = (int)request.getAttribute("basketCount");
+
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +29,41 @@
 음식리스트 출력
 음식클릭시 order/detail.jsp로 이동
 </p>
-<a href="MenuDetail.or">클릭시 음식 디테일 정보</a>
-<a href="OrderBasket.or">클릭시 장바구니 이동</a>
+
+<section>
+<h2>메뉴 목록</h2>
+    <table border="1">
+         <tr>
+            <td width="100" colspan="3">전체 메뉴</td>
+         </tr>
+        <%
+     		for(MenuBean item : menuList) {
+   		%>
+         <tr>
+         	<td>메뉴 번호</td>
+            <td><%=item.getItem_num() %></td> 
+            <td rowspan="4"><%=item.getItem_img() %></td>
+ 		 </tr>
+ 		 <tr>
+ 		 	<td>메뉴 이름</td>
+ 		 	<td><a href="detail.or?item_num=<%=item.getItem_num()%>&id=<%=id %>">
+ 		 	    <%=item.getItem_name() %></a></td>
+ 		 </tr>
+ 		 <tr>
+ 		 	<td>메뉴 설명</td>
+ 		 	<td>item_info : <%=item.getItem_info() %></td>
+         </tr>
+         <tr>
+        	 <td>메뉴 가격</td>
+         	<td>item_price : <%=item.getItem_price() %></td>
+         </tr>
+         <%} %>
+      </table>
+</section>
+
+장바구니 수량 : <%=basketCount %> <br>
+<input type="button" value="장바구니 리스트" onclick="location.href='BasketList.or?id=<%=id %>&table_num=<%=table_num %>'">
+
+
 </body>
 </html>
