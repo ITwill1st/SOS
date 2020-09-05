@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import static db.JdbcUtil.*;
-import product.dao.ProductDAO;
 import vo.ReviewDTO;
 
 public class ReviewDAO {

@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import review.svc.ReviewWriteProService;
-import sun.reflect.generics.visitor.Reifier;
 import vo.ActionForward;
 
 public class ReviewWriteProAction implements Action{
