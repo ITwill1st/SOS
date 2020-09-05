@@ -83,10 +83,7 @@ public class OrderFrontController extends HttpServlet{
 		}
 		
 		
-		
-		
-		
-		
+
 		
 		
 	}
