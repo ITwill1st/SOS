@@ -14,49 +14,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>MVC 게시판</title>
-<style type="text/css">
-	#registForm {
-		width: 500px;
-		height: 610px;
-		border: 1px solid red;
-		margin: auto;
-	}
-	
-	h2 {
-		text-align: center;
-	}
-	
-	table {
-		margin: auto;
-		width: 450px;
-		border: 1px solid darkgray;
-	}
-	
-	textarea {
-		resize: none;
-	}
-	
-	.td_left {
-		width: 150px;
-		background: orange;
-	}
-	
-	.td_right {
-		width: 300px;
-		background: skyblue;
-	}
-	
-	#commandCell {
-		text-align: center;
-	}
-	header {
-		text-align: right;
-	}
-</style>
+<title>Modify</title>
+<link rel="stylesheet" href="product/style/product.css">
+
 </head>
 <body>
-	<!-- 게시판 글 수정 -->
+	<!-- 상품 수정 -->
 	<section id="writeForm">
 		<h2>수정</h2>
 		<form action="ProductModifyPro.po" method="post" name="boardForm">
@@ -64,7 +27,7 @@
 			<input type="hidden" name="page" value="<%=nowPage%>" />
 			<table>
 				<tr>
-					<!-- label 태그를 사용하여 해당 레이블 클릭 시 for 속성에 지정된 이름과 같은 id 속성을 갖는 텍스트필드로 커서 요청 -->
+					
 					
 				<tr>
 					<td class="td_left"><label for="item_img">상품이미지</label></td>

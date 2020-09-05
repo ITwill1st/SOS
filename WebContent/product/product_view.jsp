@@ -10,19 +10,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>MVC 게시판</title>
+<title>View</title>
 
 </head>
 <body>
-	<!-- 게시판 글 조회 -->
+	<!-- 상품 디테일 -->
 	<section id="articleForm">
 		<h2>상세보기</h2>
 		<section id="basicInfoArea">
 			상품이미지 : 
 			<%if(productBean.getItem_img() != null) { %>
-				<!-- 파일이름 클릭 시 새창에서 다운로드 작업 수행 -->	
-<%-- 				<a href="BoardFileDown.bo?file_name=<%=productBean.getBoard_file()%>" target="blank"><%=article.getBoard_file() %></a> --%>
-				<img src = "product/productUpload/<%=productBean.getItem_img() %>">
+				<img src = "product/productUpload/<%=productBean.getItem_img() %>" width=200; height =200; >
 			<%}%><br>
 			상품이름 : <%=productBean.getItem_name() %><br>
 			상품가격 : <%=productBean.getItem_price() %><br>

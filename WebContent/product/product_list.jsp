@@ -19,6 +19,8 @@
     %>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="product/style/product.css">
+
 </head>
 <body>
 <button onclick='location.href="ProductAddForm.po"'>상품추가</button>
@@ -39,9 +41,9 @@
 			%>
 			
 	       	<td>
-<%-- 	       	<img src = "<%=productList.get(i).getItem_img() %>"> --%>
+<!-- 	       	상품 이미지 -->
 	       <a href="ProductDetail.po?item_num=<%=productList.get(i).getItem_num()%>&page=<%=nowPage%>">
-						<img src = "product/productUpload/<%=productList.get(i).getItem_img()%>">
+						<img src = "product/productUpload/<%=productList.get(i).getItem_img()%>" width=200 height=200>
 				</a></td>
 			<td><%=productList.get(i).getItem_num() %></td>
 			<td><%=productList.get(i).getItem_name() %></td>
@@ -58,33 +60,6 @@
 			<%} %>
 			</table>
 			
-			<section id="pageList">
-			<%if(nowPage<=1){ %>
-			[이전]&nbsp;
-			<%}else{ %>
-			<a href = "productList.po?page<%=nowPage-1 %>">[이전]</a>&nbsp;
-			<%} %>
-			
-			<%for (int a = startPage;a<=endPage;a++){
-				if(a==nowPage){%>
-			[<%=a%>]
-			<%}else{ %>	
-			<a href = "productList.po?page<%=a %>">[<%=a %>]
-			</a>&nbsp;
-            <%} %>
-            <%} %>
-            <%if(nowPage>maxPage){ %>
-            [다음]
-			<%}else{ %>
-			<a href="productList.po?page<%=nowPage+1 %>">[다음]</a>
-			<%} %>
-			</section>
-<%-- 			<% --%>
-<%-- 			else{%> --%>
-<!-- 			<section id = "emptyArea"> 등록된 글이 없습니다.</section> -->
-<%-- 			<%}%> --%>
-			
-<!-- 			</section> -->
 			
 </body>
 </html>

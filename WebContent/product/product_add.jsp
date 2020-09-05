@@ -5,40 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style type="text/css">
-#registForm {
-	width: 500px;
-	height: 610px;
-	border: 1px solid red;
-	margin: auto;
-}
-
-h2 {
-	text-align: center;
-}
-
-table {
-	margin: auto;
-	width: 450px;
-}
-
-.td_left {
-	width: 150px;
-	background: orange;
-}
-
-.td_right {
-	width: 300px;
-	background: skyblue;
-}
-
-#commandCell {
-	text-align: center;
-}
-</style>
+<link rel="stylesheet" href="product/style/product.css">
 </head>
 <body>
-	<!-- 게시판 등록 -->
+	<!-- 상품 등록 -->
 
 	<section id="writeForm">
 		<h2>등록</h2>
@@ -85,7 +55,9 @@ table {
 				<tr>
 					<td class="td_left"><label for="board_file">  </label></td>
 					<td class="td_right"><input name="item_img" type="file"
-						id="item_img" required="required" /></td>
+						id="item_img" required="required" 
+
+						/></td>
 				</tr>
 			</table>
 			<section id="commandCell">
