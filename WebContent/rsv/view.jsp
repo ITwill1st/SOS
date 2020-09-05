@@ -25,7 +25,6 @@ if(id==null){
 예약시간 : <input type="time" name="rsv_time" value="<%=rsv_time %>"><br>
 phone : <input type="tel" name="phone"><br>
 email : <input type="email" name="email"><br>
-알러지 : <input type="text" name="allergy"><br>
 <input type="submit" value="예약접수">
 </form>
 <%}
