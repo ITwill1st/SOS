@@ -25,7 +25,7 @@ public class ProductDAO {
 		this.con = con;
 	}
 //----------------------------------------------------------------
-	
+//	상품등록
 	public int insertProduct(ProductBean pb) {
 		int insertProduct = 0;
 		PreparedStatement pstmt = null;
@@ -68,7 +68,7 @@ public class ProductDAO {
 		
 		return insertProduct;
 	}
-
+//상품번호증가
 	public int selectListCount() {
 		int listCount = 1;
 		PreparedStatement pstmt = null;
@@ -94,7 +94,7 @@ public class ProductDAO {
 		
 		return listCount;
 	}
-
+//페이지
 	public ArrayList<ProductBean> selectProductList(int page, int limit) {
 		ArrayList<ProductBean> productList = null;
 		PreparedStatement pstmt = null;
@@ -132,7 +132,7 @@ public class ProductDAO {
 		}
 		return productList;
 	}
-
+//상품삭제
 	public int deleteProduct(int item_num) {
 		int deleteCount = 0;
 		PreparedStatement pstmt = null;
@@ -186,7 +186,7 @@ public class ProductDAO {
 		
 		
 	}
-
+//상품수정
 	public int updateProduct(ProductBean productBean) {
 		int updateCount = 0;
 		PreparedStatement pstmt = null;
