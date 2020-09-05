@@ -128,3 +128,55 @@ input, select {
 	margin: 5%;
 }
 
+.left{
+	float:left;
+	margin: 2%;
+}
+
+.right{
+	float:left;
+	margin: 2%;
+}
+
+.tableOrderList {
+	width:600px;
+	height: 600px;
+	border:1px solid;
+
+}
+
+
+.tableOrderList thead{
+	height: 50px;
+}
+
+.tableOrderList th{
+	border:1px solid;
+    background-color: pink;
+}
+
+.tableOrderList tbody{
+	height: 500px;
+    background-color: grey;
+}
+
+.tableOrderList td{
+	height: 500px;
+    background-color: #e5e5e5;
+    border:1px solid;
+}
+
+.tableOrderPrice {
+	width:600px;
+	height: 150px;
+}
+
+.tableOrderPrice th{
+	border:1px solid;
+}
+
+.tableProductList {
+	border:1px solid;
+	width:600px;
+	height: 700px;
+}
