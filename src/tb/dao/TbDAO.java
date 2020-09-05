@@ -39,7 +39,7 @@ public class TbDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;		
 		
-		String sql = "SELECT * FROM tableinfo";
+		String sql = "SELECT * FROM table_setting";
 		
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -94,7 +94,7 @@ public class TbDAO {
 
 			String sql;
 			try {
-				sql = "truncate table tableinfo";
+				sql = "truncate table table_setting";
 				pstmt = con.prepareStatement(sql);
 				pstmt.executeUpdate();
 			} catch (SQLException e1) {
@@ -106,7 +106,7 @@ public class TbDAO {
 			
 			for(int i = 0; i< list.size(); i++) {
 				
-				sql = "insert into tableinfo values (?,?,?,?,?)";		
+				sql = "insert into table_setting values (?,?,?,?,?)";		
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, (list.get(i).getTable_no()));
 				pstmt.setInt(2, (list.get(i).getTable_x()));

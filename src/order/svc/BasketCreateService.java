@@ -4,7 +4,6 @@ import static db.JdbcUtil.*;
 
 import java.sql.Connection;
 import order.dao.OrderDAO;
-import vo.BasketBean;
 
 public class BasketCreateService {
 
