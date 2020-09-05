@@ -10,48 +10,116 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import order.action.BasketDeleteAction;
+import order.action.BasketListAction;
+import order.action.BasketProAction;
+import order.action.BasketQtyMinusAction;
+import order.action.BasketQtyPlusAction;
+import order.action.MenuDetailAction;
+import order.action.MenuListAction;
+import order.action.OrderBasketAction;
 import vo.ActionForward;
 
 @WebServlet("*.or")
 public class OrderFrontController extends HttpServlet{
 
-	
-
 	private void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		
+		// 인코딩 
 		request.setCharacterEncoding("UTF-8");
+		
+		// Servlet 주소 가져오기 
 		String command = request.getServletPath();
+		
 		Action action = null;
 		ActionForward forward = null;
 		
 		if(command.equals("/OrderMain.or")) {
+			// 전체 메뉴 및 장바구니 수량 조회하여 main.jsp에 출력
+			// id에 장바구니 없을 시 장바구니 생성 
+			action = new MenuListAction();
 			
-			forward = new ActionForward();
-			forward.setPath("/order/main.jsp");
-			forward.setRedirect(false);
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			
-		}else if(command.equals("/MenuDetail.or")) {
 			
-			forward = new ActionForward();
-			forward.setPath("/order/detail.jsp");
-			forward.setRedirect(false);
+		} else if(command.equals("/detail.or")) {
+			// 메뉴 이름 클릭 시 해당 메뉴 상세 조회 페이지
+			action = new MenuDetailAction();
 			
-		}else if(command.equals("/OrderBasket.or")) {
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			
-			forward = new ActionForward();
-			forward.setPath("/order/basket.jsp");
-			forward.setRedirect(false);
 			
-		}else if(command.equals("/OrderView.or")) {
+		} else if(command.equals("/BasketPro.or")) {
+			// 선택한 메뉴 장바구니에 담기 
+			action = new BasketProAction();
 			
-			forward = new ActionForward();
-			forward.setPath("/order/view.jsp");
-			forward.setRedirect(false);
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+				
+		} else if(command.equals("/BasketList.or")) {
+			// 장바구니 리스트 확인  
+			action = new BasketListAction();
 			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+				
+		} else if(command.equals("/MinusBasketQty.or")) {
+			// 장바구니 수량 (-1)
+			action = new BasketQtyMinusAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+				
+		} else if(command.equals("/PlusBasketQty.or")) {
+			// 장바구니 수량 (+1)
+			action = new BasketQtyPlusAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+				
+		} else if(command.equals("/DeleteBasket.or")) {
+			// 장바구니 항목 삭제
+			action = new BasketDeleteAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+				
+		} else if(command.equals("/OrderBasket.or")) {
+			// 장바구니 항목 주문하기 
+			action = new OrderBasketAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+				
 		}
 		
-
-		
+	
 		
 		
 		
@@ -83,7 +151,10 @@ public class OrderFrontController extends HttpServlet{
 		}
 		
 		
-
+		
+		
+		
+		
 		
 		
 	}
