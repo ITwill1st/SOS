@@ -9,5 +9,6 @@
 <body>
 <h1>profit/analysis</h1>
 <h1>매출데이터 표시 페이지</h1>
+가나다라마바사
 </body>
 </html>
