@@ -1,9 +1,7 @@
 package order.svc;
 
-import static db.JdbcUtil.commit;
-import static db.JdbcUtil.getConnection;
-import static db.JdbcUtil.rollback;
 
+import static db.JdbcUtil.*;
 import java.sql.Connection;
 
 import order.dao.OrderDAO;
@@ -19,7 +17,8 @@ public class OrderBasketService {
 		OrderDAO orderDAO = OrderDAO.getInstance();
 		orderDAO.setConnection(con);
 		
-		orderSuccess = orderDAO.insertOrder(basket);
+		
+		// order 메서드 
 	
 		
 		if (orderSuccess>0) {

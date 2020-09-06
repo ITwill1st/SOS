@@ -2,16 +2,14 @@ package vo;
 
 public class BasketBean {
 
-	private String member_id;
+	private int mem_num;
 	private String basket_info;
 	private int table_num;
-	
-	
-	public String getMember_id() {
-		return member_id;
+	public int getMem_num() {
+		return mem_num;
 	}
-	public void setMember_id(String member_id) {
-		this.member_id = member_id;
+	public void setMem_num(int mem_num) {
+		this.mem_num = mem_num;
 	}
 	public String getBasket_info() {
 		return basket_info;

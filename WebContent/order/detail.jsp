@@ -1,12 +1,12 @@
-<%@page import="vo.MenuBean"%>
+<%@page import="vo.ProductBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
 <%
 // 전체 메뉴 담아옴 
-MenuBean menu = (MenuBean)request.getAttribute("menu");
-// id
-String id = request.getParameter("id");
+ProductBean menu = (ProductBean)request.getAttribute("menu");
+// mem_num
+int mem_num = Integer.parseInt(request.getParameter("mem_num"));
 %>
 
 <!DOCTYPE html>
@@ -27,7 +27,7 @@ String id = request.getParameter("id");
 </tr>
 <tr>
 	<td>id</td>
-	<td><input type="text" value="<%=id %>" name="id" readonly="readonly"></td>
+	<td><input type="text" value="<%=mem_num %>" name="mem_num" readonly="readonly"></td>
 </tr>
 <tr>
 	<td>메뉴 이름</td>

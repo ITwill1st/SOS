@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import static db.JdbcUtil.*;
 
 import vo.BasketBean;
-import vo.MenuBean;
+import vo.ProductBean;
 import vo.ProductInfoBean;
 
 public class OrderDAO {
@@ -42,18 +42,18 @@ public class OrderDAO {
 	// 여기서 부터 필요한 메서드를 적으면됩니다.
 	
 	// 빈 장바구니 생성하는 메서드 
-	public int insertBasket(String id, int table_num) {
+	public int insertBasket(int mem_num) {
 		
 		// insert 성공여부 확인을 위한 변수 초기값 0 지정 
 		int insertResult =0;
 		
 		try {
 		
-			String sql = "INSERT INTO basket2 VALUES(?,?,?)";
+			String sql = "INSERT INTO basket VALUES(?,?,?)";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, id); // 가져온 id 
-			pstmt.setString(2, ""); // 빈장바구니를 생성하므로 table_info=""
-			pstmt.setInt(3, table_num); // 가져온 table_num 
+			pstmt.setInt(1, mem_num); // 가져온 id 
+			pstmt.setString(2, ""); // 빈장바구니이므로 basket_info=null 
+			pstmt.setInt(3, 0); // 빈장바구니이므로 table_num=0
 			
 			insertResult= pstmt.executeUpdate();
 			
@@ -71,15 +71,15 @@ public class OrderDAO {
 
 	
 	// 장바구니에 담긴 메뉴수량 조회하는 메서드 
-	public int selectCountBasket(String id) {
+	public int selectCountBasket(int mem_num) {
 		
 		int count = 0;
 		
 		try {
 			
-			String sql = "SELECT basket_info from basket2 where member_id=?";
+			String sql = "SELECT basket_info from basket where mem_num=?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, id);
+			pstmt.setInt(1, mem_num);
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
@@ -108,10 +108,10 @@ public class OrderDAO {
 	
 	
 	// 전체 메뉴 조회하는 메서드 
-	public ArrayList<MenuBean> selectMenuList() {
+	public ArrayList<ProductBean> selectMenuList() {
 
-		ArrayList<MenuBean> menuList = new ArrayList<MenuBean>();
-		MenuBean menu = new MenuBean();
+		ArrayList<ProductBean> menuList = new ArrayList<ProductBean>();
+		ProductBean menu = new ProductBean();
 
 		try {
 			String sql = "SELECT * FROM product";
@@ -120,7 +120,7 @@ public class OrderDAO {
 
 			while (rs.next()) {
 
-				menu = new MenuBean();
+				menu = new ProductBean();
 				menu.setItem_num(rs.getInt("item_num"));
 				menu.setItem_name(rs.getString("item_name"));
 				menu.setItem_img(rs.getString("item_img"));
@@ -142,10 +142,11 @@ public class OrderDAO {
 		return menuList;
 	}
 	
+	
 	// 단일메뉴의 상세정보 조회하는 메서드  
-	public MenuBean selectDetail(int item_num) {
+	public ProductBean selectDetail(int item_num) {
 		
-		MenuBean menu = null;
+		ProductBean menu = null;
 		
 		try {
 			
@@ -156,7 +157,7 @@ public class OrderDAO {
 			
 			if(rs.next()) {
 				
-				menu = new MenuBean();
+				menu = new ProductBean();
 				
 				menu.setItem_num(item_num);
 				menu.setItem_name(rs.getString("item_name"));
@@ -186,9 +187,9 @@ public class OrderDAO {
 		
 		try {
 			
-			String sql = "INSERT INTO basket2 values(?,?,?)";
+			String sql = "INSERT INTO basket values(?,?,?)";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, basket.getMember_id());
+			pstmt.setInt(1, basket.getMem_num());
 			pstmt.setString(2, basket.getBasket_info()+"/");
 			pstmt.setInt(3, basket.getTable_num());
 
@@ -211,10 +212,10 @@ public class OrderDAO {
 		int updateBasket = 0;
 		
 		try {
-			String sql = "UPDATE basket2 SET basket_info = ? where member_id=?";
+			String sql = "UPDATE basket SET basket_info = ? where mem_num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, basket.getBasket_info());
-			pstmt.setString(2, basket.getMember_id());
+			pstmt.setInt(2, basket.getMem_num());
 			
 			updateBasket = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -227,15 +228,16 @@ public class OrderDAO {
 
 	
 	// 기존의 장바구니 조회할 메서드 
-	public ArrayList<ProductInfoBean> selectBasketList(String id) {
+	public ArrayList<ProductInfoBean> selectBasketList(int mem_num) {
 		
 		ArrayList<ProductInfoBean> basketList = new ArrayList<ProductInfoBean>();
 		
 	
 		try {
-			String sql = "SELECT * FROM basket2 WHERE member_id=?";
+			
+			String sql = "SELECT * FROM basket WHERE mem_num=?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, id);
+			pstmt.setInt(1, mem_num);
 			rs = pstmt.executeQuery();
 
 				
@@ -244,14 +246,16 @@ public class OrderDAO {
 				// String으로 묶인 모든 basket_info쪼개기
 				String[] dbBasketArray = rs.getString("basket_info").split("/");
 				
-				
-				for (int i=0; i < dbBasketArray.length ; i++) {
+				for (String s : dbBasketArray) {
 						
 					ProductInfoBean p = new ProductInfoBean();
-					String[] dbOrderArray2 = dbBasketArray[i].split(",");
-						
+					String[] dbOrderArray2 = s.split(",");
+					
+					System.out.println(dbOrderArray2.length);
+					
 					p.setItem_num(Integer.parseInt(dbOrderArray2[0]));
 					p.setItem_qty(Integer.parseInt(dbOrderArray2[1]));
+					p.setReview_ck(Integer.parseInt(dbOrderArray2[2]));
 						
 					basketList.add(p);
 						
@@ -271,32 +275,7 @@ public class OrderDAO {
 	}
 
 	
-	// 주문을 위한 메서드 
-	public int insertOrder(BasketBean basket) {
-		
-		// 성공여부 확인을 위한 변수 
-		int orderSuccess = 0;
-				
-		try {
-					
-			String sql = "INSERT INTO order2 values(?,?,?)";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, basket.getMember_id());
-			pstmt.setString(2, basket.getBasket_info()+"/");
-			pstmt.setInt(3, basket.getTable_num());
-
-			orderSuccess = pstmt.executeUpdate();
-					
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("OrderDAO - insertOrder() 메서드 " + e.getMessage());
-		} finally {
-			close(pstmt);
-		}
-				
-		return orderSuccess;
-
-	}
+	
 
 	
 }

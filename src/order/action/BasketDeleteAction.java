@@ -22,13 +22,13 @@ public class BasketDeleteAction implements Action {
 		System.out.println("BasketDeleteAction");
 		
 		// id, item_num, table_num 가져오기
-		String id = request.getParameter("id");
+		int mem_num = Integer.parseInt(request.getParameter("mem_num"));
 		int table_num = Integer.parseInt(request.getParameter("table_num"));
 		int item_num = Integer.parseInt(request.getParameter("item_num"));
 				
 		// 현재 id에 해당하는 장바구니 가져오기 
 		BasketProService service = new BasketProService();
-		ArrayList<ProductInfoBean> basketList = service.getBasketList(id);
+		ArrayList<ProductInfoBean> basketList = service.getBasketList(mem_num);
 		
 		// 장바구니 항목 삭제를 위한 서비스 호출 
 		BasketDeleteService service2 = new BasketDeleteService();
@@ -41,7 +41,7 @@ public class BasketDeleteAction implements Action {
 		
 		// 가져온 정보 전달하기 위해 BasketBean에 저장 
 		BasketBean basket = new BasketBean();
-		basket.setMember_id(id);
+		basket.setMem_num(mem_num);
 		basket.setBasket_info(basket_info2); // 항목이 삭제된 후 업데이트된 장바구니 정보 
 		basket.setTable_num(table_num);
 		

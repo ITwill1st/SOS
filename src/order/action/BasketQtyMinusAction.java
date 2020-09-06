@@ -20,15 +20,15 @@ public class BasketQtyMinusAction implements Action {
 		
 		ActionForward forward = null;
 		
-		// id, item_num, table_num 가져오기
-		String id = request.getParameter("id");
+		// mem_num, item_num, table_num 가져오기
+		int mem_num = Integer.parseInt(request.getParameter("table_num"));
 		int table_num = Integer.parseInt(request.getParameter("table_num"));
 		int item_num = Integer.parseInt(request.getParameter("item_num"));
 		
 		
 		// 현재 id에 해당하는 장바구니 가져오기 
 		BasketProService service = new BasketProService();
-		ArrayList<ProductInfoBean> basketList = service.getBasketList(id);
+		ArrayList<ProductInfoBean> basketList = service.getBasketList(mem_num);
 		
 		// 현재 장바구니 업데이트한 info 가져오기 위한 서비스 호출
 		BasketQtyChangeService service2 = new BasketQtyChangeService();
@@ -42,7 +42,7 @@ public class BasketQtyMinusAction implements Action {
 		
 		// 가져온 정보 전달하기 위해 BasketBean에 저장 
 		BasketBean basket = new BasketBean();
-		basket.setMember_id(id);
+		basket.setMem_num(mem_num);
 		basket.setBasket_info(basket_info2); // 기존장바구니와 비교하여 업데이트된 장바구니 정보 
 		basket.setTable_num(table_num);
 		

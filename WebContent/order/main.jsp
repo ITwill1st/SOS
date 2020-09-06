@@ -1,16 +1,16 @@
+<%@page import="vo.ProductBean"%>
 <%@page import="vo.BasketBean"%>
-<%@page import="vo.MenuBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
       
 <%
-// 임시 id
-String id="jo";
+// 임시 mem_num
+int mem_num=1;
 // 임시 table_num
 int table_num=1;
 // MenuListAction에서 담아온 전체 메뉴
-ArrayList<MenuBean> menuList = (ArrayList<MenuBean>)request.getAttribute("menuList");
+ArrayList<ProductBean> menuList = (ArrayList<ProductBean>)request.getAttribute("menuList");
 // MenuListAction에서 담아온 장바구니 수량
 int basketCount = (int)request.getAttribute("basketCount");
 
@@ -37,7 +37,7 @@ int basketCount = (int)request.getAttribute("basketCount");
             <td width="100" colspan="3">전체 메뉴</td>
          </tr>
         <%
-     		for(MenuBean item : menuList) {
+     		for(ProductBean item : menuList) {
    		%>
          <tr>
          	<td>메뉴 번호</td>
@@ -46,7 +46,7 @@ int basketCount = (int)request.getAttribute("basketCount");
  		 </tr>
  		 <tr>
  		 	<td>메뉴 이름</td>
- 		 	<td><a href="detail.or?item_num=<%=item.getItem_num()%>&id=<%=id %>">
+ 		 	<td><a href="detail.or?item_num=<%=item.getItem_num()%>&mem_num=<%=mem_num %>">
  		 	    <%=item.getItem_name() %></a></td>
  		 </tr>
  		 <tr>
@@ -62,8 +62,6 @@ int basketCount = (int)request.getAttribute("basketCount");
 </section>
 
 장바구니 수량 : <%=basketCount %> <br>
-<input type="button" value="장바구니 리스트" onclick="location.href='BasketList.or?id=<%=id %>&table_num=<%=table_num %>'">
-
-
+<input type="button" value="장바구니 리스트" onclick="location.href='BasketList.or?mem_num=<%=mem_num %>&table_num=<%=table_num %>'">
 </body>
 </html>

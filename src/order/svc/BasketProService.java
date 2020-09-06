@@ -13,7 +13,7 @@ public class BasketProService {
 
 	
 	// 장바구니에 담긴 수량 조회 
-	public int getBasketCount(String id) {
+	public int getBasketCount(int mem_num) {
 		
 		int basketCount = 0;
 		
@@ -21,7 +21,7 @@ public class BasketProService {
 		OrderDAO orderDAO = OrderDAO.getInstance();
 		orderDAO.setConnection(con);
 		
-		basketCount = orderDAO.selectCountBasket(id);
+		basketCount = orderDAO.selectCountBasket(mem_num);
 		
 		close(con);
 		
@@ -77,7 +77,7 @@ public class BasketProService {
 
 
 	// id에 해당하는 담겨져있는 basketList가져올 메서드 
-	public ArrayList<ProductInfoBean> getBasketList(String id) {
+	public ArrayList<ProductInfoBean> getBasketList(int mem_num) {
 		
 		ArrayList<ProductInfoBean> basketList = null;
 		
@@ -86,8 +86,16 @@ public class BasketProService {
 		orderDAO.setConnection(con);
 		
 		// 담겨져있는 basketList 담아오기 
-		basketList = orderDAO.selectBasketList(id);
+		basketList = orderDAO.selectBasketList(mem_num);
 		
+		
+		for(ProductInfoBean p : basketList) {
+			
+			System.out.println("basketNo은 " + p.getItem_num());
+			System.out.println("수량은 " + p.getItem_qty());
+			System.out.println("basketNo은 "+ p.getReview_ck());
+			
+		}
 		
 		return basketList;
 	}
@@ -100,11 +108,13 @@ public class BasketProService {
 		// 담을 메뉴의 item_num과 item_qty
 		int item_num = Integer.parseInt(item[0]);
 		int item_qty = Integer.parseInt(item[1]);
+		int review_ch = Integer.parseInt(item[2]);
 		
 		// 담을 메뉴를 담을 ProductInfoBean
 		ProductInfoBean p = new ProductInfoBean();
 		p.setItem_num(item_num);
 		p.setItem_qty(item_qty);
+		p.setReview_ck(review_ch);
 		
 		boolean isChanged = false;
 		
@@ -115,7 +125,8 @@ public class BasketProService {
 		
 				ProductInfoBean p2 = new ProductInfoBean();			
 				p2.setItem_num(item_num);
-				p2.setItem_qty(basketList.get(i).getItem_qty()+item_qty);		
+				p2.setItem_qty(basketList.get(i).getItem_qty()+item_qty);
+				p2.setReview_ck(review_ch);
 				basketList.set(i, p2);	
 				
 				//basketList가 바꼈기에 아래 if문은 동작하지않는다.

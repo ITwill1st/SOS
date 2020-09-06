@@ -26,17 +26,20 @@ public class BasketProAction implements Action {
 		// 장바구니에 담을 정보 가져오기 
 		int item_num = Integer.parseInt(request.getParameter("item_num"));
 		int item_qty = Integer.parseInt(request.getParameter("item_qty"));
+		int reviewCheck = 0; 
+		
+		// basket_info(String type)에 item_num과 item_qty, reviewch 저장
+		String basket_info = item_num+","+item_qty+","+reviewCheck;
+		
+		// mem_num, table_num 가져오기 
+		int mem_num = Integer.parseInt(request.getParameter("mem_num"));
 		int table_num = Integer.parseInt(request.getParameter("table_num"));
-		String id = request.getParameter("id");
-		
-		
-		// basket_info(String type)에 item_num과 수량 저장
-		String basket_info = item_num+","+item_qty;
-		
+	
+
 		
 		// 기존 DB에 있는 id에 해당하는 basketList 가져오기 위해 BasketProService 호출
 		BasketProService service = new BasketProService();
-		ArrayList<ProductInfoBean> basketList = service.getBasketList(id);
+		ArrayList<ProductInfoBean> basketList = service.getBasketList(mem_num);
 		
 		// 담을 리스트와 담긴 리스트 비교 및 update 하기 위해 BasketProService 호출 
 		BasketProService service2 = new BasketProService();
@@ -46,11 +49,11 @@ public class BasketProAction implements Action {
 		// ArrayList를 String으로 바꿔줄 서비스 호출 
 		ArrayListToStringService service3 = new ArrayListToStringService();
 		String basket_info2 = service3.toString(basketList2);
-		
+
 		
 		// 가져온 정보 전달하기 위해 BasketBean에 저장 
 		BasketBean basket = new BasketBean();
-		basket.setMember_id(id);
+		basket.setMem_num(mem_num);
 		basket.setBasket_info(basket_info2); // 기존장바구니와 비교하여 업데이트된 장바구니 정보 
 		basket.setTable_num(table_num);
 		
