@@ -12,7 +12,7 @@ public class ArrayListToStringService {
 		
 		
 		for(int i=0; i<basketList.size(); i++) {
-			basket_info += (basketList.get(i).getItem_num() + "," + basketList.get(i).getItem_qty() + "/"+basketList.get(i).getReview_ck());
+			basket_info += (basketList.get(i).getItem_num() + "," + basketList.get(i).getItem_qty() + ","+basketList.get(i).getReview_ck()+"/");
 		}
 		
 		return basket_info;

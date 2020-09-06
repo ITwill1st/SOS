@@ -19,7 +19,7 @@ public class OrderBasketService {
 		
 		
 		// order 메서드 
-	
+		orderSuccess = orderDAO.insertOrder(basket);
 		
 		if (orderSuccess>0) {
 			commit(con);
@@ -27,9 +27,32 @@ public class OrderBasketService {
 			rollback(con);
 		}
 		
+		close(con);
 		
 		return orderSuccess;
 		
+	}
+
+	public int deleteBasket(int mem_num) {
+		
+		int deleteSuccess = 0;
+		
+		Connection con = getConnection();
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		orderDAO.setConnection(con);
+		
+		// order 메서드 
+		deleteSuccess = orderDAO.deleteOrder(mem_num);
+				
+		if (deleteSuccess>0) {
+				commit(con);
+		} else {
+				rollback(con);
+		}
+				
+		close(con);
+				
+		return deleteSuccess;
 	}
 
 }

@@ -18,7 +18,7 @@ public class BasketQtyChangeService {
 				ProductInfoBean p2 = new ProductInfoBean();			
 				p2.setItem_num(item_num);
 				p2.setItem_qty(basketList.get(i).getItem_qty()-1);		
-				p2.setReview_ck(0);
+				p2.setReview_ck(basketList.get(i).getReview_ck());
 				basketList.set(i, p2);	
 			}
 			
@@ -37,7 +37,7 @@ public class BasketQtyChangeService {
 				ProductInfoBean p2 = new ProductInfoBean();			
 				p2.setItem_num(item_num);
 				p2.setItem_qty(basketList.get(i).getItem_qty()+1);		
-				p2.setReview_ck(0);
+				p2.setReview_ck(basketList.get(i).getReview_ck());
 				
 				basketList.set(i, p2);	
 			}

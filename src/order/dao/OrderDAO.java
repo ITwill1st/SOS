@@ -41,8 +41,8 @@ public class OrderDAO {
 
 	// 여기서 부터 필요한 메서드를 적으면됩니다.
 	
-	// 빈 장바구니 생성하는 메서드 
-	public int insertBasket(int mem_num) {
+	// 장바구니 생성 & 단일메뉴 담기 
+	public int insertBasket(BasketBean basket) {
 		
 		// insert 성공여부 확인을 위한 변수 초기값 0 지정 
 		int insertResult =0;
@@ -51,9 +51,9 @@ public class OrderDAO {
 		
 			String sql = "INSERT INTO basket VALUES(?,?,?)";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, mem_num); // 가져온 id 
-			pstmt.setString(2, ""); // 빈장바구니이므로 basket_info=null 
-			pstmt.setInt(3, 0); // 빈장바구니이므로 table_num=0
+			pstmt.setInt(1, basket.getMem_num()); // 가져온 id 
+			pstmt.setString(2, basket.getBasket_info());  
+			pstmt.setInt(3, basket.getTable_num()); 
 			
 			insertResult= pstmt.executeUpdate();
 			
@@ -178,35 +178,8 @@ public class OrderDAO {
 		return menu;
 	}
 
-
-	// 단일메뉴 장바구니 담기 메서드 
-	public int insertBasket(BasketBean basket) {
-		
-		// 성공여부 확인을 위한 변수 
-		int basketSuccess = 0;
-		
-		try {
-			
-			String sql = "INSERT INTO basket values(?,?,?)";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, basket.getMem_num());
-			pstmt.setString(2, basket.getBasket_info()+"/");
-			pstmt.setInt(3, basket.getTable_num());
-
-			basketSuccess = pstmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("OrderDAO - insertBasket() 메서드 " + e.getMessage());
-		} finally {
-			close(pstmt);
-		}
-		
-		return basketSuccess;
-	}
-
 	
-	// 업데이트할것 
+	// 장바구니 수량 변경 
 	public int updateBasket(BasketBean basket) {
 		
 		int updateBasket = 0;
@@ -246,20 +219,24 @@ public class OrderDAO {
 				// String으로 묶인 모든 basket_info쪼개기
 				String[] dbBasketArray = rs.getString("basket_info").split("/");
 				
+				if (dbBasketArray.length>=1) {
+					
+					
 				for (String s : dbBasketArray) {
 						
 					ProductInfoBean p = new ProductInfoBean();
 					String[] dbOrderArray2 = s.split(",");
-					
-					System.out.println(dbOrderArray2.length);
-					
+						
 					p.setItem_num(Integer.parseInt(dbOrderArray2[0]));
 					p.setItem_qty(Integer.parseInt(dbOrderArray2[1]));
 					p.setReview_ck(Integer.parseInt(dbOrderArray2[2]));
-						
+							
 					basketList.add(p);
-						
-					}
+
+					}		
+					
+				}
+				
 				}
 			
 		} catch (NumberFormatException e) {
@@ -272,6 +249,67 @@ public class OrderDAO {
 		}
 		
 		return basketList;
+	}
+
+	
+	// 장바구니에 있는 상품 주문하기 
+	public int insertOrder(BasketBean basket) {
+		
+		int insertResult = 0;
+		
+		try {
+			
+			String sql ="SELECT MAX(order_num) from orders";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			int num = 1; // 새 주문번호
+			
+			if (rs.next()) {
+				num = rs.getInt(1) + 1;
+			} 
+			
+			sql ="INSERT INTO ORDERS VALUES(?,?,?,?,now(),?)";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1,num);
+			pstmt.setInt(2, basket.getMem_num());
+			pstmt.setString(3, basket.getBasket_info());
+			pstmt.setInt(4, basket.getTable_num());
+			pstmt.setInt(5, 0);
+			
+			insertResult = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("OrderDAO - insertOrder() 메서드 " + e.getMessage());
+		}
+		
+		return insertResult;
+	}
+
+	// 주문후 장바구니 삭제를 위한 메서드 
+	public int deleteOrder(int mem_num) {
+		
+		int deleteResult = 0;
+		
+		try {
+			
+			String sql ="DELETE FROM basket WHERE mem_num=?";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, mem_num);
+
+			deleteResult = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("OrderDAO - deleteOrder() 메서드 " + e.getMessage());
+		}
+		
+		return deleteResult;
+		
+
 	}
 
 	

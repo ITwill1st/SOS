@@ -5,8 +5,9 @@
 <%
 // 전체 메뉴 담아옴 
 ProductBean menu = (ProductBean)request.getAttribute("menu");
-// mem_num
+// mem_num, table_num
 int mem_num = Integer.parseInt(request.getParameter("mem_num"));
+int table_num = Integer.parseInt(request.getParameter("table_num"));
 %>
 
 <!DOCTYPE html>
@@ -46,8 +47,8 @@ int mem_num = Integer.parseInt(request.getParameter("mem_num"));
 	<td><%=menu.getItem_price() %> </td>
 </tr>
 <tr>
-	<td>테이블 번호 선택(임시)</td>
-	<td><input type="number" name="table_num" value="table_num"></td>
+	<td>테이블 번호</td>
+	<td><input type="text" value="<%=table_num %>" name="table_num" readonly="readonly"></td>
 </tr>
 </table>
 수량 : <input type="number" min="1" id="item_qty" name="item_qty"><br>

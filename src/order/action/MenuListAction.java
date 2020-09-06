@@ -10,6 +10,7 @@ import order.svc.BasketCreateService;
 import order.svc.BasketProService;
 import order.svc.MenuListService;
 import vo.ActionForward;
+import vo.BasketBean;
 import vo.ProductBean;
 
 public class MenuListAction implements Action {
@@ -19,6 +20,8 @@ public class MenuListAction implements Action {
 		
 		// mem_num
 		int mem_num=1;
+		// 임시 table_num 전달 
+		int table_num =1;
 
 		ActionForward forward = null;
 		
@@ -30,14 +33,20 @@ public class MenuListAction implements Action {
 		int basketCount = bps.getBasketCount(mem_num);
 		
 		
-		if(basketCount==0) { 
+		if(basketCount == 0) { 
 			// basket에 아무것도 안 담겨있을경우 장바구니 생성 
 			// 장바구니 생성을 위한 BasketCreateService 서비스 호출
 			BasketCreateService bcs = new BasketCreateService();
 			
+			// 새로운 장바구니에 담길 변수 
+			BasketBean basket= new BasketBean();
+			basket.setMem_num(mem_num);
+			basket.setBasket_info("");
+			basket.setTable_num(table_num);
+			
 			// 장바구니 생성을 위한 메서드 호출
 			// 성공 여부 확인을 위한 변수  return 값으로 받아옴 
-			int createResult = bcs.createBasket(mem_num);
+			int createResult = bcs.createBasket(basket);
 			
 			if (createResult>0) {
 				System.out.println("장바구니 생성 완료!");
@@ -65,6 +74,7 @@ public class MenuListAction implements Action {
 		// menuList(전체메뉴)와  basketCount(장바구니 수량) 전달 
 		request.setAttribute("menuList", menuList);
 		request.setAttribute("basketCount", basketCount);
+		request.setAttribute("table_num", table_num);
 		
 		return forward;
 	}

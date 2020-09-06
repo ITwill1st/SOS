@@ -16,25 +16,32 @@ public class StringToArrayListService {
 		
 		String[] basketInfo = basket.getBasket_info().split("/");
 		
-		
-		for (String info : basketInfo) {
+		if(basketInfo.length>=1) {
 			
-			ProductInfoBean pib = new ProductInfoBean();
+
+			for (String info : basketInfo) {
+				
+				ProductInfoBean pib = new ProductInfoBean();
+				
+				String[] basketInfo2 = info.split(",");
+				
+				pib.setItem_num(Integer.parseInt(basketInfo2[0]));
+				pib.setItem_qty(Integer.parseInt(basketInfo2[1]));
+				pib.setReview_ck(Integer.parseInt(basketInfo2[2]));
+				
+				dbBasketInfo.add(pib);
+				
+			}
 			
-			String[] basketInfo2 = info.split(",");
-			
-			pib.setItem_num(Integer.parseInt(basketInfo2[0]));
-			pib.setItem_qty(Integer.parseInt(basketInfo2[1]));
-			
-			dbBasketInfo.add(pib);
 			
 		}
-		
 		
 		return dbBasketInfo;
 	}
 
 
+	
+	
 	
 	
 	

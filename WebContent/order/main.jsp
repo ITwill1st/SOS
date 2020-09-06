@@ -8,12 +8,11 @@
 // 임시 mem_num
 int mem_num=1;
 // 임시 table_num
-int table_num=1;
+int table_num = (int)request.getAttribute("table_num");
 // MenuListAction에서 담아온 전체 메뉴
 ArrayList<ProductBean> menuList = (ArrayList<ProductBean>)request.getAttribute("menuList");
 // MenuListAction에서 담아온 장바구니 수량
 int basketCount = (int)request.getAttribute("basketCount");
-
 %>
 
 <!DOCTYPE html>
@@ -46,7 +45,7 @@ int basketCount = (int)request.getAttribute("basketCount");
  		 </tr>
  		 <tr>
  		 	<td>메뉴 이름</td>
- 		 	<td><a href="detail.or?item_num=<%=item.getItem_num()%>&mem_num=<%=mem_num %>">
+ 		 	<td><a href="detail.or?item_num=<%=item.getItem_num()%>&mem_num=<%=mem_num %>&table_num=<%=table_num %>">
  		 	    <%=item.getItem_name() %></a></td>
  		 </tr>
  		 <tr>

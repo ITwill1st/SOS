@@ -87,15 +87,7 @@ public class BasketProService {
 		
 		// 담겨져있는 basketList 담아오기 
 		basketList = orderDAO.selectBasketList(mem_num);
-		
-		
-		for(ProductInfoBean p : basketList) {
-			
-			System.out.println("basketNo은 " + p.getItem_num());
-			System.out.println("수량은 " + p.getItem_qty());
-			System.out.println("basketNo은 "+ p.getReview_ck());
-			
-		}
+
 		
 		return basketList;
 	}

@@ -22,7 +22,7 @@ ArrayList<ProductInfoBean> baksetList = (ArrayList<ProductInfoBean>)request.getA
 <h1>order/basket.jsp</h1>
 <h1>장바구니 정보</h1>
 
-<form action="OrderBasket.or?mem_num=<%=mem_num %>&table_num=<%=table_num %>" method="get">
+<form method="get">
  <table border="1">
          <tr>
             <td width="100" colspan="4">장바구니</td>
@@ -59,7 +59,7 @@ ArrayList<ProductInfoBean> baksetList = (ArrayList<ProductInfoBean>)request.getA
  		 </tr>
          <%} %>
       </table>
-      <input type="submit" value="주문하기">
+	  <input type="button" value="주문하기" onclick="location.href='OrderBasket.or?mem_num=<%=mem_num %>&table_num=<%=table_num %>'">     
 </form>
 
 
