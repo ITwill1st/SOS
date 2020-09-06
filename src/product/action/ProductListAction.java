@@ -18,7 +18,7 @@ public class ProductListAction implements Action {
 		ActionForward forward = null;
 		
 		int page = 1;
-		int limit = 10;
+		int limit = 50;
 		
 		if (request.getParameter("page")!=null) {
 			page = Integer.parseInt(request.getParameter("page"));

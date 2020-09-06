@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import vo.ProductBean;
 import vo.TableDTO;
 
 import static db.JdbcUtil.*;
@@ -39,7 +40,7 @@ public class TbDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;		
 		
-		String sql = "SELECT * FROM tableinfo";
+		String sql = "SELECT * FROM table_setting";
 		
 		try {
 			pstmt = con.prepareStatement(sql);
@@ -94,7 +95,7 @@ public class TbDAO {
 
 			String sql;
 			try {
-				sql = "truncate table tableinfo";
+				sql = "truncate table table_setting";
 				pstmt = con.prepareStatement(sql);
 				pstmt.executeUpdate();
 			} catch (SQLException e1) {
@@ -106,7 +107,7 @@ public class TbDAO {
 			
 			for(int i = 0; i< list.size(); i++) {
 				
-				sql = "insert into tableinfo values (?,?,?,?,?)";		
+				sql = "insert into table_setting values (?,?,?,?,?)";		
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, (list.get(i).getTable_no()));
 				pstmt.setInt(2, (list.get(i).getTable_x()));
@@ -133,6 +134,38 @@ public class TbDAO {
 		}	
 		
 		return isSuccess;
+	}
+
+	
+	//테이블에 출력할 메뉴리스트
+	public ArrayList<ProductBean> getMenuList() {
+		
+		ArrayList<ProductBean> list = new ArrayList<ProductBean>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;		
+		
+		try {
+			String sql = "SELECT * FROM product";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ProductBean pb = new ProductBean();		
+				pb.setItem_category(rs.getString("item_category"));
+				pb.setItem_name(rs.getString("item_name"));
+				pb.setItem_price(rs.getInt("item_price"));
+				list.add(pb);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);		
+		}	
+		
+		return list;
 	}
 	
 

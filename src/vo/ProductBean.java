@@ -10,6 +10,8 @@ public class ProductBean {
 	private String item_category;
 	private String item_allergie;
 	private String item_img;
+	
+
 	private int item_show;
 	public int getItem_num() {
 		return item_num;
