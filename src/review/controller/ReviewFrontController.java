@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import review.action.ReviewListAction;
 import review.action.ReviewWriteProAction;
 import vo.ActionForward;
 
@@ -36,8 +37,8 @@ public class ReviewFrontController extends HttpServlet {
 		Action action = null;
 		ActionForward forward = null;
 
-		if (command.equals("/ReviewWritePro.re")) {
-			action = new ReviewWriteProAction();
+		if (command.equals("/ReviewList.re")) {
+			action = new ReviewListAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

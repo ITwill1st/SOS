@@ -5,6 +5,7 @@ public class BasketBean {
 	private int mem_num;
 	private String basket_info;
 	private int table_num;
+	
 	public int getMem_num() {
 		return mem_num;
 	}
@@ -23,6 +24,5 @@ public class BasketBean {
 	public void setTable_num(int table_num) {
 		this.table_num = table_num;
 	}
-	
 	
 }

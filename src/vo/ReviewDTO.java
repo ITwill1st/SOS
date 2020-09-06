@@ -3,6 +3,7 @@ package vo;
 import java.sql.Timestamp;
 
 public class ReviewDTO {
+	
 	int item_num;
 	int review_comment_num;
 	String review_comment;
@@ -11,6 +12,7 @@ public class ReviewDTO {
 	String review_re_comment;
 	int review_re_checker;
 	int member_num;
+	
 	public int getItem_num() {
 		return item_num;
 	}
