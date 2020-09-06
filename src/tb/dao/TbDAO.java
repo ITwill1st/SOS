@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import vo.ProductBean;
 import vo.TableDTO;
 
 import static db.JdbcUtil.*;
@@ -133,6 +134,38 @@ public class TbDAO {
 		}	
 		
 		return isSuccess;
+	}
+
+	
+	//테이블에 출력할 메뉴리스트
+	public ArrayList<ProductBean> getMenuList() {
+		
+		ArrayList<ProductBean> list = new ArrayList<ProductBean>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;		
+		
+		try {
+			String sql = "SELECT * FROM product";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ProductBean pb = new ProductBean();		
+				pb.setItem_category(rs.getString("item_category"));
+				pb.setItem_name(rs.getString("item_name"));
+				pb.setItem_price(rs.getInt("item_price"));
+				list.add(pb);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);		
+		}	
+		
+		return list;
 	}
 	
 

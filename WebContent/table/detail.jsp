@@ -1,3 +1,5 @@
+<%@page import="vo.ProductBean"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -11,6 +13,11 @@
 <script src="#"></script>
 </head>
 <body>
+<%
+//메뉴불러오기
+ArrayList<ProductBean> menu = (ArrayList<ProductBean>)request.getAttribute("menu"); 
+
+%>
 	<h1>table/detail.jsp</h1>
 	<h1><%=request.getAttribute("tableNo")%></h1>
 	<div class="content">
@@ -48,8 +55,14 @@
 		<div class="right">
 			<table class="tableProductList">
 				<tr>
-					<th>카테고리</th>
+					<th>메뉴</th>
 				</tr>
+				<%for(ProductBean pb : menu){%>
+					<tr><td><%=pb.getItem_category() %>
+					<br><%=pb.getItem_name() %>
+					<br><%=pb.getItem_price() %></td></tr>
+				<%} %>
+				
 			</table>
 		</div>
 
