@@ -16,7 +16,7 @@ function purchase() {
 }
 
 function reviewYes() {
-	location.href="ReviewList.re?mem_num=1";
+	location.href="/SOS/ReviewList.re?mem_num=1";
 }
 function reviewNo() {
 	location.href="exit.jsp";

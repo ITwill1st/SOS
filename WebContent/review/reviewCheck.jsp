@@ -5,7 +5,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="js/review.js"></script>
+<script type="text/javascript">
+function yes() {
+	opener.reviewYes();
+	window.close();
+}
+
+function no() {
+	opener.reviewNo();
+	window.close();
+}
+</script>
 </head>
 <body>
 <div>

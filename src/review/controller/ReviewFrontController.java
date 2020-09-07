@@ -45,7 +45,15 @@ public class ReviewFrontController extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		} 
+		}  else if(command.equals("/ReviewWritePro.re")) {
+			action = new ReviewWriteProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 
 		if (forward != null) {
 			if (forward.isRedirect()) {

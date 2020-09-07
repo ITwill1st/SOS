@@ -11,6 +11,7 @@ import review.svc.ReviewListService;
 import vo.ActionForward;
 import vo.BasketBean;
 import vo.OrderDTO;
+import vo.ProductBean;
 import vo.ProductInfoBean;
 
 public class ReviewListAction implements Action{
@@ -18,22 +19,35 @@ public class ReviewListAction implements Action{
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		// 리뷰 해야할 리스트를 가져오는 액션 포워드
+		System.out.println("ReviewListAction");
 		ActionForward forward = null;
 		int mem_num = Integer.parseInt(request.getParameter("mem_num"));
-		
-		//1. mem_num 을 이용해서 OrderList 가져오기
-		
-//		ReviewListService service = new ReviewListService();
-//		OrderDTO orderDTO = service.getOrderList(mem_num);
+		ArrayList<ProductInfoBean> order_info = null;
+		ArrayList<ProductBean> product_list = new ArrayList<ProductBean>();
+		//1. mem_num 을 이용해서 OrderList 가져오기		
+		ReviewListService service = new ReviewListService();
+		ArrayList<OrderDTO> orderList = service.getOrderList(mem_num);
 		
 		//2. OrderList 안의 order_info를 이용해 StringtoArrayList
 		
-//		StringToArrayListService service2 = new StringToArrayListService();
-//		ArrayList<ProductInfoBean> order_info =  service2.getBasketInfoArray(orderDTO);
+		for(int i = 0 ; i < orderList.size() ; i++) {
+			OrderDTO orderDTO = orderList.get(i);
+			StringToArrayListService service_stringToArrayList = new StringToArrayListService();
+			order_info =  service_stringToArrayList.getOrderInfoArray(orderDTO);
+			
+			for(int x = 0 ; x < order_info.size() ; x++) {
+				ProductInfoBean pib = order_info.get(x);
+				int item_num = pib.getItem_num();
+				ProductBean productBean = service.getProduct(item_num);
+				
+				product_list.add(productBean);				
+			}
+		}	
 		
-		//3. ArrayList안의 item_num 을 모두 불러와서 리스트로 출력
-
-//		int item_num = order_info.getItem_num();
+		request.setAttribute("product_list", product_list);
+		
+		forward = new ActionForward();
+		forward.setPath("/review/reviewOrderList.jsp?mem_num="+mem_num);
 		
 		return forward;
 	}

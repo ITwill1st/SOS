@@ -7,6 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import static db.JdbcUtil.*;
+
+import vo.OrderDTO;
+import vo.ProductBean;
 import vo.ReviewDTO;
 
 public class ReviewDAO {
@@ -25,7 +28,7 @@ private ReviewDAO() {
 	public void setConnection(Connection con) {
 		this.con = con;
 	}
-	public int insertReview(int item_num, int review_rating, String review_comment) {
+	public int insertReview(int mem_num, int item_num, int review_rating, String review_comment) {
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -40,12 +43,13 @@ private ReviewDAO() {
 				review_comment_num = rs.getInt(1) + 1;				
 			}
 			
-			sql = "insert into review values(?,?,?,?,now(),null,0,1)";
+			sql = "insert into review values(?,?,?,?,?,now(),null,0)";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, item_num);
-			pstmt.setInt(2, review_comment_num);
-			pstmt.setString(3, review_comment);
-			pstmt.setInt(4, review_rating);
+			pstmt.setInt(1, mem_num);
+			pstmt.setInt(2, item_num);
+			pstmt.setInt(3, review_comment_num);
+			pstmt.setString(4, review_comment);
+			pstmt.setInt(5, review_rating);
 			
 			isReviewCount = pstmt.executeUpdate();
 			
@@ -100,6 +104,80 @@ private ReviewDAO() {
 		
 		
 		return reviewList;
+	}
+	public ArrayList<OrderDTO> getOrderList(int mem_num) {
+		
+		System.out.println("ReviewDAO - getOrderList");
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<OrderDTO> orderList = new ArrayList<OrderDTO>();
+		
+		try {
+			String sql = "select * from orders where mem_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, mem_num);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				OrderDTO orderDTO = new OrderDTO();
+				
+				orderDTO.setOrder_num(rs.getInt("order_num"));
+				orderDTO.setMem_num(rs.getInt("mem_num"));
+				orderDTO.setOrder_info(rs.getString("order_info"));
+				orderDTO.setTable_num(rs.getInt("table_num"));
+				orderDTO.setOrder_datetime(rs.getTimestamp("order_datetime"));
+				orderDTO.setOrder_confirm(rs.getInt("order_confirm"));
+				
+				orderList.add(orderDTO);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return orderList;
+	}
+	public ProductBean getProduct(int item_num) {
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ProductBean productBean = new ProductBean();
+		System.out.println(item_num);
+		
+		try {
+			String sql = "select * from product where item_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, item_num);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				
+				productBean.setItem_num(rs.getInt("item_num"));
+				productBean.setItem_name(rs.getString("item_name"));
+				productBean.setItem_price(rs.getInt("item_price"));
+				productBean.setItem_origin(rs.getString("item_origin"));
+				productBean.setItem_calorie(rs.getInt("item_calorie"));
+				productBean.setItem_info(rs.getString("item_info"));
+				productBean.setItem_category(rs.getString("item_category"));
+				productBean.setItem_allergie(rs.getString("item_allergie"));
+				productBean.setItem_img(rs.getString("item_img"));
+				
+				System.out.println(rs.getString("item_img"));
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return productBean;
 	}
 	
 }

@@ -7,7 +7,7 @@ import review.dao.ReviewDAO;
 
 public class ReviewWriteProService {
 
-	public boolean insertReview(int item_num, int review_rating, String review_comment) {
+	public boolean insertReview(int mem_num, int item_num, int review_rating, String review_comment) {
 		System.out.println("ReviewWriteProService - insertReview");
 		
 		boolean isReviewSuccess = false;
@@ -17,7 +17,7 @@ public class ReviewWriteProService {
 		
 		rda.setConnection(con);
 		
-		int isReviewCount = rda.insertReview(item_num, review_rating, review_comment);
+		int isReviewCount = rda.insertReview(mem_num, item_num, review_rating, review_comment);
 		
 		if(isReviewCount > 0) {
 			isReviewSuccess = true;

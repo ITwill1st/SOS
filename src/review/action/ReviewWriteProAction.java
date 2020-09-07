@@ -17,37 +17,50 @@ public class ReviewWriteProAction implements Action{
 		System.out.println("ReviewWriteProAction - execute");
 		ActionForward forward = null;
 		
+		int mem_num = Integer.parseInt(request.getParameter("mem_num"));
 		int review_count = Integer.parseInt(request.getParameter("review_count"));
 		
 		for(int i = 0 ; i < review_count ; i++) {
 			
+			String review_comment = request.getParameter("review_comment_"+i);
 			int item_num = Integer.parseInt(request.getParameter("item_num_"+i));
-			int review_rating = Integer.parseInt(request.getParameter("review_rating_"+item_num));
-			String review_comment = request.getParameter("review_comment_"+item_num);
+			int review_rating = 0;
 			
-			System.out.println(item_num + review_rating + review_comment);
-			
-			ReviewWriteProService service = new ReviewWriteProService();
-			
-			boolean isReviewSucess = service.insertReview(item_num, review_rating, review_comment);
-			
-			if(!isReviewSucess) {
-				response.setContentType("text/html;charset=UTF-8");
-				PrintWriter out = response.getWriter();
-				out.println("<script>");
-				out.println("alert('리뷰 등록 실패 !')");
-				out.println("history.back()");
-				out.println("</script>");
-			} else {
-				response.setContentType("text/html;charset=UTF-8");
-				PrintWriter out = response.getWriter();
-				out.println("<script>");
-				out.println("alert('리뷰 등록 성공 !')");
-				out.println("</script>");
+			if(request.getParameter("review_rating_"+i) != null) {
+				review_rating = Integer.parseInt(request.getParameter("review_rating_"+i));
 			}
+			
+			
+			
+			if(review_rating != 0) {
+				
+				System.out.println(item_num + review_rating + review_comment);
+				
+				ReviewWriteProService service = new ReviewWriteProService();
+				
+				boolean isReviewSucess = service.insertReview(mem_num, item_num, review_rating, review_comment);
+				
+				if(!isReviewSucess) {
+					response.setContentType("text/html;charset=UTF-8");
+					PrintWriter out = response.getWriter();
+					out.println("<script>");
+					out.println("alert('리뷰 등록 실패 !')");
+					out.println("history.back()");
+					out.println("</script>");
+				} else {
+					response.setContentType("text/html;charset=UTF-8");
+					PrintWriter out = response.getWriter();
+					out.println("<script>");
+					out.println("alert('리뷰 등록 성공 !')");
+					out.println("</script>");
+					
+				}
+			}
+			
 		}
 		
 		forward = new ActionForward();
+		
 		forward.setPath("index.jsp");
 		forward.setRedirect(true);
 		
