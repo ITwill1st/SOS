@@ -129,6 +129,9 @@ public class ProductDAO {
 		} catch (SQLException e) {
 			System.out.println("ProductDAO - selectProductList() 에러!");
 			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
 		}
 		return productList;
 	}
@@ -181,6 +184,9 @@ public class ProductDAO {
 		} catch (SQLException e) {
 			System.out.println("ProductDAO - selectProduct() 실패!");
 			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
 		}
 		return product;
 		
@@ -211,6 +217,8 @@ public class ProductDAO {
 		} catch (SQLException e) {
 			System.out.println("ProductDAO - updateProduct() 오류!");
 			e.printStackTrace();
+		}finally {
+			close(pstmt);
 		}
 		
 		return updateCount;

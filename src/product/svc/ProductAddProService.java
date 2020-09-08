@@ -24,6 +24,8 @@ public class ProductAddProService {
 			rollback(con);
 		}
 		
+		close(con);
+		
 		return isAddSuccess;
 	}
 
