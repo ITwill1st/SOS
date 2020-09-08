@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import review.svc.ReviewCheckUpdateService;
 import review.svc.ReviewWriteProService;
 import vo.ActionForward;
 
@@ -14,11 +15,11 @@ public class ReviewWriteProAction implements Action{
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		System.out.println("ReviewWriteProAction - execute");
 		ActionForward forward = null;
-		
 		int mem_num = Integer.parseInt(request.getParameter("mem_num"));
 		int review_count = Integer.parseInt(request.getParameter("review_count"));
+		
+		ReviewWriteProService service = new ReviewWriteProService();
 		
 		for(int i = 0 ; i < review_count ; i++) {
 			
@@ -29,16 +30,12 @@ public class ReviewWriteProAction implements Action{
 			if(request.getParameter("review_rating_"+i) != null) {
 				review_rating = Integer.parseInt(request.getParameter("review_rating_"+i));
 			}
-			
-			
-			
+					
 			if(review_rating != 0) {
-				
-				System.out.println(item_num + review_rating + review_comment);
-				
-				ReviewWriteProService service = new ReviewWriteProService();
-				
+								
+				ReviewCheckUpdateService checkUpdateService = new ReviewCheckUpdateService();
 				boolean isReviewSucess = service.insertReview(mem_num, item_num, review_rating, review_comment);
+				checkUpdateService.reviewCheckUpdate(mem_num);
 				
 				if(!isReviewSucess) {
 					response.setContentType("text/html;charset=UTF-8");
@@ -59,8 +56,7 @@ public class ReviewWriteProAction implements Action{
 			
 		}
 		
-		forward = new ActionForward();
-		
+		forward = new ActionForward();	
 		forward.setPath("index.jsp");
 		forward.setRedirect(true);
 		

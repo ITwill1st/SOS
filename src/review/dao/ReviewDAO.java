@@ -65,8 +65,6 @@ private ReviewDAO() {
 	}
 	
 	public ArrayList<ReviewDTO> getReview(int item_num) {
-		
-		System.out.println("ReviewDAO - getReview");
 
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -106,8 +104,6 @@ private ReviewDAO() {
 		return reviewList;
 	}
 	public ArrayList<OrderDTO> getOrderList(int mem_num) {
-		
-		System.out.println("ReviewDAO - getOrderList");
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -178,6 +174,31 @@ private ReviewDAO() {
 		}
 		
 		return productBean;
+	}
+	
+	public int reviewCheckerUpdate(int order_num, String order_info_toString) {
+		
+		PreparedStatement pstmt = null;
+		System.out.println("reviewCheckerUpdate");
+		System.out.println(order_num);
+		System.out.println(order_info_toString);
+		int a = 0;
+		try {
+			
+			String sql = "UPDATE orders SET order_info=? WHERE order_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, order_info_toString);
+			pstmt.setInt(2, order_num);
+			a = pstmt.executeUpdate();
+			System.out.println(a);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return a;
+		
 	}
 	
 }

@@ -8,8 +8,7 @@ import review.dao.ReviewDAO;
 public class ReviewWriteProService {
 
 	public boolean insertReview(int mem_num, int item_num, int review_rating, String review_comment) {
-		System.out.println("ReviewWriteProService - insertReview");
-		
+
 		boolean isReviewSuccess = false;
 		ReviewDAO rda = ReviewDAO.getInstance();
 		
