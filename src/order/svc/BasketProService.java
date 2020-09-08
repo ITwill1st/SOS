@@ -47,6 +47,7 @@ public class BasketProService {
 			rollback(con);
 		}
 		
+		close(con);
 		
 		return basketSuccess;
 	}
@@ -88,6 +89,7 @@ public class BasketProService {
 		// 담겨져있는 basketList 담아오기 
 		basketList = orderDAO.selectBasketList(mem_num);
 
+		close(con);
 		
 		return basketList;
 	}
