@@ -15,3 +15,5 @@ select * from member;
 
 insert into reservation values(1,0,'2',1,'ddd@ddd.com');
 >>>>>>> branch 'master' of https://github.com/ITwill1st/SOS.git
+
+select * from product;

@@ -15,7 +15,7 @@
 	<h1><a href="Join.me">Join</a></h1>
 	<h1><a href="MyInfo.me">MyInfo</a></h1>	
 	<h1><a href="MyOrderList.me">MyOrderList</a></h1>
-	<h1><a href="MyRsvList.me">MyRsvList</a></h1>
+	<h1><a href="MyRsvList.rsv">MyRsvList</a></h1>
 	<h1><a href="MyProfile.me">MyProfile</a></h1>
 	<h1><a href="TablesMain.tb">Tables</a></h1>
 	<h1><a href="ProductMGM.po">ProductMGM</a></h1>
