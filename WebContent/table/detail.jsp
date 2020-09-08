@@ -1,3 +1,4 @@
+<%@page import="java.util.Iterator"%>
 <%@page import="vo.ProductBean"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -10,14 +11,20 @@
 <title>table/detail.jsp</title>
 <link rel="stylesheet" href="table/style/table.css">
 <script src="js/jquery.js"></script>
-<script src="#"></script>
 </head>
 <body>
-<%
-//메뉴불러오기
-ArrayList<ProductBean> menu = (ArrayList<ProductBean>)request.getAttribute("menu"); 
+	<%
+		//메뉴불러오기
+	ArrayList<ProductBean> menu = (ArrayList<ProductBean>) request.getAttribute("menu");
 
-%>
+	String category = (String) request.getAttribute("category");
+
+	%>
+	
+<script type="text/javascript">
+var category = <%=category%>;
+</script>
+
 	<h1>table/detail.jsp</h1>
 	<h1><%=request.getAttribute("tableNo")%></h1>
 	<div class="content">
@@ -57,12 +64,17 @@ ArrayList<ProductBean> menu = (ArrayList<ProductBean>)request.getAttribute("menu
 				<tr>
 					<th>메뉴</th>
 				</tr>
-				<%for(ProductBean pb : menu){%>
-					<tr><td><%=pb.getItem_category() %>
-					<br><%=pb.getItem_name() %>
-					<br><%=pb.getItem_price() %></td></tr>
-				<%} %>
-				
+				<%
+					for (ProductBean pb : menu) {
+				%>
+				<tr>
+					<td><%=pb.getItem_category()%> <br><%=pb.getItem_name()%>
+						<br><%=pb.getItem_price()%></td>
+				</tr>
+				<%
+					}
+				%>
+
 			</table>
 		</div>
 
