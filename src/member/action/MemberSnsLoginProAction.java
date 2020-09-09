@@ -31,6 +31,12 @@ public class MemberSnsLoginProAction implements Action {
 		System.out.println(member_gender);
 		System.out.println(member_name);
 		System.out.println(member_passwd);
+		
+//		boolean gender = false;
+//		if(member_gender.equals("male")||member_gender.equals("M")) {
+//			gender = true;
+//		} 젠더 boolean 타입으로 바꾸고 회원 등급 추가
+		
 		MemberBean memberBean = new MemberBean();
 		memberBean.setMember_name(request.getParameter("member_name"));
 		memberBean.setMember_id(request.getParameter("member_id"));
@@ -40,6 +46,7 @@ public class MemberSnsLoginProAction implements Action {
 		memberBean.setMember_passwd(request.getParameter("member_passwd"));
 		MemberSnsLoginProService SnsProService=new MemberSnsLoginProService();
 		isSnsLoginsuccess=SnsProService.snsLogin(memberBean);
+		
 		
 		
 		if(isSnsLoginsuccess) {
