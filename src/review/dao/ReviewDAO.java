@@ -86,7 +86,7 @@ private ReviewDAO() {
 				rdt.setReview_datetime(rs.getTimestamp("review_datetime"));
 				rdt.setReview_re_comment(rs.getString("review_re_comment"));
 				rdt.setReview_re_checker(rs.getInt("review_re_checker"));
-				rdt.setMember_num(rs.getInt("member_num"));
+				rdt.setMem_num(rs.getInt("mem_num"));
 				
 				reviewList.add(rdt);
 				

@@ -1,12 +1,16 @@
 package order.action;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import order.svc.MenuDetailService;
+import review.svc.MenuDetailReviewListService;
 import vo.ActionForward;
 import vo.ProductBean;
+import vo.ReviewDTO;
 
 public class MenuDetailAction implements Action {
 
@@ -24,7 +28,9 @@ public class MenuDetailAction implements Action {
 		
 		// 선택한 Menu에 대한 상세정보를 가져오기 위한  MenuDetailService 호출
 		MenuDetailService service = new MenuDetailService();
+		MenuDetailReviewListService reviewService = new MenuDetailReviewListService();
 		ProductBean menu  = service.selectDetail(item_num);
+		ArrayList<ReviewDTO> reviewList = reviewService.getReview(item_num);
 
 		forward = new ActionForward();
 		forward.setPath("/order/detail.jsp");
@@ -33,6 +39,7 @@ public class MenuDetailAction implements Action {
 		request.setAttribute("menu", menu);
 		request.setAttribute("mem_num",mem_num);
 		request.setAttribute("table_num", table_num);
+		request.setAttribute("reviewList", reviewList);
 		
 		return forward;
 	}

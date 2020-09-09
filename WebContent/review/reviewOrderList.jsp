@@ -18,8 +18,10 @@ ArrayList<ProductBean> product_list = (ArrayList<ProductBean>) request.getAttrib
 <body>
 <div>
 <%
+if (product_list.size() != 0){
 for(int i = 0 ; i < product_list.size() ; i++){
 	ProductBean productBean = product_list.get(i);
+
 %>
 <form action="ReviewWritePro.re" method="post">
 <input type="hidden" value="<%=mem_num%>" name="mem_num">
@@ -34,8 +36,12 @@ for(int i = 0 ; i < product_list.size() ; i++){
 		<input type="radio" name="review_rating_<%=i%>" value="5">★★★★★</td></tr>
 <tr><td><textarea cols="80" rows="7" name="review_comment_<%=i%>"></textarea></td></tr>
 </table>
-<%
-}%>
+<%}
+} else {%>
+		<h2>등록할 리뷰가 없습니다.</h2>
+		<%
+	}
+%>
 <input type="submit" value="리뷰등록">
 </form>
 </div>
