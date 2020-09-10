@@ -18,11 +18,27 @@
 	ArrayList<ProductBean> menu = (ArrayList<ProductBean>) request.getAttribute("menu");
 
 	String category = (String) request.getAttribute("category");
-
 	%>
-	
-<script type="text/javascript">
+
+	<script type="text/javascript">
+	$( document ).ready(function() {
+//카테고리 배열
 var category = <%=category%>;
+
+for(var i=0; i< category.length; i++){
+	
+	$('.tableProductListTR').prepend("<td><button>"+category[i]+"</button></td>");
+	$('.tableProductList').append("<tr id="+category[i]+"></tr>")
+	
+	<%for(ProductBean pb : menu){%>
+	if(category[i] == '<%=pb.getItem_category()%>'){
+			$('#<%=pb.getItem_category()%>').append('<td><%=pb.getItem_name()%></td>');
+		}
+	<%}%>
+	
+	
+}
+	});
 </script>
 
 	<h1>table/detail.jsp</h1>
@@ -61,19 +77,8 @@ var category = <%=category%>;
 
 		<div class="right">
 			<table class="tableProductList">
-				<tr>
-					<th>메뉴</th>
-				</tr>
-				<%
-					for (ProductBean pb : menu) {
-				%>
-				<tr>
-					<td><%=pb.getItem_category()%> <br><%=pb.getItem_name()%>
-						<br><%=pb.getItem_price()%></td>
-				</tr>
-				<%
-					}
-				%>
+				<tr class="tableProductListTR"></tr>
+				
 
 			</table>
 		</div>

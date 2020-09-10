@@ -42,7 +42,7 @@ public class TableDetailViewAction implements Action {
 		
 		String category = makeJsonService.getCategoryJson(iteratorCategory);
 		
-		System.out.println(category);
+//		System.out.println(category);
 		
 		request.setAttribute("category", category);
 		request.setAttribute("menu", list);
