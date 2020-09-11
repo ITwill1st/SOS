@@ -36,7 +36,7 @@ int table_num = Integer.parseInt(request.getParameter("table_num"));
 </tr>
 <tr>
 	<td>메뉴 이미지</td>
-	<td><%=menu.getItem_img() %></td>
+	<td><img width="100" height="100" src="product/productUpload/<%=menu.getItem_img() %>"></td>
 </tr>
 <tr>
 	<td>메뉴 정보</td>

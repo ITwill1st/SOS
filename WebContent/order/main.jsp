@@ -41,7 +41,7 @@ int basketCount = (int)request.getAttribute("basketCount");
          <tr>
          	<td>메뉴 번호</td>
             <td><%=item.getItem_num() %></td> 
-            <td rowspan="4"><%=item.getItem_img() %></td>
+            <td rowspan="4"><img width="200" height="200" src="product/productUpload/<%=item.getItem_img() %>"></td>
  		 </tr>
  		 <tr>
  		 	<td>메뉴 이름</td>
@@ -50,11 +50,11 @@ int basketCount = (int)request.getAttribute("basketCount");
  		 </tr>
  		 <tr>
  		 	<td>메뉴 설명</td>
- 		 	<td>item_info : <%=item.getItem_info() %></td>
+ 		 	<td><%=item.getItem_info() %></td>
          </tr>
          <tr>
         	 <td>메뉴 가격</td>
-         	<td>item_price : <%=item.getItem_price() %></td>
+         	<td><%=item.getItem_price() %></td>
          </tr>
          <%} %>
       </table>
@@ -62,5 +62,6 @@ int basketCount = (int)request.getAttribute("basketCount");
 
 장바구니 수량 : <%=basketCount %> <br>
 <input type="button" value="장바구니 리스트" onclick="location.href='BasketList.or?mem_num=<%=mem_num %>&table_num=<%=table_num %>'">
+<input type="button" value="결제하기" onclick="location.href='Order.or?mem_num=<%=mem_num %>&table_num=<%=table_num %>'">
 </body>
 </html>

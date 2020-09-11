@@ -12,12 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 import action.Action;
 import order.action.BasketDeleteAction;
 import order.action.BasketListAction;
+import order.action.BasketPreOrder;
 import order.action.BasketProAction;
 import order.action.BasketQtyMinusAction;
 import order.action.BasketQtyPlusAction;
 import order.action.MenuDetailAction;
 import order.action.MenuListAction;
-import order.action.OrderBasketAction;
+import order.action.OrderProAction;
 import vo.ActionForward;
 
 @WebServlet("*.or")
@@ -107,9 +108,9 @@ public class OrderFrontController extends HttpServlet{
 				e.printStackTrace();
 			}
 				
-		} else if(command.equals("/OrderBasket.or")) {
-			// 장바구니 항목 주문하기 
-			action = new OrderBasketAction();
+		} else if(command.equals("/Order.or")) {
+			// 결제하기!
+			action = new OrderProAction();
 			
 			try {
 				forward = action.execute(request, response);
@@ -117,6 +118,16 @@ public class OrderFrontController extends HttpServlet{
 				e.printStackTrace();
 			}
 				
+		} else if(command.equals("/PreOrder.or")) {
+			// 장바구니 항목 -> Preorder에 insert
+			action = new BasketPreOrder();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
 		}
 		
 	

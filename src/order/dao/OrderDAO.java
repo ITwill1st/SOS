@@ -53,9 +53,13 @@ public class OrderDAO {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, basket.getMem_num());
 			rs = pstmt.executeQuery();
+			
 			if(rs.next()) {
+				
 				sql = "UPDATE basket set basket_info=? where mem_num=?";
-				pstmt.setInt(1, basket.getMem_num());
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, basket.getBasket_info());
+				pstmt.setInt(2, basket.getMem_num());
 				updateResult = pstmt.executeUpdate();
 				
 				//update구문이 실행되었으면 insert구문은 실행되지않고 
@@ -72,8 +76,6 @@ public class OrderDAO {
 				insertResult = pstmt.executeUpdate();
 			}
 			
-
-
 
 			System.out.println("orderDAO의 insertResult : " + insertResult);
 		} catch (SQLException e) {
@@ -211,6 +213,8 @@ public class OrderDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("OrderDAO - updateBasket() 메서드 " + e.getMessage());
+		} finally {
+			close(pstmt);
 		}
 
 		return updateBasket;
@@ -298,20 +302,22 @@ public class OrderDAO {
 			e.printStackTrace();
 			System.out.println("OrderDAO - insertOrder() 메서드 " + e.getMessage());
 		} finally {
+			close(rs);
 			close(pstmt);
+			
 		}
 
 		return insertResult;
 	}
 
-	// 주문후 장바구니 삭제를 위한 메서드
+	// 주문후 장바구니 초기화를 위한 메서드
 	public int deleteOrder(int mem_num) {
 
 		int deleteResult = 0;
 
 		try {
 
-			String sql = "DELETE FROM basket WHERE mem_num=?";
+			String sql = "DELETE FROM preorder WHERE mem_num=?";
 
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, mem_num);
@@ -328,5 +334,103 @@ public class OrderDAO {
 		return deleteResult;
 
 	}
+
+	
+	// 장바구니 항목 > PreOrder 테이블에 insert 
+	public int insertPreOrder(BasketBean basket) {
+		
+		int insertResult = 0;
+		
+		try {
+			
+			String sql = "INSERT INTO preorder VALUES(?,?,?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, basket.getMem_num());
+			pstmt.setString(2, basket.getBasket_info());
+			pstmt.setInt(3, basket.getTable_num());
+			
+			insertResult = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("OrderDAO - insertPreOrder() 메서드 " + e.getMessage());
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return insertResult;
+	}
+
+	
+	// 장바구니에 담긴 item_num이 담긴 itemNumList 전달하여 
+	// product table에 있는 해당 아이템 정보 가져오기 
+	public ArrayList<ProductBean> selectItemInfo(ArrayList<ProductBean> itemNumList) {
+		
+		ArrayList<ProductBean> itemInfo = new ArrayList<ProductBean>();
+		
+		// 장바구니에 있는 item_num이 담긴 itemNumList 
+		for (ProductBean p : itemNumList) {
+			
+			try {
+				
+				String sql ="SELECT * FROM product WHERE item_num=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, p.getItem_num());
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					
+					ProductBean p2 = new ProductBean();
+					
+					p2.setItem_num(rs.getInt("item_num"));
+					p2.setItem_name(rs.getString("item_name"));
+					p2.setItem_price(rs.getInt("item_price"));
+					p2.setItem_info(rs.getString("item_name"));
+					p2.setItem_info(rs.getString("item_img"));
+					
+					itemInfo.add(p2);
+					
+				}
+				
+			
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+				System.out.println("OrderDAO - selectItemInfo() 메서드 " + e.getMessage());
+			} finally {
+				close(rs);
+				close(pstmt);
+			}
+			
+		}
+		
+		return itemInfo;
+	}
+
+	public String selectPreorderInfo(int mem_num) {
+		String preorderInfo = "";
+		
+		try {
+			String sql = "SELECT * FROM preorder WHERE mem_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, mem_num);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				preorderInfo += rs.getString("basket_info");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("OrderDAO - selectPreorderInfo() 메서드 " + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return preorderInfo;
+	}
+
+	
 
 }

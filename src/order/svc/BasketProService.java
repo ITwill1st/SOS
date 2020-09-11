@@ -142,6 +142,45 @@ public class BasketProService {
 		return basketList;
 	}
 
+
+	// 장바구니 정보 >> preorder
+	public int basketPreOrder(BasketBean basket) {
+		
+		int insertResult=0;
+		
+		Connection con = getConnection();
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		orderDAO.setConnection(con);
+		
+		insertResult = orderDAO.insertPreOrder(basket);
+		
+		if (insertResult>0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return insertResult;
+	}
+
+
+	public String getPreOrder(int mem_num) {
+		
+		String preorderInfo = null;
+		
+		Connection con = getConnection();
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		orderDAO.setConnection(con);
+		
+		preorderInfo = orderDAO.selectPreorderInfo(mem_num);
+		
+		System.out.println(preorderInfo);
+		
+		return preorderInfo;
+	}
+
 	
 
 	

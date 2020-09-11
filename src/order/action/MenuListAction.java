@@ -25,20 +25,18 @@ public class MenuListAction implements Action {
 
 		ActionForward forward = null;
 		
-		// 장바구니 조회 및 생성 
+		// 메인화면 진입과 동시에 장바구니 조회 및 생성 
 		// mem_num에 따른 장바구니 조회하기 위한 basketProService 서비스 호출 
 		BasketProService bps = new BasketProService();
 		
-		// id를 넘겨주고 basket에 담긴 item 수량 받아오기 
+		// mem_num을 넘겨주고 basket에 담긴 item 수량 받아오기 
 		int basketCount = bps.getBasketCount(mem_num);
 		
-		
-		if(basketCount == 0) { 
-			// basket에 아무것도 안 담겨있을경우 장바구니 생성 
-			// 장바구니 생성을 위한 BasketCreateService 서비스 호출
+		if (basketCount<=0) {
+			
 			BasketCreateService bcs = new BasketCreateService();
 			
-			// 새로운 장바구니에 담길 변수 
+			// 처음으로 생성되는 장바구니에 담길 정보 
 			BasketBean basket= new BasketBean();
 			basket.setMem_num(mem_num);
 			basket.setBasket_info("");
@@ -56,8 +54,7 @@ public class MenuListAction implements Action {
 			
 		}
 		
-		
-		// 전체 메뉴 조회 
+		// 메인에 출력해줄 전체 메뉴 조회 
 		// 전체 메뉴 조회를 위한 MenuListService 서비스 호출 
 		MenuListService menuListService = new MenuListService();
 		

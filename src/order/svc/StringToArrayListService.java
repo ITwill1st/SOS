@@ -65,4 +65,34 @@ public class StringToArrayListService {
 		return dbBasketInfo;
 	}
 
+
+
+	// String을 arrayList로 
+	public ArrayList<ProductInfoBean> getArray(String str) {
+
+	ArrayList<ProductInfoBean> a = new ArrayList<ProductInfoBean>();
+
+	String[] basketInfo = str.split("/");
+
+	if (basketInfo.length >= 1) {
+
+		for (String info : basketInfo) {
+
+			ProductInfoBean pib = new ProductInfoBean();
+
+			String[] basketInfo2 = info.split(",");
+
+			pib.setItem_num(Integer.parseInt(basketInfo2[0]));
+			pib.setItem_qty(Integer.parseInt(basketInfo2[1]));
+			pib.setReview_ck(Integer.parseInt(basketInfo2[2]));
+
+			a.add(pib);
+
+		}
+
+	}
+
+	return a;
+}
+	
 }
