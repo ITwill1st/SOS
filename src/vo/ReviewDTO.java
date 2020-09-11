@@ -11,7 +11,7 @@ public class ReviewDTO {
 	Timestamp review_datetime;
 	String review_re_comment;
 	int review_re_checker;
-	int member_num;
+	int mem_num;
 	
 	public int getItem_num() {
 		return item_num;
@@ -55,12 +55,14 @@ public class ReviewDTO {
 	public void setReview_re_checker(int review_re_checker) {
 		this.review_re_checker = review_re_checker;
 	}
-	public int getMember_num() {
-		return member_num;
+	public int getMem_num() {
+		return mem_num;
 	}
-	public void setMember_num(int member_num) {
-		this.member_num = member_num;
+	public void setMem_num(int mem_num) {
+		this.mem_num = mem_num;
 	}
+
+	
 	
 	
 }

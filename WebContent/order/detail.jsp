@@ -1,3 +1,5 @@
+<%@page import="vo.ReviewDTO"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="vo.ProductBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -8,6 +10,7 @@ ProductBean menu = (ProductBean)request.getAttribute("menu");
 // mem_num, table_num
 int mem_num = Integer.parseInt(request.getParameter("mem_num"));
 int table_num = Integer.parseInt(request.getParameter("table_num"));
+ArrayList<ReviewDTO> reviewList = (ArrayList<ReviewDTO>)request.getAttribute("reviewList");
 %>
 
 <!DOCTYPE html>
@@ -54,5 +57,21 @@ int table_num = Integer.parseInt(request.getParameter("table_num"));
 수량 : <input type="number" min="1" id="item_qty" name="item_qty"><br>
 <input type="submit" value="장바구니에 담기">
 </form>
+<br><br><br>
+<hr>
+<h2>댓글</h2>
+
+<%
+for(int i = 0 ; i < reviewList.size() ; i++){
+	ReviewDTO rdt = reviewList.get(i);%>
+<table border="1" style="width: 366px; height: 70px; text-align: left;">
+	<tr><td><%=rdt.getMem_num()%></td><td>★ </td></tr>
+	<tr><td colspan="2"><%=rdt.getReview_comment()%></td></tr>
+</table>
+<br>
+<%
+}
+%>
+
 </body>
 </html>
