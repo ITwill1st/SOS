@@ -19,50 +19,26 @@ public class MemberLoginProAction implements Action {
 		ActionForward forward = null;
 		
 		MemberLoginProService memberLoginProService = new MemberLoginProService();
-		String member_id = request.getParameter("member_id");
-		String member_passwd = request.getParameter("member_passwd");
-		System.out.println(request.getParameter("member_id"));
-		System.out.println(request.getParameter("member_passwd"));
+		String mem_id = request.getParameter("mem_id");
+		String mem_passwd = request.getParameter("mem_passwd");
+		System.out.println(request.getParameter("mem_id"));
+		System.out.println(request.getParameter("mem_passwd"));
 		
-		int isLoginSuccess = memberLoginProService.loginMember(member_id, member_passwd); 
+		int isLoginSuccess = memberLoginProService.loginMember(mem_id, mem_passwd); 
 		
-//		if(isLoginSuccess == 0 || isLoginSuccess == -1) {
-//			String resultStr = "";
-//			if(isLoginSuccess == 0) {
-//				resultStr = "패스워드 틀림";
-//			}else if (isLoginSuccess == -1) {
-//				resultStr = "아이디 틀림";
-//			}
-//			
-//			response.setContentType("text/html;charset=UTF-8"); 
-//			PrintWriter out = response.getWriter();	
-//			out.println("<script>");	
-//			out.println("alert('"+resultStr+"')"); 
-//			out.println("history.back()");	
-//			out.println("</script>");
-//		}else {
-//			HttpSession session= request.getSession(); 
-////			session.setAttribute("id", request.getParameter("id"));
-//			session.setAttribute("email", request.getParameter("email"));
-//			forward = new ActionForward();
-//			forward.setRedirect(true);
-//			forward.setPath("Main.me");
-////			forward.setPath("./");  // 현재 프로젝트의 최상위 위치로 이동(index.jsp)
-//			}
 	
 		if(isLoginSuccess==1) {
 			HttpSession session= request.getSession(); 
-			session.setAttribute("member_id", request.getParameter("member_id"));
-//			request.setAttribute("id", id);
+			session.setAttribute("mem_id", request.getParameter("mem_id"));
 			MemberDAO dao = MemberDAO.getInstance();
-			MemberBean memberBean = new MemberBean();
-		    memberBean = dao.getUserInfo(member_id);
+			MemberBean mb = new MemberBean();
+		    mb = dao.getUserInfo(mem_id);
 		       
-		    // UserInfoForm.jsp에 회원정보를 전달하기 위해 request에 MemberBean을 세팅한다.
-		    session.setAttribute("memberInfo", memberBean);
-		    String member_phone = memberBean.getMember_phone();
-		    session.setAttribute("member_phone", memberBean.getMember_phone());
-		    System.out.println(member_phone);
+		    // 회원정보 전달용 session에 MemberBean 넣어 보냄 
+		    session.setAttribute("memberInfo", mb);
+		    String mem_phone = mb.getMem_phone();
+		    session.setAttribute("mem_phone", mb.getMem_phone());
+		    System.out.println(mem_phone);
 		    
 			
 			forward=new ActionForward();

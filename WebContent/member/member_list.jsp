@@ -22,17 +22,17 @@
 	
 	table {
 		margin: auto;
-		width: 800px;
+		width: 1500px;
 		border: 1px solid darkgray;
+		text-align: center;
 	}
-	
 	a {
 		text-decoration: none;
 	}
 
 	#tr_top {
 		background: orange;
-		width: 800px; 
+		width: 2200px; 
 		text-align: center;
 	}
 	
@@ -67,35 +67,41 @@
 		<table>
 			<tr id="tr_top">
 					<td width="150">
-					<a href="MemberList.me?orderTarget=member_idx&orderType=asc">▲</a>
+					<a href="MemberList.me?orderTarget=mem_idx&orderType=asc">▲</a>
 					번호
-					<a href="MemberList.me?orderTarget=member_idx&orderType=desc">▼</a>
+					<a href="MemberList.me?orderTarget=mem_idx&orderType=desc">▼</a>
 				</td>
-				<td width="150">
-					<a href="MemberList.me?orderTarget=member_name&orderType=asc">▲</a>
+				<td width="150">닉네임</td>
+				<td width="300">
+					<a href="MemberList.me?orderTarget=mem_name&orderType=asc">▲</a>
 					이름
-					<a href="MemberList.me?orderTarget=member_name&orderType=desc">▼</a>
+					<a href="MemberList.me?orderTarget=mem_name&orderType=desc">▼</a>
 				<td width="150">아이디</td>
 				<td width="150">패스워드</td>
 				<td width="250">이메일</td>
 				<td width="150">성별</td>
-				<td width="250">전화번호</td>
+				<td width="200">전화번호</td>
+				<td width="150">생년월일</td>
 				<td width="150">가입일</td>
+				<td width="150">등급</td>
 			</tr>
 			<!-- ArrayList<MemberBean> 객체가 null 이 아닐 때 반복문으로 회원 목록 출력 -->
 			<%
 			if(list != null) {
-				for(MemberBean member : list) {
+				for(MemberBean mb : list) {
 			%>
 				<tr>
-					<td><%=member.getMember_num() %></td>
-					<td><%=member.getMember_name() %></td>
-					<td><%=member.getMember_id() %></td>
-					<td><%=member.getMember_passwd() %></td>
-					<td><%=member.getMember_email() %></td>
-					<td><%=member.getMember_gender() %></td>
-					<td><%=member.getMember_phone() %></td>
-					<td><%=member.getMember_regDate() %></td>
+					<td><%=mb.getMem_num() %></td>
+					<td><%=mb.getMem_nickname() %>
+					<td><%=mb.getMem_name() %></td>
+					<td><%=mb.getMem_id() %></td>
+					<td><%=mb.getMem_passwd() %></td>
+					<td><%=mb.getMem_email() %></td>
+					<td><%=mb.isMem_gender() %></td>
+					<td><%=mb.getMem_phone() %></td>
+					<td><%=mb.getMem_birth() %></td>
+					<td><%=mb.getMem_regdate() %></td>
+					<td><%=mb.getMembercol() %></td>
 				</tr>		
 			<%	
 			}

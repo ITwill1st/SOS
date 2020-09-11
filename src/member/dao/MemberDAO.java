@@ -31,21 +31,23 @@ public class MemberDAO {
 
 	
 	// 회원가입 처리를 위한 insertMember() 메서드
-	public int insertMember(MemberBean memberBean) {
+	public int insertMember(MemberBean mb) {
 		int insertCount = 0;
 		
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql = "INSERT into member2 values(null,?,?,?,?,?,?,?,now())";
+			String sql = "INSERT into member values(null,?,?,?,?,?,?,?,?,now(),?)";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, memberBean.getMember_name());
-			pstmt.setString(2, memberBean.getMember_id());
-			pstmt.setString(3, memberBean.getMember_passwd());
-			pstmt.setString(4, memberBean.getMember_email());
-			pstmt.setString(5, memberBean.getMember_gender());
-			pstmt.setString(6, memberBean.getMember_phone());
-			pstmt.setString(7, memberBean.getMember_birth());
+			pstmt.setString(1, mb.getMem_nickname());
+			pstmt.setString(2, mb.getMem_name());
+			pstmt.setString(3, mb.getMem_id());
+			pstmt.setString(4, mb.getMem_passwd());
+			pstmt.setString(5, mb.getMem_email());
+			pstmt.setBoolean(6, mb.isMem_gender());
+			pstmt.setString(7, mb.getMem_phone());
+			pstmt.setString(8, mb.getMem_birth());
+			pstmt.setString(9, mb.getMembercol());
 			insertCount = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -56,27 +58,29 @@ public class MemberDAO {
 		
 		return insertCount;
 	}
-	public int snsLogin(MemberBean memberBean) {
+	public int snsLogin(MemberBean mb) {
 		int SnsLogincount=0;
 		PreparedStatement pstmt = null;
 		ResultSet rs=null;	
 		try {
-			String sql = "select * from member2 where member_id=?";
+			String sql = "select * from member where mem_id=?";
 			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, memberBean.getMember_id());
+			pstmt.setString(1, mb.getMem_id());
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				SnsLogincount=-1;
 			}else {
-				sql = "INSERT into member2 values(null,?,?,?,?,?,?,?,now())";
+				sql = "INSERT into member values(null,?,?,?,?,?,?,?,?,now(),?)";
 				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, memberBean.getMember_name());
-				pstmt.setString(2, memberBean.getMember_id());
-				pstmt.setString(3, memberBean.getMember_passwd());
-				pstmt.setString(4, memberBean.getMember_email());
-				pstmt.setString(5, memberBean.getMember_gender());
-				pstmt.setString(6, memberBean.getMember_phone());
-				pstmt.setString(7, memberBean.getMember_birth());
+				pstmt.setString(1, mb.getMem_nickname());
+				pstmt.setString(2, mb.getMem_name());
+				pstmt.setString(3, mb.getMem_id());
+				pstmt.setString(4, mb.getMem_passwd());
+				pstmt.setString(5, mb.getMem_email());
+				pstmt.setBoolean(6, mb.isMem_gender());
+				pstmt.setString(7, mb.getMem_phone());
+				pstmt.setString(8, mb.getMem_birth());
+				pstmt.setString(9, mb.getMembercol());
 				SnsLogincount = pstmt.executeUpdate();
 			}
 		} catch (SQLException e) {
@@ -92,23 +96,25 @@ public class MemberDAO {
 	}
 
 
-	public int dupCheckMember(String member_id) {
+	public int dupCheckMember(String mem_id) {
 		int check = 0;
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		try {
-			String sql = "select id from member2 where member_id=?";
+			String sql = "select mem_id from member where mem_id=?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, member_id);
+			pstmt.setString(1, mem_id);
 			
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
 				// 아이디 중복 체크 결과가 맞으면 0, 
-				if(member_id.equals(rs.getString("member_id"))) {
+				if(mem_id.equals(rs.getString("mem_id"))) {
 					check = 1;
+				}else {
+					check = 0;
 				}
 				
 			}
@@ -126,20 +132,20 @@ public class MemberDAO {
 	}
 
 
-	public int loginMember(String member_id, String member_passwd) {
+	public int loginMember(String mem_id, String mem_passwd) {
 		int idCheck = 0;
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		try {
-			String sql = "SELECT * FROM member2 WHERE member_id=?";
+			String sql = "SELECT * FROM member WHERE mem_id=?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, member_id);
+			pstmt.setString(1, mem_id);
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				if(rs.getString("member_passwd").equals(member_passwd)){
+				if(rs.getString("mem_passwd").equals(mem_passwd)){
 					idCheck = 1;
 				}else{
 					idCheck = -1;
@@ -171,21 +177,23 @@ public class MemberDAO {
 		
 		try {
 			// ORDER BY 절의 항목을 문자열 결합으로 생성
-			String sql = "select * from member2 order by " + orderTarget + " " + orderType;
+			String sql = "select * from member order by " + orderTarget + " " + orderType;
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
 				MemberBean mb = new MemberBean();
-				mb.setMember_num(rs.getInt("member_num"));	// rs에서 가져온 값을 memberBean 객체에 저장
-				mb.setMember_id(rs.getString("member_id"));
-				mb.setMember_name(rs.getString("member_name"));
-				mb.setMember_passwd(rs.getString("member_passwd"));
-				mb.setMember_email(rs.getString("member_email"));
-				mb.setMember_gender(rs.getString("member_gender"));
-				mb.setMember_phone(rs.getString("member_phone"));
-				mb.setMember_birth(rs.getString("member_birth"));
-				mb.setMember_regDate(rs.getDate("member_regDate"));
+				mb.setMem_num(rs.getInt("mem_num"));	// rs에서 가져온 값을 memberBean 객체에 저장
+				mb.setMem_nickname(rs.getString("mem_nickname"));
+				mb.setMem_id(rs.getString("mem_id"));
+				mb.setMem_name(rs.getString("mem_name"));
+				mb.setMem_passwd(rs.getString("mem_passwd"));
+				mb.setMem_email(rs.getString("mem_email"));
+				mb.setMem_gender(rs.getBoolean("mem_gender"));
+				mb.setMem_phone(rs.getString("mem_phone"));
+				mb.setMem_birth(rs.getString("mem_birth"));
+				mb.setMem_regdate(rs.getDate("mem_regdate"));
+				mb.setMembercol(rs.getString("membercol"));
 				// MemberBean 객체에 저장한 것을 list
 				list.add(mb);
 			}
@@ -211,21 +219,23 @@ public class MemberDAO {
 			ArrayList<MemberBean> list = new ArrayList<MemberBean>();
 			
 			try {
-				String sql = "select * from member2";
+				String sql = "select * from member";
 				pstmt = con.prepareStatement(sql);
 				rs = pstmt.executeQuery();
 				
 				while(rs.next()) {
 					MemberBean mb = new MemberBean();
-					mb.setMember_num(rs.getInt("member_num"));	// rs에서 가져온 값을 memberBean 객체에 저장
-					mb.setMember_id(rs.getString("member_id"));
-					mb.setMember_name(rs.getString("member_name"));
-					mb.setMember_passwd(rs.getString("member_passwd"));
-					mb.setMember_email(rs.getString("member_email"));
-					mb.setMember_gender(rs.getString("member_gender"));
-					mb.setMember_phone(rs.getString("member_phone"));
-					mb.setMember_birth(rs.getString("member_birth"));
-					mb.setMember_regDate(rs.getDate("member_regDate"));
+					mb.setMem_num(rs.getInt("mem_num"));	// rs에서 가져온 값을 memberBean 객체에 저장
+					mb.setMem_nickname(rs.getString("mem_nickname"));
+					mb.setMem_id(rs.getString("mem_id"));
+					mb.setMem_name(rs.getString("mem_name"));
+					mb.setMem_passwd(rs.getString("mem_passwd"));
+					mb.setMem_email(rs.getString("mem_email"));
+					mb.setMem_gender(rs.getBoolean("mem_gender"));
+					mb.setMem_phone(rs.getString("mem_phone"));
+					mb.setMem_birth(rs.getString("mem_birth"));
+					mb.setMem_regdate(rs.getDate("mem_regdate"));
+					mb.setMembercol(rs.getString("membercol"));
 					
 					// MemberBean 객체에 저장한 것을 list
 					list.add(mb);
@@ -245,7 +255,7 @@ public class MemberDAO {
 		}
 
 
-	public MemberBean getUserInfo(String member_id) {
+	public MemberBean getUserInfo(String mem_id) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		MemberBean mb = new MemberBean();
@@ -255,22 +265,25 @@ public class MemberDAO {
 			con=getConnection();
 			 //  sql    select  id에 해당하는 회원정보 가져오기
 			 // 3단계 연결정보를 이용해서 sql구문 만들고 실행할 객체생성 => PreparedStatement
-			 String sql="select * from member2 where member_id=?";
+			 String sql="select * from member where mem_id=?";
 			 pstmt=con.prepareStatement(sql);
-			 pstmt.setString(1, member_id);
+			 pstmt.setString(1, mem_id);
 			 // 4단계 실행 결과 => ResultSet rs  
 			 rs=pstmt.executeQuery();
 			 //  if rs에 처음위치에서 다음행으로 이동  데이터가 있으면  True
 			 //  출력 아이디 : 비밀번호 : 이름 : 가입날짜:
 			 if(rs.next()){
-				mb.setMember_num(rs.getInt("member_num"));	// rs에서 가져온 값을 memberBean 객체에 저장
-				mb.setMember_id(rs.getString("member_id"));
-				mb.setMember_name(rs.getString("member_name"));
-				mb.setMember_passwd(rs.getString("member_passwd"));
-				mb.setMember_gender(rs.getString("member_gender"));
-				mb.setMember_phone(rs.getString("member_phone"));
-				mb.setMember_birth(rs.getString("member_birth"));
-				mb.setMember_regDate(rs.getDate("member_regDate"));
+				mb.setMem_num(rs.getInt("mem_num"));	// rs에서 가져온 값을 memberBean 객체에 저장
+				mb.setMem_nickname(rs.getString("mem_nickname"));
+				mb.setMem_id(rs.getString("mem_id"));
+				mb.setMem_name(rs.getString("mem_name"));
+				mb.setMem_passwd(rs.getString("mem_passwd"));
+				mb.setMem_email(rs.getString("mem_email"));
+				mb.setMem_gender(rs.getBoolean("mem_gender"));;
+				mb.setMem_phone(rs.getString("mem_phone"));
+				mb.setMem_birth(rs.getString("mem_birth"));
+				mb.setMem_regdate(rs.getDate("mem_regdate"));
+				mb.setMembercol(rs.getString("membercol"));
 			 }
 //			 	
 		} catch (Exception e) {

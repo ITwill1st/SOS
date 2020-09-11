@@ -17,28 +17,26 @@ public class MemberJoinProAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
 		System.out.println("memberJoinPro.me");
-//		String name = request.getParameter("name");
-		String member_id = request.getParameter("member_id");
-//		String passwd = request.getParameter("passwd");
-//		String email = request.getParameter("email");
+		String mem_id = request.getParameter("mem_id");
+		boolean mem_gender = Boolean.parseBoolean(request.getParameter("mem_gender"));
 		
-		MemberBean memberBean = new MemberBean();
-//		memberBean.setName(request.getParameter("name"));
-		memberBean.setMember_name(request.getParameter("member_name"));
-		memberBean.setMember_id(request.getParameter("member_id"));
-		memberBean.setMember_passwd(request.getParameter("member_passwd"));
-		memberBean.setMember_email(request.getParameter("member_email"));
-		memberBean.setMember_gender(request.getParameter("member_gender"));
-		memberBean.setMember_phone(request.getParameter("member_phone"));
-		memberBean.setMember_birth(request.getParameter("member_birth"));
-//		memberBean.setAllergy(request.getParameterValues("allergy"));
-//		System.out.println(name+", "+id+", "+passwd+", "+email);
+		MemberBean mb = new MemberBean();
+		mb.setMem_nickname(request.getParameter("mem_nickname"));
+		mb.setMem_name(request.getParameter("mem_name"));
+		mb.setMem_id(request.getParameter("mem_id"));
+		mb.setMem_passwd(request.getParameter("mem_passwd"));
+		mb.setMem_email(request.getParameter("mem_email"));
+		mb.setMem_gender(Boolean.parseBoolean(request.getParameter("mem_gender")));
+		mb.setMem_phone(request.getParameter("mem_phone"));
+		mb.setMem_birth(request.getParameter("mem_birth"));
+		mb.setMembercol(request.getParameter("membercol"));
+		
 		
 		// MemberJoinProService 클래스의 DupCheckmember() 메서드를 호출하여
 		// 회원 가입 전 중복 여부 확인 요청 작업 수행
 		// => 파라미터 : MemberBean, 리턴타입 : int
 		MemberJoinProService memberJoinProService = new MemberJoinProService();
-		int check = memberJoinProService.dupCheckMember(member_id);
+		int check = memberJoinProService.dupCheckMember(mem_id);
 		
 		// 중복 체크 결과가 0이면 '아이디 중복' , -1 이면 " 이메일 중복" 메세지를 
 		// 문자열에(resultStr)에 저장 후 자바스크립트를 사용하여
@@ -57,7 +55,7 @@ public class MemberJoinProAction implements Action {
 			out.println("history.back()");	
 			out.println("</script>");
 		}else {			
-			boolean isJoinSuccess = memberJoinProService.joinMember(memberBean);
+			boolean isJoinSuccess = memberJoinProService.joinMember(mb);
 			if(!isJoinSuccess) {
 				response.setContentType("text/html;charset=UTF-8"); 
 				PrintWriter out = response.getWriter();	
@@ -67,12 +65,12 @@ public class MemberJoinProAction implements Action {
 				out.println("</script>");
 			}else {
 				HttpSession session= request.getSession(); 
-				session.setAttribute("member_email", request.getParameter("member_email"));
-				session.setAttribute("member_name", request.getParameter("member_name"));
-				session.setAttribute("member_id", request.getParameter("member_id"));
-				session.setAttribute("member_num", request.getParameter("member_num"));
-				session.setAttribute("member_passwd", request.getParameter("member_passwd"));
-				session.setAttribute("member_phone", request.getParameter("member_phone"));
+				session.setAttribute("mem_email", request.getParameter("mem_email"));
+				session.setAttribute("mem_name", request.getParameter("mem_name"));
+				session.setAttribute("mem_id", request.getParameter("mem_id"));
+				session.setAttribute("mem_num", request.getParameter("mem_num"));
+				session.setAttribute("mem_passwd", request.getParameter("mem_passwd"));
+				session.setAttribute("mem_phone", request.getParameter("mem_phone"));
 				forward = new ActionForward();
 				forward.setRedirect(true);
 				forward.setPath("Main.me");

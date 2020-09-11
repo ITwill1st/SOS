@@ -35,7 +35,7 @@
 jQuery(document).ready(function () {
 	$('#btn').click(function() {
 		var regex = /^[A-Za-z][A-Za-z0-9]{3,11}$/;
-		var id=$('#member_id').val();
+		var id=$('#mem_id').val();
 		if(regex.exec(id)) { 
 			//중복 체크 실행
 			$.ajax('member/idCheck.jsp',{
@@ -52,73 +52,73 @@ jQuery(document).ready(function () {
 	})
 });
 	
-// 	function checkPasswd(member_passwd) {
-// 		// 8 ~ 16자리 패스워드 영문,숫자,특수문자 조합
-// 		// 1. 정규표현식 지정
-// 		// 1) 길이 체크 : 8 ~ 16자리. 영문 대문자&소문자&숫자&특수문자(!@#$%^_)
-// 		var lengthRegex = /^[A-Za-z0-9!@#$%^_]{8,16}$/;
-// 		// 2) 소문자 체크
-// 		var lowerCaseRegex = /[a-z]/;
-// 		// 3) 숫자 체크
-// 		var digitRegex = /[0-9]/;
-// 		// 4) 특수문자 체크
-// 		var specCharRegex = /[!@#$%^_]/;
+	function checkPasswd(mem_passwd) {
+		// 8 ~ 16자리 패스워드 영문,숫자,특수문자 조합
+		// 1. 정규표현식 지정
+		// 1) 길이 체크 : 8 ~ 16자리. 영문 대문자&소문자&숫자&특수문자(!@#$%^_)
+		var lengthRegex = /^[A-Za-z0-9!@#$%^_]{8,16}$/;
+		// 2) 소문자 체크
+		var lowerCaseRegex = /[a-z]/;
+		// 3) 숫자 체크
+		var digitRegex = /[0-9]/;
+		// 4) 특수문자 체크
+		var specCharRegex = /[!@#$%^_]/;
 		
-// 		// 2. 체크 후 메세지 표시할 공간의 태그 id 값 가져오기
-// 		var element = document.getElementById('checkPasswdResult'); // checkPasswdResult 값을 ID 로 갖는 태그 찾기
+		// 2. 체크 후 메세지 표시할 공간의 태그 id 값 가져오기
+		var element = document.getElementById('checkPasswdResult'); // checkPasswdResult 값을 ID 로 갖는 태그 찾기
 		
-//  		// 3. 정규표현식을 통한 유효성 검사 수행(정규표현식 저장 변수명.exec() 를 사용)
-//  		// 함수 호출 시 전달받은 파라미터(id) 의 값을 정규표현식으로 검사
-// 		// 길이, 대문자, 소문자, 숫자, 특수문자 체크를 모두 통과했을 경우
-// 		if(passwd.value!=""){
-// 			if(lengthRegex.exec(passwd.value) && lowerCaseRegex.exec(passwd.value) && digitRegex.exec(passwd.value) &&
-// 					specCharRegex.exec(passwd.value)) {
-// //  			alert('유효성 검사 통과');	
-// 			// 지정된 태그 내에 메세지 표시
-// 				element.innerHTML = "적합한 패스워드";
-// 			} else { // 유효성 검사를 통과하지 못했을 경우
-// // 			alert('유효성 검사 탈락');
-// 				element.innerHTML = "적합하지 않은 패스워드";
-// 			}
-// 		}else{
-// 				element.innerHTML = "";
-// 		}		
-// 	}
+ 		// 3. 정규표현식을 통한 유효성 검사 수행(정규표현식 저장 변수명.exec() 를 사용)
+ 		// 함수 호출 시 전달받은 파라미터(id) 의 값을 정규표현식으로 검사
+		// 길이, 대문자, 소문자, 숫자, 특수문자 체크를 모두 통과했을 경우
+		if(passwd.value!=""){
+			if(lengthRegex.exec(passwd.value) && lowerCaseRegex.exec(passwd.value) && digitRegex.exec(passwd.value) &&
+					specCharRegex.exec(passwd.value)) {
+//  			alert('유효성 검사 통과');	
+			// 지정된 태그 내에 메세지 표시
+				element.innerHTML = "적합한 패스워드";
+			} else { // 유효성 검사를 통과하지 못했을 경우
+// 			alert('유효성 검사 탈락');
+				element.innerHTML = "적합하지 않은 패스워드";
+			}
+		}else{
+				element.innerHTML = "";
+		}		
+	}
 	
 	
  $(document).ready(function() {
 		
 		$('#join').submit(function() {
-	 		if($('#member_name').val()==""){
+	 		if($('#mem_name').val()==""){
 	 			alert("이름을 입력하세요");
-	 			$('#member_name').focus();
+	 			$('#mem_name').focus();
 	 			return false;
 	 		}
-	 		if($('#member_id').val()==""){
+	 		if($('#mem_id').val()==""){
 	 			alert("아이디를 입력하세요");
-	 			$('#member_id').focus();
+	 			$('#mem_id').focus();
 	 			return false;
 	 		}
 			
-			if($('#member_passwd').val()==""){
+			if($('#mem_passwd').val()==""){
 				alert("비밀번호를 입력하세요");
-				$('#member_passwd').focus();
+				$('#mem_passwd').focus();
 				return false;
 	 		}
 	 		
-	 		if($('#member_email').val()==""){
+	 		if($('#mem_email').val()==""){
 	 			alert("이메일을 입력하세요");
-	 			$('#member_email').focus();
+	 			$('#mem_email').focus();
 	 			return false;
 	 		}
-	 		if($('#member_phone').val()==""){
+	 		if($('#mem_phone').val()==""){
 	 			alert("번호를 입력하세요");
-	 			$('#member_phone').focus();
+	 			$('#mem_phone').focus();
 	 			return false;
 	 		}
-	 		if($('#member_birth').val()==""){
+	 		if($('#mem_birth').val()==""){
 	 			alert("생년월일을 입력하세요");
-	 			$('#member_birth').focus();
+	 			$('#mem_birth').focus();
 	 			return false;
 	 		}
 		});
@@ -134,7 +134,17 @@ jQuery(document).ready(function () {
 					<tr>
 						<td>이름</td>
 						<td>
-							<input type="text" name="member_name" id="member_name">
+							<input type="text" name="mem_name" id="mem_name">
+						</td>
+					</tr>
+					<tr height="35px">
+						<td></td>
+					</tr>
+					<tr>
+					<tr>
+						<td>닉네임</td>
+						<td>
+							<input type="text" name="mem_nickname" id="mem_nickname">
 						</td>
 					</tr>
 					<tr height="35px">
@@ -143,7 +153,7 @@ jQuery(document).ready(function () {
 					<tr>
 						<td>아이디</td>
 						<td>
-							<input type="text" name="member_id" id="member_id"
+							<input type="text" name="mem_id" id="mem_id"
 								placeholder="4~12자리 영문,숫자 조합">
 						</td>
 						<td><input type="button" value="중복체크" id="btn">	</td>
@@ -154,7 +164,7 @@ jQuery(document).ready(function () {
 					<tr>
 						<td>패스워드</td>
 						<td>	
-							<input type="password" name="member_passwd" id="member_passwd"
+							<input type="password" name="mem_passwd" id="mem_passwd"
 								placeholder="8~16자리 영문,숫자,특수문자 조합" onkeyup="checkPasswd(this)">
 						</td>
 					</tr>
@@ -165,7 +175,7 @@ jQuery(document).ready(function () {
 					<tr>
 						<td>패스워드 재확인</td>
 						<td>
-							<input type="password" name="member_passwd2"  
+							<input type="password" name="mem_passwd2"  
 								placeholder="비번 재확인">
 						</td>
 					</tr>
@@ -175,7 +185,7 @@ jQuery(document).ready(function () {
 					</tr>
 					<tr>
 						<td>E-Mail</td>
-						<td><input type="email" name="member_email" id="member_email"></td>
+						<td><input type="email" name="mem_email" id="mem_email"></td>
 					</tr>
 					<tr height="25px">
 						<td></td>
@@ -184,8 +194,8 @@ jQuery(document).ready(function () {
 					<tr>
 						<td>성별</td>
 						<td>
-							<input type="radio" name="member_gender" value="male">남자
-							<input type="radio" name="member_gender" value="female">여자
+							<input type="radio" name="mem_gender" value="true" checked="checked">남자
+							<input type="radio" name="mem_gender" value="false">여자
 						</td>
 					</tr>
 					<tr height="25px">
@@ -194,7 +204,7 @@ jQuery(document).ready(function () {
 					</tr>
 					<tr>
 						<td>전화번호</td>
-						<td><input type="text" name="member_phone" id="member_phone"></td>
+						<td><input type="text" name="mem_phone" id="mem_phone"></td>
 					</tr>
 					<tr height="25px">
 						<td></td>
@@ -202,7 +212,15 @@ jQuery(document).ready(function () {
 					</tr>
 					<tr>
 						<td>생년월일</td>
-						<td><input type="text" name="member_birth" id="member_birth"></td>
+						<td><input type="text" name="mem_birth" id="mem_birth"></td>
+					</tr>
+					<tr height="25px">
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td>등급</td>
+						<td><input type="text" name="membercol" id="membercol"></td>
 					</tr>
 					<tr height="25px">
 						<td></td>

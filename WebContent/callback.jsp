@@ -37,7 +37,7 @@
 				var birth = naverLogin.user.getBirthday();
 				var id = naverLogin.user.getId();
             	var gender = naverLogin.user.getGender();
-               	location.href='SnsLogin.me?member_id='+id+"&member_email="+email+"&member_birth="+birth+"&member_name="+name+"&member_gender="+gender;
+               	location.href='SnsLogin.me?mem_id='+id+"&mem_email="+email+"&mem_birth="+birth+"&mem_name="+name+"&mem_gender="+gender;
                	
                	console(id);
                	alert(email);

@@ -54,12 +54,12 @@ table {
 			<fieldset>
 				<table>
 					<tr>
-						<td class="td_left"><label for="member_id">아이디</label></td>
-						<td class="td_right"><input type="text" name="member_id"></td>
+						<td class="td_left"><label for="mem_id">아이디</label></td>
+						<td class="td_right"><input type="text" name="mem_id"></td>
 					</tr>
 					<tr>
-						<td class="td_left"><label for="member_passwd">패스워드</label></td>
-						<td class="td_right"><input type="password" name="member_passwd">
+						<td class="td_left"><label for="mem_passwd">패스워드</label></td>
+						<td class="td_right"><input type="password" name="mem_passwd">
 						</td>
 					</tr>
 				</table>
@@ -91,10 +91,17 @@ table {
     						var birth = res.kakao_account.birthday;  // 유저의 생년 월일
     						var gender = res.kakao_account.gender;	// 유저의 성별
     						var name = res.properties.nickname;	// 유저의 닉네임
-   							var passwd = null;
-   							location.href='SnsLogin.me?member_id='+id+"&member_email="+email+"&member_birth="+birth+"&member_gender="+gender+"&member_name="+name+"&member_passwd="+passwd;
+   							location.href='SnsLogin.me?mem_id='+id+"&mem_email="+email+"&mem_birth="+birth+"&mem_gender="+gender+"&mem_name="+name;
    							},
-
+   							
+   							var xhr = new XMLHttpRequest();
+   							xhr.onload = function() { //응답이 로드되면
+   							    if(xhr.status===200){ //서버 응답이 정상이면
+   							        document.getElementById('content').innerHTML = xhr.responseText;
+   							    }
+   							};
+   							xhr.open('GET', 'data/data.html', true); //요청 준비 - 방법/처리할페이지경로/비동기로할거
+   							xhr.send(null);
 	
     					fail: function(error) {
     						alert(JSON.stringify(error));

@@ -8,7 +8,7 @@ import static db.JdbcUtil.*;
 import member.dao.MemberDAO;
 import vo.MemberBean;
 public class MemberSnsLoginProService {
-	public boolean snsLogin(MemberBean memberBean) {
+	public boolean snsLogin(MemberBean mb) {
 		System.out.println("MemberSnsLoginProService");
 		boolean isSnsLogsuccess=false;
 		int SnsLogincount=0;
@@ -18,7 +18,7 @@ public class MemberSnsLoginProService {
 		MemberDAO memberDAO = MemberDAO.getInstance();		
 		memberDAO.setConnection(con);
 		
-		SnsLogincount=memberDAO.snsLogin(memberBean);
+		SnsLogincount=memberDAO.snsLogin(mb);
 		
 		if(SnsLogincount==1 || SnsLogincount==-1) {
 			isSnsLogsuccess=true;

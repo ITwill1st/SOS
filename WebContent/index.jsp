@@ -18,30 +18,30 @@
 </style>
 <%
 	request.setCharacterEncoding("UTF-8");
-	String member_id = (String)session.getAttribute("member_id");
-	String member_email = (String)session.getAttribute("member_email");
-	String member_name = (String)session.getAttribute("member_name");
-	String member_passwd = (String)session.getAttribute("member_passwd");
-	String member_phone = (String)session.getAttribute("member_phone");
-	MemberBean memberBean=(MemberBean)session.getAttribute("memberInfo");
+	String mem_id = (String)session.getAttribute("mem_id");
+	String mem_email = (String)session.getAttribute("mem_email");
+	String mem_name = (String)session.getAttribute("mem_name");
+	String mem_phone = (String)session.getAttribute("mem_phone");
+	MemberBean mb=(MemberBean)session.getAttribute("memberInfo");
+	
 %>
 </head>
 <body>
 	<header>
 		
 		
-		<%if(member_id == null){
+		<%if(mem_id == null){
 			%> 
 			<a href="MemberLoginForm.me">로그인</a>&nbsp; || &nbsp;<a href="MemberJoinForm.me">회원가입</a>
 			<%
 		}else{%>
 		<%
- 			if(member_phone == null){
+ 			if(mem_phone == null){
  				%> 
-				<a href=""><%=member_email %>님</a>&nbsp; || &nbsp;<a href="MemberList.me">관리자 페이지</a>&nbsp; || &nbsp;<a href="MemberLogout.me">로그아웃</a>
+				<a href="MyInfo.me"><%=mem_email %>님</a>&nbsp; || &nbsp;<a href="MemberList.me">관리자 페이지</a>&nbsp; || &nbsp;<a href="MemberLogout.me">로그아웃</a>
 			<%}else{
 				%> 
-				<a href=""><%=member_id %>님</a>&nbsp; || &nbsp;<a href="MemberList.me">관리자 페이지</a>&nbsp; || &nbsp;<a href="MemberLogout.me">로그아웃</a>
+				<a href="MyInfo.me"><%=mem_id %>님</a>&nbsp; || &nbsp;<a href="MemberList.me">관리자 페이지</a>&nbsp; || &nbsp;<a href="MemberLogout.me">로그아웃</a>
 			<%}	
 	 	}%> 
 	 	

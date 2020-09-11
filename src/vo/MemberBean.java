@@ -3,70 +3,86 @@ package vo;
 import java.sql.Date;
 
 public class MemberBean {
-	private int member_num;
-	private String member_name;
-	private String member_id;
-	private String member_passwd;
-	private String member_email;
-	private String member_gender;
-	private String member_phone;
-	private String member_birth;
-	private Date member_regDate;
+	private int mem_num;
+	private String mem_nickname;
+	private String mem_name;
+	private String mem_id;
+	private String mem_passwd;
+	private String mem_email;
+	private boolean mem_gender;
+	private String mem_phone;
+	private String mem_birth;
+	private Date mem_regdate;
+	private String membercol;
 	
-	public int getMember_num() {
-		return member_num;
+	
+	public String getMem_nickname() {
+		return mem_nickname;
 	}
-	public void setMember_num(int member_num) {
-		this.member_num = member_num;
+	public void setMem_nickname(String mem_nickname) {
+		this.mem_nickname = mem_nickname;
 	}
-	public String getMember_name() {
-		return member_name;
+	public int getMem_num() {
+		return mem_num;
 	}
-	public void setMember_name(String member_name) {
-		this.member_name = member_name;
+	public void setMem_num(int mem_num) {
+		this.mem_num = mem_num;
 	}
-	public String getMember_id() {
-		return member_id;
+	public String getMem_name() {
+		return mem_name;
 	}
-	public void setMember_id(String member_id) {
-		this.member_id = member_id;
+	public void setMem_name(String mem_name) {
+		this.mem_name = mem_name;
 	}
-	public String getMember_passwd() {
-		return member_passwd;
+	public String getMem_id() {
+		return mem_id;
 	}
-	public void setMember_passwd(String member_passwd) {
-		this.member_passwd = member_passwd;
+	public void setMem_id(String mem_id) {
+		this.mem_id = mem_id;
 	}
-	public String getMember_email() {
-		return member_email;
+	public String getMem_passwd() {
+		return mem_passwd;
 	}
-	public void setMember_email(String member_email) {
-		this.member_email = member_email;
+	public void setMem_passwd(String mem_passwd) {
+		this.mem_passwd = mem_passwd;
 	}
-	public String getMember_gender() {
-		return member_gender;
+	public String getMem_email() {
+		return mem_email;
 	}
-	public void setMember_gender(String member_gender) {
-		this.member_gender = member_gender;
+	public void setMem_email(String mem_email) {
+		this.mem_email = mem_email;
 	}
-	public String getMember_phone() {
-		return member_phone;
+	public boolean isMem_gender() {
+		return mem_gender;
 	}
-	public void setMember_phone(String member_phone) {
-		this.member_phone = member_phone;
+	public void setMem_gender(boolean mem_gender) {
+		this.mem_gender = mem_gender;
 	}
-	public String getMember_birth() {
-		return member_birth;
+	public String getMem_phone() {
+		return mem_phone;
 	}
-	public void setMember_birth(String member_birth) {
-		this.member_birth = member_birth;
+	public void setMem_phone(String mem_phone) {
+		this.mem_phone = mem_phone;
 	}
-	public Date getMember_regDate() {
-		return member_regDate;
+	public String getMem_birth() {
+		return mem_birth;
 	}
-	public void setMember_regDate(Date member_regDate) {
-		this.member_regDate = member_regDate;
+	public void setMem_birth(String mem_birth) {
+		this.mem_birth = mem_birth;
 	}
+	public Date getMem_regdate() {
+		return mem_regdate;
+	}
+	public void setMem_regdate(Date mem_regdate) {
+		this.mem_regdate = mem_regdate;
+	}
+	public String getMembercol() {
+		return membercol;
+	}
+	public void setMembercol(String membercol) {
+		this.membercol = membercol;
+	}
+	
 	
 	
 }

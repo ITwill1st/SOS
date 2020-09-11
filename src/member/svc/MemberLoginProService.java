@@ -8,7 +8,7 @@ import member.dao.MemberDAO;
 
 public class MemberLoginProService {
 
-	public int loginMember(String member_id, String member_passwd) {
+	public int loginMember(String mem_id, String mem_passwd) {
 		System.out.println("LoginProService");
 		int isLoginSuccess = 0;
 		
@@ -18,7 +18,7 @@ public class MemberLoginProService {
 
 		memberDAO.setConnection(con);
 		
-		isLoginSuccess = memberDAO.loginMember(member_id, member_passwd);
+		isLoginSuccess = memberDAO.loginMember(mem_id, mem_passwd);
 		
 		close(con);
 		

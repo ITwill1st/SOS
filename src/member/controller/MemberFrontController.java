@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import member.action.MemberLogoutAction;
+import member.action.MemberMyInfoAction;
 import action.Action;
 import member.action.MemberJoinProAction;
 import member.action.MemberListAction;
@@ -77,6 +78,14 @@ public class MemberFrontController extends HttpServlet {
 			}
 		}else if (command.equals("/SnsLogin.me")) {
 			action = new MemberSnsLoginProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else if (command.equals("/MyInfo.me")) {
+			action = new MemberMyInfoAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
