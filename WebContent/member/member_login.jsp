@@ -94,14 +94,6 @@ table {
    							location.href='SnsLogin.me?mem_id='+id+"&mem_email="+email+"&mem_birth="+birth+"&mem_gender="+gender+"&mem_name="+name;
    							},
    							
-   							var xhr = new XMLHttpRequest();
-   							xhr.onload = function() { //응답이 로드되면
-   							    if(xhr.status===200){ //서버 응답이 정상이면
-   							        document.getElementById('content').innerHTML = xhr.responseText;
-   							    }
-   							};
-   							xhr.open('GET', 'data/data.html', true); //요청 준비 - 방법/처리할페이지경로/비동기로할거
-   							xhr.send(null);
 	
     					fail: function(error) {
     						alert(JSON.stringify(error));
