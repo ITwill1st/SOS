@@ -3,12 +3,19 @@ package vo;
 
 public class RsvDTO {
 	
-	int rsv_num;
-	String rsv_date;
-	int rsv_pax;
-	int rsv_check;
-	String mem_email;
+	private int rsv_num;
+	private String rsv_date;
+	private String rsv_time;
+	private int rsv_pax;
+	private int rsv_check;
+	private String mem_email;
 	
+	public String getRsv_time() {
+		return rsv_time;
+	}
+	public void setRsv_time(String rsv_time) {
+		this.rsv_time = rsv_time;
+	}
 	public int getRsv_num() {
 		return rsv_num;
 	}

@@ -29,6 +29,7 @@ public class RsvSubmitProAction implements Action {
 		//입력된 예약 내역 받아오기.
 		String rsv_date=request.getParameter("rsv_date");
 		int rsv_pax=Integer.parseInt(request.getParameter("pax"));
+		String rsv_time=request.getParameter("rsv_time");
 		String phone=request.getParameter("phone");
 		String email=request.getParameter("email");
 		String allergy=request.getParameter("allergy");
@@ -38,6 +39,7 @@ public class RsvSubmitProAction implements Action {
 		dto.setRsv_date(rsv_date);
 		dto.setRsv_pax(rsv_pax);
 		dto.setMem_email(email);
+		dto.setRsv_time(rsv_time);
 		
 		//MemberDTO에서 Guest의 allergy에 값을 입력하기 위한 객체 불러오기
 		
