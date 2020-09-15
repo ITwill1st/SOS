@@ -8,7 +8,7 @@
 </head>
 <body>
 	<section id="joinFormArea">
-		<h1>회원가입</h1>
+		<h1>회원가입</h1> <!-- 직원 별명, 이메일 추가여부 검토 필요 -->
 		<form action="StaffJoinPro.stf" id="join" method="post" name="joinForm">
 			<fieldset>
 				<table>
