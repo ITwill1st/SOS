@@ -141,9 +141,9 @@ public class RsvDAO {
 	
 	//이메일을 이용해서 본인의 예약 리스트 조회하기 위한 메서드 정의
 	public RsvDTO selectRsvList(String mem_email) {
-		RsvDTO dto=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
+		RsvDTO dto=new RsvDTO();
 		
 		try {
 			String sql="select * from reservation where mem_email=?";

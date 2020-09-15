@@ -56,7 +56,7 @@ public class RSVFrontController extends HttpServlet{
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("MyRsvList.rsv")) {
+		}else if(command.equals("/MyRsvList.rsv")) {
 			action=new RsvListCheckProAction();
 			try {
 				forward=action.execute(request, response);

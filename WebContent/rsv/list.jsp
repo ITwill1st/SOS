@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<% String id=(String)request.getAttribute("id");
+<% String id=(String)session.getAttribute("mem_id");
 if(id.equals("admin")){//id 가 관리자 일 경우 전체 리스트
 	ArrayList<RsvDTO> allList=(ArrayList)request.getAttribute("rsv_All");
 for(RsvDTO dto : allList){%>
