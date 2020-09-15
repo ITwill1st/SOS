@@ -139,5 +139,67 @@ public class RsvDAO {
 		return dateList;
 	}
 	
+	//이메일을 이용해서 본인의 예약 리스트 조회하기 위한 메서드 정의
+	public RsvDTO selectRsvList(String mem_email) {
+		RsvDTO dto=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		try {
+			String sql="select * from reservation where mem_email=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, mem_email);
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				dto.setRsv_num(rs.getInt("rsv_num"));
+				dto.setRsv_date(rs.getString("rsv_date"));
+				dto.setRsv_time(rs.getString("rsv_time"));
+				dto.setRsv_pax(rs.getInt("rsv_pax"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("RsvDAO - selectRsvList() 오류");
+		}finally{
+			close(rs);
+			close(pstmt);
+		}
+		
+		return dto;
+	}
+
+	//전체 예약 정보 조회 후 저장하기 위한 메서드
+	public ArrayList<RsvDTO> allSelectRsv() {
+		
+		ArrayList<RsvDTO> allList=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		try {
+			String sql="select * from reservation";
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				RsvDTO dto=new RsvDTO();
+				dto.setMem_email(rs.getString("mem_email"));
+				dto.setRsv_date(rs.getString("rsv_date"));
+				dto.setRsv_num(rs.getInt("rsv_num"));
+				dto.setRsv_pax(rs.getInt("rsv_pax"));
+				dto.setRsv_time(rs.getString("rsv_time"));
+				dto.setRsv_check(rs.getInt("rsv_check"));
+				allList.add(dto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("RsvDAO - allSelectRsv() 오류");
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return allList;
+	}
+	
 	
 }
