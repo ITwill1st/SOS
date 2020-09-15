@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import action.Action;
-import member.dao.MemberDAO;
 import member.svc.MemberSnsLoginProService;
+import rsv.svc.RsvListCheckProService;
 import vo.ActionForward;
 import vo.MemberBean;
 
@@ -53,8 +53,8 @@ public class MemberSnsLoginProAction implements Action {
 			HttpSession session= request.getSession(); 
 			session.setAttribute("mem_id", request.getParameter("mem_id"));
 			session.setAttribute("mem_email", request.getParameter("mem_email"));
-			MemberDAO dao = MemberDAO.getInstance();
-		    mb = dao.getUserInfo(mem_id);
+		    RsvListCheckProService listCheck = new RsvListCheckProService();
+		    mb = listCheck.getMemberInfo(mem_id);
 		       
 		    // UserInfoForm.jsp에 회원정보를 전달하기 위해 request에 MemberBean을 세팅한다.
 		    session.setAttribute("memberInfo", mb);
