@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import action.Action;
-import member.dao.MemberDAO;
 import member.svc.MemberLoginProService;
+import rsv.svc.RsvListCheckProService;
 import vo.ActionForward;
 import vo.MemberBean;
 
@@ -30,9 +30,10 @@ public class MemberLoginProAction implements Action {
 		if(isLoginSuccess==1) {
 			HttpSession session= request.getSession(); 
 			session.setAttribute("mem_id", request.getParameter("mem_id"));
-			MemberDAO dao = MemberDAO.getInstance();
 			MemberBean mb = new MemberBean();
-		    mb = dao.getUserInfo(mem_id);
+			RsvListCheckProService listCheck = new RsvListCheckProService();
+			mb = listCheck.getMemberInfo(mem_id);
+			
 		       
 		    // 회원정보 전달용 session에 MemberBean 넣어 보냄 
 		    session.setAttribute("memberInfo", mb);
