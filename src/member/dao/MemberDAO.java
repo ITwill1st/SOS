@@ -37,7 +37,7 @@ public class MemberDAO {
 		PreparedStatement pstmt = null;
 		
 		try {
-			String sql = "INSERT into member values(null,?,?,?,?,?,?,?,?,now(),?)";
+			String sql = "INSERT into member values(null,?,?,?,?,?,?,?,?,now())";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, mb.getMem_nickname());
 			pstmt.setString(2, mb.getMem_name());
@@ -47,7 +47,6 @@ public class MemberDAO {
 			pstmt.setBoolean(6, mb.isMem_gender());
 			pstmt.setString(7, mb.getMem_phone());
 			pstmt.setString(8, mb.getMem_birth());
-			pstmt.setString(9, mb.getMembercol());
 			insertCount = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -70,7 +69,7 @@ public class MemberDAO {
 			if(rs.next()) {
 				SnsLogincount=-1;
 			}else {
-				sql = "INSERT into member values(null,?,?,?,?,?,?,?,?,now(),?)";
+				sql = "INSERT into member values(null,?,?,?,?,?,?,?,?,now())";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setString(1, mb.getMem_nickname());
 				pstmt.setString(2, mb.getMem_name());
@@ -80,7 +79,6 @@ public class MemberDAO {
 				pstmt.setBoolean(6, mb.isMem_gender());
 				pstmt.setString(7, mb.getMem_phone());
 				pstmt.setString(8, mb.getMem_birth());
-				pstmt.setString(9, mb.getMembercol());
 				SnsLogincount = pstmt.executeUpdate();
 			}
 		} catch (SQLException e) {
@@ -94,7 +92,39 @@ public class MemberDAO {
 		
 		return SnsLogincount;
 	}
-
+	public int dupCheckMember2(String mem_id) {
+		int check = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "select mem_id from member where mem_id=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, mem_id);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				// 1이면 중복 0이면 중복아님 
+					check = 1;
+			}else {
+					check = 0;
+			}
+				
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		
+		
+		return check;
+	}
 
 	public int dupCheckMember(String mem_id) {
 		int check = 0;
@@ -110,7 +140,6 @@ public class MemberDAO {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				// 아이디 중복 체크 결과가 맞으면 0, 
 				if(mem_id.equals(rs.getString("mem_id"))) {
 					check = 1;
 				}else {
@@ -193,7 +222,6 @@ public class MemberDAO {
 				mb.setMem_phone(rs.getString("mem_phone"));
 				mb.setMem_birth(rs.getString("mem_birth"));
 				mb.setMem_regdate(rs.getDate("mem_regdate"));
-				mb.setMembercol(rs.getString("membercol"));
 				// MemberBean 객체에 저장한 것을 list
 				list.add(mb);
 			}
@@ -235,7 +263,6 @@ public class MemberDAO {
 					mb.setMem_phone(rs.getString("mem_phone"));
 					mb.setMem_birth(rs.getString("mem_birth"));
 					mb.setMem_regdate(rs.getDate("mem_regdate"));
-					mb.setMembercol(rs.getString("membercol"));
 					
 					// MemberBean 객체에 저장한 것을 list
 					list.add(mb);
@@ -261,8 +288,6 @@ public class MemberDAO {
 		MemberBean mb = new MemberBean();
 		
 		try {
-			//1단계 드라이버 불러오기	// 2단계 디비연결
-			con=getConnection();
 			 //  sql    select  id에 해당하는 회원정보 가져오기
 			 // 3단계 연결정보를 이용해서 sql구문 만들고 실행할 객체생성 => PreparedStatement
 			 String sql="select * from member where mem_id=?";
@@ -283,7 +308,6 @@ public class MemberDAO {
 				mb.setMem_phone(rs.getString("mem_phone"));
 				mb.setMem_birth(rs.getString("mem_birth"));
 				mb.setMem_regdate(rs.getDate("mem_regdate"));
-				mb.setMembercol(rs.getString("membercol"));
 			 }
 //			 	
 		} catch (Exception e) {
@@ -299,34 +323,6 @@ public class MemberDAO {
 
 
 
-//	public int snsLogin(String id) {
-//		int SnsLogincount=0;
-//		PreparedStatement pstmt = null;
-//		ResultSet rs=null;	
-//		try {
-//			String sql = "select * from member3 where member_id=?";
-//			pstmt=con.prepareStatement(sql);
-//			pstmt.setString(1, id);
-//			rs=pstmt.executeQuery();
-//			if(rs.next()) {
-//				SnsLogincount=-1;
-//			}else {
-//				sql="INSERT INTO member3(idx,member_id) VALUES(null,?)";
-//				pstmt=con.prepareStatement(sql);
-//				pstmt.setString(1, id);
-//				SnsLogincount=pstmt.executeUpdate();
-//			}
-//		} catch (SQLException e) {
-//			System.out.println("snsLogin오류"+e);
-//			e.printStackTrace();
-//		}finally {
-//			close(rs);
-//			close(pstmt);
-//		}
-//		
-//		
-//		return SnsLogincount;
-//	}
 
 
 	
