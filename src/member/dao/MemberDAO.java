@@ -288,6 +288,7 @@ public class MemberDAO {
 		MemberBean mb = new MemberBean();
 		
 		try {
+			 //  sql    select  id에 해당하는 회원정보 가져오기
 			 // 3단계 연결정보를 이용해서 sql구문 만들고 실행할 객체생성 => PreparedStatement
 			 String sql="select * from member where mem_id=?";
 			 pstmt=con.prepareStatement(sql);
