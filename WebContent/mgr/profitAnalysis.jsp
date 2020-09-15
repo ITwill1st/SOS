@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>profit/analysis</title>
+<title>mgr/profitAnalysis</title>
 </head>
 <body>
 <h1>profit/analysis</h1>
