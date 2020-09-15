@@ -10,14 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import order.action.BasketDeleteAction;
+import order.action.AJAXMinusProAction;
+import order.action.AJAXPlusProAction;
 import order.action.BasketListAction;
-import order.action.BasketPreOrder;
+import order.action.BasketToPreOrder;
+import order.action.DeleteBasketProAction;
 import order.action.BasketProAction;
-import order.action.BasketQtyMinusAction;
-import order.action.BasketQtyPlusAction;
 import order.action.MenuDetailAction;
-import order.action.MenuListAction;
+import order.action.MainPageProAction;
 import order.action.OrderProAction;
 import vo.ActionForward;
 
@@ -37,8 +37,7 @@ public class OrderFrontController extends HttpServlet{
 		
 		if(command.equals("/OrderMain.or")) {
 			// 전체 메뉴 및 장바구니 수량 조회하여 main.jsp에 출력
-			// id에 장바구니 없을 시 장바구니 생성 
-			action = new MenuListAction();
+			action = new MainPageProAction();
 			
 			try {
 				forward = action.execute(request, response);
@@ -46,8 +45,7 @@ public class OrderFrontController extends HttpServlet{
 				e.printStackTrace();
 			}
 			
-			
-		} else if(command.equals("/detail.or")) {
+		}  else if(command.equals("/detail.or")) {
 			// 메뉴 이름 클릭 시 해당 메뉴 상세 조회 페이지
 			action = new MenuDetailAction();
 			
@@ -56,7 +54,6 @@ public class OrderFrontController extends HttpServlet{
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			
 			
 		} else if(command.equals("/BasketPro.or")) {
 			// 선택한 메뉴 장바구니에 담기 
@@ -78,37 +75,18 @@ public class OrderFrontController extends HttpServlet{
 				e.printStackTrace();
 			}
 				
-		} else if(command.equals("/MinusBasketQty.or")) {
-			// 장바구니 수량 (-1)
-			action = new BasketQtyMinusAction();
+		}else if(command.equals("/PreOrder.or")) {
+			// 장바구니 항목 -> Preorder에 insert
+			action = new BasketToPreOrder();
 			
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-				
-		} else if(command.equals("/PlusBasketQty.or")) {
-			// 장바구니 수량 (+1)
-			action = new BasketQtyPlusAction();
 			
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-				
-		} else if(command.equals("/DeleteBasket.or")) {
-			// 장바구니 항목 삭제
-			action = new BasketDeleteAction();
-			
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-				
-		} else if(command.equals("/Order.or")) {
+		}  	
+		else if(command.equals("/Order.or")) {
 			// 결제하기!
 			action = new OrderProAction();
 			
@@ -118,17 +96,37 @@ public class OrderFrontController extends HttpServlet{
 				e.printStackTrace();
 			}
 				
-		} else if(command.equals("/PreOrder.or")) {
-			// 장바구니 항목 -> Preorder에 insert
-			action = new BasketPreOrder();
+		} else if(command.equals("/AJAX_Plus.or")) {
+			// 장바구니 수량 +1 
+			action = new AJAXPlusProAction();
 			
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+				
+		} else if(command.equals("/AJAX_Minus.or")) {
+			// 장바구니 수량 -1 
+			action = new AJAXMinusProAction();
 			
-		}
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+				
+		} else if(command.equals("/DeleteBasket.or")) {
+			// 장바구니 항목 삭제 
+			action = new DeleteBasketProAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+				
+		} 
 		
 	
 		

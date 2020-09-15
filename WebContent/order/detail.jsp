@@ -10,6 +10,7 @@ ProductBean menu = (ProductBean)request.getAttribute("menu");
 // mem_num, table_num
 int mem_num = Integer.parseInt(request.getParameter("mem_num"));
 int table_num = Integer.parseInt(request.getParameter("table_num"));
+
 ArrayList<ReviewDTO> reviewList = (ArrayList<ReviewDTO>)request.getAttribute("reviewList");
 %>
 
@@ -18,10 +19,14 @@ ArrayList<ReviewDTO> reviewList = (ArrayList<ReviewDTO>)request.getAttribute("re
 <head>
 <meta charset="UTF-8">
 <title>order/detail.jsp</title>
+<script src="js/jquery.js"></script>
+<script type="text/javascript">
+</script>
 </head>
 <body>
 <h1>order/detail.jsp</h1>
 <h1>메뉴디테일 정보</h1>
+
 
 <form action="BasketPro.or" method="post" id="basket_form" name="basket_form">
 <table border="1">
@@ -55,7 +60,7 @@ ArrayList<ReviewDTO> reviewList = (ArrayList<ReviewDTO>)request.getAttribute("re
 </tr>
 </table>
 수량 : <input type="number" min="1" id="item_qty" name="item_qty"><br>
-<input type="submit" value="장바구니에 담기">
+<input type="submit" value="장바구니에 담기" >
 </form>
 <br><br><br>
 <hr>

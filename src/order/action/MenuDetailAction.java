@@ -27,9 +27,11 @@ public class MenuDetailAction implements Action {
 
 		
 		// 선택한 Menu에 대한 상세정보를 가져오기 위한  MenuDetailService 호출
-		MenuDetailService service = new MenuDetailService();
+		MenuDetailService mds = new MenuDetailService();
 		MenuDetailReviewListService reviewService = new MenuDetailReviewListService();
-		ProductBean menu  = service.selectDetail(item_num);
+		
+		// item_num을 전달하여 해당 item에 대한 정보를 ProductBean에 담아오기
+		ProductBean menu  = mds.getDetail(item_num);
 		ArrayList<ReviewDTO> reviewList = reviewService.getReview(item_num);
 
 		forward = new ActionForward();

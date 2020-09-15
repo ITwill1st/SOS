@@ -1,16 +1,25 @@
 package order.dao;
 
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
 import static db.JdbcUtil.*;
 
 import vo.BasketBean;
+import vo.PreOrderBean;
 import vo.ProductBean;
-import vo.ProductInfoBean;
+
 
 public class OrderDAO {
 
@@ -39,81 +48,27 @@ public class OrderDAO {
 	}
 
 	// 여기서 부터 필요한 메서드를 적으면됩니다.
-
-	// 장바구니 생성 & 단일메뉴 담기
-	public int insertBasket(BasketBean basket) {
-
-		// insert 성공여부 확인을 위한 변수 초기값 0 지정
-		int updateResult = 0;
-		int insertResult = 0;
-
-		try {
-			
-			String sql = "SELECT * FROM basket where mem_num=?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, basket.getMem_num());
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				
-				sql = "UPDATE basket set basket_info=? where mem_num=?";
-				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, basket.getBasket_info());
-				pstmt.setInt(2, basket.getMem_num());
-				updateResult = pstmt.executeUpdate();
-				
-				//update구문이 실행되었으면 insert구문은 실행되지않고 
-				//insertResult변수에 updateResult변수값을 저장한다.
-				insertResult = updateResult;
-				
-			}else {
-				sql = "INSERT INTO basket VALUES(?,?,?)";
-				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, basket.getMem_num()); // 가져온 id
-				pstmt.setString(2, basket.getBasket_info());
-				pstmt.setInt(3, basket.getTable_num());
-
-				insertResult = pstmt.executeUpdate();
-			}
-			
-
-			System.out.println("orderDAO의 insertResult : " + insertResult);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("OrderDAO - insertBasket() 메서드 " + e.getMessage());
-
-		} finally {
-			close(rs);
-			close(pstmt);
-		}
-
-		return insertResult;
-	}
-
-	// 장바구니에 담긴 메뉴수량 조회하는 메서드
-	public int selectCountBasket(int mem_num) {
+	
+	
+	// 장바구니 수량 조회하는 메서드 //
+	public int selectBasketCount(BasketBean basket) {
 
 		int count = 0;
 
 		try {
 
-			String sql = "SELECT basket_info from basket where mem_num=?";
+			// 장바구니에 담긴 메뉴 (항목의)수량 조회 
+			String sql = "SELECT COUNT(item_num) FROM basket1 where mem_num=? and table_num=? and preorder_tossed=?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, mem_num);
+			pstmt.setInt(1, basket.getMem_num());
+			pstmt.setInt(2, basket.getTable_num());
+			pstmt.setInt(3, 0); // preorder로 넘어간 적 없는 장바구니 리스트 
+			
 			rs = pstmt.executeQuery();
 
 			if (rs.next()) {
-				
-				String basket_info = rs.getString("basket_info");
-				
-				if(!basket_info.equals("")) {
-					count = basket_info.split("/").length;
-				}
-				
-				if (count == -1) {
-					count = 0;
-				}
-
+				// 조회한 항목의 수량 담아주기
+				count = rs.getInt("count(item_num)");
 			}
 
 		} catch (SQLException e) {
@@ -125,36 +80,43 @@ public class OrderDAO {
 		}
 
 		return count;
-
 	}
-
-	// 전체 메뉴 조회하는 메서드
+	
+	
+	// 메인 페이지에 뿌려줄 전체메뉴 조회 //
 	public ArrayList<ProductBean> selectMenuList() {
-
+		
+		// ArrayList 객체 생성 
 		ArrayList<ProductBean> menuList = new ArrayList<ProductBean>();
-		ProductBean menu = new ProductBean();
-
+		
 		try {
-			String sql = "SELECT * FROM product";
+
+			// 전체 메뉴 조회 
+			String sql = "select * from product";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-
-				menu = new ProductBean();
-				menu.setItem_num(rs.getInt("item_num"));
-				menu.setItem_name(rs.getString("item_name"));
-				menu.setItem_img(rs.getString("item_img"));
-				menu.setItem_price(rs.getInt("item_price"));
-				menu.setItem_info(rs.getString("item_Info"));
-
-				menuList.add(menu);
-
+				
+				// 전체 메뉴에 대한 정보를 담아갈  ProductBean 객체 생성 
+				ProductBean p = new ProductBean();
+				p.setItem_num(rs.getInt("item_num"));
+				p.setItem_name(rs.getString("item_name"));
+				p.setItem_img(rs.getString("item_img"));
+				p.setItem_price(rs.getInt("item_price"));
+				p.setItem_origin(rs.getString("item_origin"));
+				p.setItem_calorie(rs.getInt("item_calorie"));
+				p.setItem_category(rs.getString("item_category"));
+				p.setItem_allergie(rs.getString("item_allergie"));
+				p.setItem_info(rs.getString("item_info"));
+				
+				//ArrayList에 담기 
+				menuList.add(p);
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("OrderDAO - selectMenuList() 메서드 " + e.getMessage());
+			System.out.println("OrderDAO - selectCountBasket() 메서드 " + e.getMessage());
 		} finally {
 			close(rs);
 			close(pstmt);
@@ -163,7 +125,43 @@ public class OrderDAO {
 		return menuList;
 	}
 
-	// 단일메뉴의 상세정보 조회하는 메서드
+
+	// 전체 category 조회해오는 메서드 
+	public ArrayList<ProductBean> selectCategory() {
+		
+		ArrayList<ProductBean> category = new ArrayList<ProductBean>();
+
+		try {
+
+			// 전체 category 조회 
+			String sql = "select distinct item_category from product";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				
+				// 카테고리 담아갈 ProductBean 객체 생성 
+				ProductBean p = new ProductBean();
+				p.setItem_category(rs.getString("item_category"));
+				//ArrayList에 담기 
+				category.add(p);
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("OrderDAO - selectCountBasket() 메서드 " + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+
+		return category;
+		
+	
+	}
+
+	
+	// 단일메뉴의 상세정보 조회하는 메서드 //
 	public ProductBean selectDetail(int item_num) {
 
 		ProductBean menu = null;
@@ -197,240 +195,386 @@ public class OrderDAO {
 
 		return menu;
 	}
+	
+	
+	// 장바구니 담기 //
+	public int insertBasket(BasketBean basket) {
 
-	// 장바구니 수량 변경
-	public int updateBasket(BasketBean basket) {
-
-		int updateBasket = 0;
-
-		try {
-			String sql = "UPDATE basket SET basket_info = ? where mem_num=?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, basket.getBasket_info());
-			pstmt.setInt(2, basket.getMem_num());
-
-			updateBasket = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("OrderDAO - updateBasket() 메서드 " + e.getMessage());
-		} finally {
-			close(pstmt);
-		}
-
-		return updateBasket;
-	}
-
-	// 기존의 장바구니 조회할 메서드
-	public ArrayList<ProductInfoBean> selectBasketList(int mem_num) {
-
-		ArrayList<ProductInfoBean> basketList = new ArrayList<ProductInfoBean>();
-
-		try {
-
-			String sql = "SELECT * FROM basket WHERE mem_num=?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, mem_num);
-			rs = pstmt.executeQuery();
-
-			if (rs.next()) {
-
-				if (!rs.getString("basket_info").equals("")) {
-					// String으로 묶인 모든 basket_info쪼개기
-					String[] dbBasketArray = rs.getString("basket_info").split("/");
-
-					if (dbBasketArray.length >= 1) {
-
-						for (String s : dbBasketArray) {
-
-							ProductInfoBean p = new ProductInfoBean();
-							String[] dbOrderArray2 = s.split(",");
-
-							p.setItem_num(Integer.parseInt(dbOrderArray2[0]));
-							p.setItem_qty(Integer.parseInt(dbOrderArray2[1]));
-							p.setReview_ck(Integer.parseInt(dbOrderArray2[2]));
-
-							basketList.add(p);
-
-						}
-
-					}
-				}
-
-			}
-
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			close(rs);
-			close(pstmt);
-		}
-
-		return basketList;
-	}
-
-	// 장바구니에 있는 상품 주문하기
-	public int insertOrder(BasketBean basket) {
-
+		// insert 성공여부 확인을 위한 변수 초기값 0 지정
 		int insertResult = 0;
 
+	
 		try {
-
-			String sql = "SELECT MAX(order_num) from orders";
+			
+			String sql = "INSERT INTO basket1(mem_num,item_num,item_qty,table_num) VALUES(?,?,?,?)";
 			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery();
 
-			int num = 1; // 새 주문번호
-
-			if (rs.next()) {
-				num = rs.getInt(1) + 1;
-			}
-
-			sql = "INSERT INTO ORDERS VALUES(?,?,?,?,now(),?)";
-
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, num);
-			pstmt.setInt(2, basket.getMem_num());
-			pstmt.setString(3, basket.getBasket_info());
+			pstmt.setInt(1, basket.getMem_num());
+			pstmt.setInt(2, basket.getItem_num());
+			pstmt.setInt(3, basket.getItem_qty());
 			pstmt.setInt(4, basket.getTable_num());
-			pstmt.setInt(5, 0);
-
+			
 			insertResult = pstmt.executeUpdate();
-
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
-			System.out.println("OrderDAO - insertOrder() 메서드 " + e.getMessage());
+			System.out.println("OrderDAO - insertBasket() 메서드 " + e.getMessage());
 		} finally {
-			close(rs);
-			close(pstmt);
-			
+				close(pstmt);
 		}
 
-		return insertResult;
-	}
+			return insertResult;
+		}
 
-	// 주문후 장바구니 초기화를 위한 메서드
-	public int deleteOrder(int mem_num) {
+	
+	// 장바구니 조회할 메서드 //
+	public ArrayList<BasketBean> selectBasketList(int mem_num,int table_num) {
 
-		int deleteResult = 0;
+		ArrayList<BasketBean> basketList = new ArrayList<BasketBean>();
 
 		try {
 
-			String sql = "DELETE FROM preorder WHERE mem_num=?";
-
+			String sql = "SELECT * FROM basket1 WHERE mem_num=? and table_num=? and preorder_tossed =?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, mem_num);
+			pstmt.setInt(2, table_num);
+			pstmt.setInt(3, 0); // preorder로 넘어가지 않은 리스트만 보여야 함 
+			
+			rs = pstmt.executeQuery();
 
-			deleteResult = pstmt.executeUpdate();
+			while (rs.next()) {
+				
+				BasketBean basket= new BasketBean();
+				basket.setItem_num(rs.getInt("item_num"));
+				basket.setItem_qty(rs.getInt("item_qty"));				
+				basket.setMem_num(rs.getInt("mem_num"));
+				basket.setTable_num(rs.getInt("table_num"));
+				
+				basketList.add(basket);
+			}
 
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("OrderDAO - deleteOrder() 메서드 " + e.getMessage());
-		} finally {
-			close(pstmt);
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rs);
+				close(pstmt);
+			}
+
+			return basketList;
 		}
-
-		return deleteResult;
-
-	}
-
+	
 	
 	// 장바구니 항목 > PreOrder 테이블에 insert 
-	public int insertPreOrder(BasketBean basket) {
-		
+	public int insertPreOrder(BasketBean basket, ArrayList<BasketBean> basketList, JSONArray preorder_json) {
+			
 		int insertResult = 0;
 		
-		try {
-			
-			String sql = "INSERT INTO preorder VALUES(?,?,?)";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, basket.getMem_num());
-			pstmt.setString(2, basket.getBasket_info());
-			pstmt.setInt(3, basket.getTable_num());
-			
-			insertResult = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("OrderDAO - insertPreOrder() 메서드 " + e.getMessage());
-		} finally {
-			close(pstmt);
-		}
-		
-		
-		return insertResult;
-	}
-
-	
-	// 장바구니에 담긴 item_num이 담긴 itemNumList 전달하여 
-	// product table에 있는 해당 아이템 정보 가져오기 
-	public ArrayList<ProductBean> selectItemInfo(ArrayList<ProductBean> itemNumList) {
-		
-		ArrayList<ProductBean> itemInfo = new ArrayList<ProductBean>();
-		
-		// 장바구니에 있는 item_num이 담긴 itemNumList 
-		for (ProductBean p : itemNumList) {
-			
 			try {
-				
-				String sql ="SELECT * FROM product WHERE item_num=?";
+				String sql = "INSERT INTO preorder2(json_basket,mem_num,table_num,time) VALUES(?,?,?,now())";
 				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, p.getItem_num());
-				rs = pstmt.executeQuery();
-				
-				if(rs.next()) {
-					
-					ProductBean p2 = new ProductBean();
-					
-					p2.setItem_num(rs.getInt("item_num"));
-					p2.setItem_name(rs.getString("item_name"));
-					p2.setItem_price(rs.getInt("item_price"));
-					p2.setItem_info(rs.getString("item_name"));
-					p2.setItem_info(rs.getString("item_img"));
-					
-					itemInfo.add(p2);
-					
-				}
-				
-			
+				pstmt.setObject(1, basketList);
+				pstmt.setInt(2, basket.getMem_num());
+				pstmt.setInt(3, basket.getTable_num());
+				insertResult = pstmt.executeUpdate();
 				
 			} catch (SQLException e) {
 				e.printStackTrace();
-				System.out.println("OrderDAO - selectItemInfo() 메서드 " + e.getMessage());
+				System.out.println("OrderDAO - insertPreOrder() 메서드 " + e.getMessage());
 			} finally {
-				close(rs);
+				close(pstmt);
+			}
+			
+			return insertResult;
+		}
+	
+	
+	// 장바구니 수량 +1 //
+	public int insertQtyPlus(BasketBean basket) {
+		
+		int insertResult = 0;
+		
+		try {
+			
+			String sql ="select * from basket1 where mem_num=? and table_num=? and item_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, basket.getMem_num());
+			pstmt.setInt(2, basket.getTable_num());
+			pstmt.setInt(3, basket.getItem_num());
+			ResultSet rs = pstmt.executeQuery();
+			
+			int item_qty = 0;
+			
+			if(rs.next()) {
+				
+				// 기존에 저장되어있던 수량 조회 
+				item_qty = rs.getInt("item_qty");
+				
+				// +1
+				item_qty++;
+
+			}
+			
+			// +1 된 수량으로 update
+			sql = "update basket1 set item_qty = ? where mem_num=? and table_num=? and item_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, item_qty);
+			pstmt.setInt(2, basket.getMem_num());
+			pstmt.setInt(3, basket.getTable_num());
+			pstmt.setInt(4, basket.getItem_num());
+			
+			insertResult = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		
+		return insertResult;
+	}
+
+	
+	// 장바구니 수량 -1 //
+	public int insertQtyMinus(BasketBean basket) {
+		
+		int insertResult = 0;
+		
+		try {
+			
+			String sql ="select * from basket1 where mem_num=? and table_num=? and item_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, basket.getMem_num());
+			pstmt.setInt(2, basket.getTable_num());
+			pstmt.setInt(3, basket.getItem_num());
+			ResultSet rs = pstmt.executeQuery();
+			
+			int item_qty = 0;
+			
+			if(rs.next()) {
+				
+				// 기존에 있는 수량 조회 
+				item_qty = rs.getInt("item_qty");
+				
+				// 수량 -1
+				item_qty--;
+				
+			}
+			
+			
+			sql = "update basket1 set item_qty = ? where mem_num=? and table_num=? and item_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, item_qty);
+			pstmt.setInt(2, basket.getMem_num());
+			pstmt.setInt(3, basket.getTable_num());
+			pstmt.setInt(4, basket.getItem_num());
+			
+			insertResult = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		
+		return insertResult;
+	}
+	
+	// preorder로 넘어갔으므로 preorder_tossed를 1로 바꿔주는 메서드 // 
+	public int updateBasket(int mem_num, int table_num) {
+		
+		int updateResult = 0;
+		
+		try {
+			
+			String sql = "update basket1 set preorder_tossed = ? where mem_num=? and table_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, 1); // preorder로 넘어갔으므로 preorder_tossed를 1로 바꿔줌 
+			pstmt.setInt(2, mem_num);
+			pstmt.setInt(3, table_num);
+			
+			updateResult = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return updateResult;
+	}
+
+	// 장바구니 항목에서 삭제 
+	public int deleteBasket(BasketBean basket) {
+		
+		int deleteResult = 0;
+		
+		try {
+			
+			String sql = "DELETE FROM basket1 where mem_num=? and table_num=? and item_num=? and preorder_tossed=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, basket.getMem_num()); 
+			pstmt.setInt(2, basket.getTable_num());
+			pstmt.setInt(3, basket.getItem_num());
+			pstmt.setInt(4, 0); // preorder로 이미 넘어갔었던 항목은 삭제 하면 안되므로 0 조건 걸어줘야함 
+			
+			deleteResult = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		
+		return deleteResult;
+	}
+
+
+
+	// preorder->order 성공했으므로 order_tossed를 1로 바꿔주기 위한 메서드 //
+	public int updatePreOrder(int mem_num, int table_num) {
+
+		int updateResult = 0;
+		
+		try {
+			
+			String sql = "update preorder set order_tossed = ? where mem_num=? and table_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, 1); // order로 넘어갔으므로  order_tossed를 1로 바꿔줌 
+			pstmt.setInt(2, mem_num);
+			pstmt.setInt(3, table_num);
+			
+			updateResult = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return updateResult;
+
+	}
+
+	
+	// basket의 정보를 preorder테이블에 저장하기 위한 메서드 //
+	public int insertPreOrder(ArrayList<BasketBean> basketList) {
+		
+		int insertResult = 0;
+		
+		// basketList에 저장된 항목을 모두 전달하기위해 확장 for문 사용 
+		for (BasketBean b : basketList) {
+			
+			try {
+				String sql = "INSERT INTO preorder(mem_num,table_num,item_num,item_qty,time) VALUES(?,?,?,?,now())";
+				pstmt = con.prepareStatement(sql);
+				
+				// idx는 auto_increment 이므로 입력X
+				// pre_confirm, order_tossed는 default 값이 0으로 따로 입력 X
+				pstmt.setInt(1, b.getMem_num());
+				pstmt.setInt(2, b.getTable_num());
+				pstmt.setInt(3, b.getItem_num());
+				pstmt.setInt(4, b.getItem_qty());
+
+				
+				insertResult = pstmt.executeUpdate();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
 				close(pstmt);
 			}
 			
 		}
 		
-		return itemInfo;
+		return insertResult;
 	}
+	
 
-	public String selectPreorderInfo(int mem_num) {
-		String preorderInfo = "";
+	
+	// preorder에 담긴 항목 담아오기 위한 메서드 //
+	public ArrayList<BasketBean> selectPreOrder(BasketBean basket) {
+		
+		ArrayList<BasketBean> preorderList = new ArrayList<BasketBean>();
 		
 		try {
-			String sql = "SELECT * FROM preorder WHERE mem_num=?";
+
+			String sql = "SELECT * FROM preorder WHERE mem_num=? and table_num=? and order_tossed =?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, mem_num);
-			rs = pstmt.executeQuery();
+			pstmt.setInt(1, basket.getMem_num());
+			pstmt.setInt(2, basket.getTable_num());
+			pstmt.setInt(3, 0); // order로 넘어가지 않은 리스트만 보여야 함 
 			
+			rs = pstmt.executeQuery();
+
 			while (rs.next()) {
-				preorderInfo += rs.getString("basket_info");
+				
+				BasketBean preorder= new BasketBean();
+				preorder.setItem_num(rs.getInt("item_num"));
+				preorder.setItem_qty(rs.getInt("item_qty"));				
+				preorder.setMem_num(rs.getInt("mem_num"));
+				preorder.setTable_num(rs.getInt("table_num"));
+				
+				preorderList.add(basket);
+			}
+
+			} catch (NumberFormatException e) {
+				e.printStackTrace();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				close(rs);
+				close(pstmt);
+			}
+
+			return preorderList;
+	}
+
+
+
+	// preorder에 담긴 정보 order테이블에 담기 위한 메서드 //
+	public int insertOrder(ArrayList<BasketBean> preorderList) {
+		
+		int insertResult = 0;
+		
+		try {
+	
+			for(BasketBean b : preorderList) {
+
+				String sql = "INSERT INTO order(mem_num,table_num,item_num,item_qty,order_time,total_price) VALUES(?,?,?,?,now(),?)";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, b.getMem_num());
+				pstmt.setInt(2, b.getTable_num());
+				pstmt.setInt(3, b.getItem_num());
+				pstmt.setInt(4, b.getItem_qty());
+				pstmt.setInt(5, 0);
+				
+				insertResult = pstmt.executeUpdate();
+				
 			}
 			
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println("OrderDAO - selectPreorderInfo() 메서드 " + e.getMessage());
+		} catch (SQLException e1) {
+			e1.printStackTrace();
 		} finally {
-			close(rs);
 			close(pstmt);
 		}
 		
-		return preorderInfo;
+		
+		return insertResult;
 	}
 
-	
 
+	
+	
+	
 }
+	//-----------------------------------------------------------------
+
+

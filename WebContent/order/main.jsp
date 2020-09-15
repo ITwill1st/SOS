@@ -9,17 +9,17 @@
 int mem_num=1;
 // 임시 table_num
 int table_num = (int)request.getAttribute("table_num");
-// MenuListAction에서 담아온 전체 메뉴
+
+// 전체 메뉴
 ArrayList<ProductBean> menuList = (ArrayList<ProductBean>)request.getAttribute("menuList");
-// MenuListAction에서 담아온 장바구니 수량
+// 장바구니 수량
 int basketCount = (int)request.getAttribute("basketCount");
 %>
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>main page</title>
 </head>
 <body>
 <h1>order/main.jsp</h1>
@@ -38,24 +38,27 @@ int basketCount = (int)request.getAttribute("basketCount");
         <%
      		for(ProductBean item : menuList) {
    		%>
-         <tr>
-         	<td>메뉴 번호</td>
-            <td><%=item.getItem_num() %></td> 
+   		<tr>
+   		<td colspan="4" class="item_category"><%=item.getItem_category() %></td>
+   		</tr>
+          <tr> 
+         	<td>메뉴 번호</td> 
+             <td><%=item.getItem_num() %></td>
             <td rowspan="4"><img width="200" height="200" src="product/productUpload/<%=item.getItem_img() %>"></td>
  		 </tr>
- 		 <tr>
- 		 	<td>메뉴 이름</td>
- 		 	<td><a href="detail.or?item_num=<%=item.getItem_num()%>&mem_num=<%=mem_num %>&table_num=<%=table_num %>">
- 		 	    <%=item.getItem_name() %></a></td>
- 		 </tr>
- 		 <tr>
- 		 	<td>메뉴 설명</td>
- 		 	<td><%=item.getItem_info() %></td>
-         </tr>
-         <tr>
-        	 <td>메뉴 가격</td>
-         	<td><%=item.getItem_price() %></td>
-         </tr>
+  		 <tr> 
+		 	<td>메뉴 이름</td> 
+ 		 	<td><a href="detail.or?item_num=<%=item.getItem_num()%>&mem_num=<%=mem_num %>&table_num=<%=table_num %>"> 
+  		 	    <%=item.getItem_name() %></a></td> 
+  		 </tr> 
+ 		 <tr> 
+  		 	<td>메뉴 설명</td> 
+  		 	<td><%=item.getItem_info() %></td>
+          </tr> 
+          <tr> 
+         	 <td>메뉴 가격</td> 
+          	<td><%=item.getItem_price() %></td> 
+          </tr> 
          <%} %>
       </table>
 </section>
