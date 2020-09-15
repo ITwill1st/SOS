@@ -57,9 +57,10 @@ public class RsvDAO {
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.setString(2,dto.getRsv_date());
-			pstmt.setInt(3, dto.getRsv_pax());
-			pstmt.setInt(4, dto.getRsv_check());
-			pstmt.setString(5, dto.getMem_email());
+			pstmt.setString(3, dto.getRsv_time());
+			pstmt.setInt(4, dto.getRsv_pax());
+			pstmt.setInt(5, dto.getRsv_check());
+			pstmt.setString(6, dto.getMem_email());
 			
 			//예약 내용을 DB에 저장완료 후 리턴값 지정
 			insertResult=pstmt.executeUpdate();

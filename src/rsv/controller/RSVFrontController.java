@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
 import rsv.action.RsvDateCheckProAction;
+import rsv.action.RsvListCheckProAction;
 import rsv.action.RsvSubmitProAction;
 import vo.ActionForward;
 
@@ -50,6 +51,13 @@ public class RSVFrontController extends HttpServlet{
 			forward.setPath("/rsv/cal.jsp");
 		}else if(command.equals("/RsvDate.rsv")) {
 			action=new RsvDateCheckProAction();
+			try {
+				forward=action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("MyRsvList.rsv")) {
+			action=new RsvListCheckProAction();
 			try {
 				forward=action.execute(request, response);
 			} catch (Exception e) {

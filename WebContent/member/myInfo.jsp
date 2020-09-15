@@ -23,7 +23,6 @@ MemberBean mb = (MemberBean)session.getAttribute("memberInfo");
 <h3>성별:<%=mb.isMem_gender() %><br></h3>	
 <h3>전화번호:<%=mb.getMem_phone()%><br></h3>
 <h3>생일:<%=mb.getMem_birth() %><br></h3>
-<h3>등급 : <%=mb.getMembercol() %><br></h3>
 </fieldset>
 <br>
 <br>

@@ -13,7 +13,6 @@ public class MemberBean {
 	private String mem_phone;
 	private String mem_birth;
 	private Date mem_regdate;
-	private String membercol;
 	
 	
 	public String getMem_nickname() {
@@ -75,12 +74,6 @@ public class MemberBean {
 	}
 	public void setMem_regdate(Date mem_regdate) {
 		this.mem_regdate = mem_regdate;
-	}
-	public String getMembercol() {
-		return membercol;
-	}
-	public void setMembercol(String membercol) {
-		this.membercol = membercol;
 	}
 	
 	

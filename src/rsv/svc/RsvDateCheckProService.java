@@ -1,12 +1,12 @@
 package rsv.svc;
 
+import static db.JdbcUtil.*;
+
 import java.sql.Connection;
-import java.util.ArrayList;
 
 import org.json.simple.JSONArray;
 
 import rsv.dao.RsvDAO;
-import static db.JdbcUtil.*;
 
 public class RsvDateCheckProService {
 	

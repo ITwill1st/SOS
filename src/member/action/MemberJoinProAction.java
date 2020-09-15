@@ -29,12 +29,10 @@ public class MemberJoinProAction implements Action {
 		mb.setMem_gender(Boolean.parseBoolean(request.getParameter("mem_gender")));
 		mb.setMem_phone(request.getParameter("mem_phone"));
 		mb.setMem_birth(request.getParameter("mem_birth"));
-		mb.setMembercol(request.getParameter("membercol"));
 		
 		
 		// MemberJoinProService 클래스의 DupCheckmember() 메서드를 호출하여
 		// 회원 가입 전 중복 여부 확인 요청 작업 수행
-		// => 파라미터 : MemberBean, 리턴타입 : int
 		MemberJoinProService memberJoinProService = new MemberJoinProService();
 		int check = memberJoinProService.dupCheckMember(mem_id);
 		

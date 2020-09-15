@@ -83,7 +83,6 @@
 				<td width="200">전화번호</td>
 				<td width="150">생년월일</td>
 				<td width="150">가입일</td>
-				<td width="150">등급</td>
 			</tr>
 			<!-- ArrayList<MemberBean> 객체가 null 이 아닐 때 반복문으로 회원 목록 출력 -->
 			<%
@@ -101,7 +100,6 @@
 					<td><%=mb.getMem_phone() %></td>
 					<td><%=mb.getMem_birth() %></td>
 					<td><%=mb.getMem_regdate() %></td>
-					<td><%=mb.getMembercol() %></td>
 				</tr>		
 			<%	
 			}
