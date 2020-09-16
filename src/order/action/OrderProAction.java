@@ -7,11 +7,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-
+import order.svc.BasketProService;
 import order.svc.OrderService;
-
+import order.svc.StringToArrayListService;
 import vo.ActionForward;
 import vo.BasketBean;
+import vo.PreOrderBean;
+import vo.ProductInfoBean;
 
 
 public class OrderProAction implements Action {
@@ -31,13 +33,14 @@ public class OrderProAction implements Action {
 		
 		
 		// mem_num, table_num에 해당하는 preorder가져오기 
+		// 
 		OrderService os = new OrderService();
-		ArrayList<BasketBean> preorderList = os.getPreOrder(basket);
+		ArrayList<PreOrderBean> preorderList = os.getPreOrder(basket);
 		
 		// preorder가 없을경우 
 		if(preorderList == null) {
 					
-			//자바스크립트로 장바구니 없음 출력
+			//자바스크립트로 주문목록 비어있음 출력 
 			response.setContentType("text/html;charset=UTF-8");//문서타입지정
 			PrintWriter out=response.getWriter();//PrintWriter 객체 가져오기
 			//println()메서드로 문자열 출력
@@ -48,28 +51,50 @@ public class OrderProAction implements Action {
 					
 		} else {
 		
-			// 가져온 preorder를 order테이블에 담기 위한 서비스 호출 
-			OrderService os2 = new OrderService();
-			int insertResult = os2.insertOrder(preorderList);
+//			
+//			// 가져온 preorder를 order테이블에 담기 위한 서비스 호출 
+//			// 이야 이건 진짜 모르겠다 ;; 
+//			OrderService os2 = new OrderService();
+//			int insertResult = os2.insertOrder(preorderList);
 
-			if (insertResult>0) {
-						
-				System.out.println("order 성공!");
-						
-				// preorder 항목이 order테이블에 insert 성공했을시 
-				// 기존 preorder의 order_tossed 값을 1로 바꿔주기 
-				OrderService os3 = new OrderService();
-				int updateResult = os3.updatePreOrder(mem_num,table_num);
-						
-				if (updateResult>0) {
-					 System.out.println("order_tossed =1 성공!");
-				} else {
-					System.out.println("order_tossed =1 실패!");
-				}
-						
-			} else {
-				System.out.println("order 실패!");
-			}
+			
+			
+			// 동현쓰를 위한 review check table에 값 넘겨주기 
+			// 이전에 만들어놓은 메서드들 활용 
+			// mem_num, table_num 에 해당하는 preorder를 String타입으로 가져오기 
+			BasketProService bps = new BasketProService();
+			String PreOrderInfo = bps.getPreOrder(mem_num,table_num);
+
+			// String 타입으로 된 preorder를 preorderarray으로 담음 
+			StringToArrayListService stal = new StringToArrayListService();
+			ArrayList<ProductInfoBean> preorderarray = stal.getArray(PreOrderInfo);
+		
+			// 합쳐주기 위한 서비스 
+			OrderService os3 = new OrderService();
+			String OrderInfo = os3.PreOrderToOrder(preorderarray);
+			
+			// reviewinfo 테이블에 담기 위한 서비스 호출
+			OrderService os4 = new OrderService();
+			int insertResult2 = os4.insertOrder(basket,OrderInfo);
+			
+//			if (insertResult>0) {
+//						
+//				System.out.println("order 성공!");
+//						
+//				// preorder 항목이 order테이블에 insert 성공했을시 
+//				// 기존 preorder의 order_tossed 값을 1로 바꿔주기 
+//				OrderService os4 = new OrderService();
+//				int updateResult = os3.updatePreOrder(mem_num,table_num);
+//						
+//				if (updateResult>0) {
+//					 System.out.println("order_tossed =1 성공!");
+//				} else {
+//					System.out.println("order_tossed =1 실패!");
+//				}
+//						
+//			} else {
+//				System.out.println("order 실패!");
+//			}
 					
 					
 			forward = new ActionForward();

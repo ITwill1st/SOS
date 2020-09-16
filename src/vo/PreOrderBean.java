@@ -1,53 +1,48 @@
 package vo;
 
-import java.sql.Timestamp;
+
 
 public class PreOrderBean {
 
-	private String json_basket;
-	private int pre_mem_num;
-	private int pre_table_num;
-	private Timestamp pre_time;
-	private int order_tossed;
-	private int total_price;
 	
+	private int item_num;
+	private int item_qty;
+	private int total_price;
+	private int mem_num;
+	private int table_num;
+	
+	
+	public int getItem_num() {
+		return item_num;
+	}
+	public void setItem_num(int item_num) {
+		this.item_num = item_num;
+	}
+	public int getItem_qty() {
+		return item_qty;
+	}
+	public void setItem_qty(int item_qty) {
+		this.item_qty = item_qty;
+	}
 	public int getTotal_price() {
 		return total_price;
 	}
 	public void setTotal_price(int total_price) {
 		this.total_price = total_price;
 	}
-	public String getJson_basket() {
-		return json_basket;
+	public int getMem_num() {
+		return mem_num;
 	}
-	public void setJson_basket(String json_basket) {
-		this.json_basket = json_basket;
+	public void setMem_num(int mem_num) {
+		this.mem_num = mem_num;
 	}
-	public int getPre_mem_num() {
-		return pre_mem_num;
+	public int getTable_num() {
+		return table_num;
 	}
-	public void setPre_mem_num(int pre_mem_num) {
-		this.pre_mem_num = pre_mem_num;
+	public void setTable_num(int table_num) {
+		this.table_num = table_num;
 	}
-	public int getPre_table_num() {
-		return pre_table_num;
-	}
-	public void setPre_table_num(int pre_table_num) {
-		this.pre_table_num = pre_table_num;
-	}
-	public Timestamp getPre_time() {
-		return pre_time;
-	}
-	public void setPre_time(Timestamp pre_time) {
-		this.pre_time = pre_time;
-	}
-	public int getOrder_tossed() {
-		return order_tossed;
-	}
-	public void setOrder_tossed(int order_tossed) {
-		this.order_tossed = order_tossed;
-	}
-	
+
 	
 	
 }

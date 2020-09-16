@@ -53,14 +53,14 @@ public class BasketToPreOrder implements Action {
 				
 				System.out.println("Preorder 성공!");
 				
-				// 장바구니 항목이 preorder 테이블에 insert 성공했을시 기존 장바구니의 preorder_tossed 값을 1로 바꿔주기 
+				// 장바구니 항목이 preorder 테이블에 insert 성공했을시 기존 장바구니 테이블 삭제하기 
 				BasketProService bps2 = new BasketProService();
-				int updateResult = bps2.updateBasket(mem_num,table_num);
+				int deleteResult = bps2.deleteBasketTable(mem_num,table_num);
 				
-				if (updateResult>0) {
-					System.out.println("장바구니 preorder_tossed =1 성공!");
+				if (deleteResult>0) {
+					System.out.println("장바구니 삭제 성공!");
 				} else {
-					System.out.println("장바구니 preorder_tossed =1 실패!");
+					System.out.println("장바구니 삭제 실패!");
 				}
 				
 			} else {

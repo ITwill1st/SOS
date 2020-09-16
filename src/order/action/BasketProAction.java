@@ -19,7 +19,7 @@ public class BasketProAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		
+		// 장바구니 담기 
 		ActionForward forward = null;
 
 
@@ -39,32 +39,64 @@ public class BasketProAction implements Action {
 		basket.setTable_num(table_num);
 		
 		
-		// 담긴 정보를 basket table에 저장하기 위한 서비스 호출
+		// 장바구니에 이미 담겨있는 항목인지 확인하기 위해 서비스 호출
 		BasketProService bps = new BasketProService();
-		int insertResult = bps.insertBasket(basket);
-
-		if(insertResult>0) {
+		boolean isAlreadyInsert = bps.basketInsertCheck(basket);
+		
+		// 이미 담겨있는 항목이라면 update
+		
+		if(isAlreadyInsert) {
+			// 이미 담겨있으므로 수량 update 
 			
-			System.out.println("장바구니 담기 성공!");
-			//자바스크립트로 실패 메세지 출력
-			response.setContentType("text/html;charset=UTF-8");//문서타입지정
-			PrintWriter out=response.getWriter();//PrintWriter 객체 가져오기
-			//println()메서드로 문자열 출력
-			out.println("<script>");
-			out.println("alert('장바구니 담기에 성공했습니다!')");//메세지 출력
-			out.println("</script>");
+			BasketProService bps2 = new BasketProService();
+			int updateResult = bps2.updateBasket(basket);
+			
+			if(updateResult>0) {
+				
+				System.out.println("장바구니 담기 성공!");
+				
+			} else {
+				System.out.println("장바구니 담기 실패!");
+			}
 			
 		} else {
 			
-			System.out.println("장바구니 담기 실패!");
-			//자바스크립트로 실패 메세지 출력
-			response.setContentType("text/html;charset=UTF-8");//문서타입지정
-			PrintWriter out=response.getWriter();//PrintWriter 객체 가져오기
-			//println()메서드로 문자열 출력
-			out.println("<script>");
-			out.println("alert('장바구니 담기에 실패했습니다!')");//메세지 출력
-			out.println("</script>");
+			// 장바구니에 없는 항목이므로 insert 
+			// 담긴 정보를 basket table에 저장하기 위한 서비스 호출
+			BasketProService bps3 = new BasketProService();
+			int insertResult = bps3.insertBasket(basket);
+			
+			if(insertResult>0) {
+				
+				System.out.println("장바구니 담기 성공!");
+				//자바스크립트로 실패 메세지 출력
+				response.setContentType("text/html;charset=UTF-8");//문서타입지정
+				PrintWriter out=response.getWriter();//PrintWriter 객체 가져오기
+				//println()메서드로 문자열 출력
+				out.println("<script>");
+				out.println("alert('장바구니 담기에 성공했습니다!')");//메세지 출력
+				out.println("</script>");
+				
+			} else {
+				
+				System.out.println("장바구니 담기 실패!");
+				//자바스크립트로 실패 메세지 출력
+				response.setContentType("text/html;charset=UTF-8");//문서타입지정
+				PrintWriter out=response.getWriter();//PrintWriter 객체 가져오기
+				//println()메서드로 문자열 출력
+				out.println("<script>");
+				out.println("alert('장바구니 담기에 실패했습니다!')");//메세지 출력
+				out.println("</script>");
+			}
+			
 		}
+		
+		
+		// 없는 항목이라면 insert 
+		
+
+
+		
 		
 		forward = new ActionForward();
 		forward.setPath("OrderMain.or");
