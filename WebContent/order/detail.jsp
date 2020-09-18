@@ -22,45 +22,32 @@ ArrayList<ReviewDTO> reviewList = (ArrayList<ReviewDTO>)request.getAttribute("re
 <script src="js/jquery.js"></script>
 <script type="text/javascript">
 </script>
+<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body>
-<h1>order/detail.jsp</h1>
-<h1>메뉴디테일 정보</h1>
-
 
 <form action="BasketPro.or" method="post" id="basket_form" name="basket_form">
-<table border="1">
-<tr>
-	<td>메뉴 번호</td>
-	<td><input type="text" value="<%=menu.getItem_num() %>" name="item_num" readonly="readonly"></td>
-</tr>
-<tr>
-	<td>id</td>
-	<td><input type="text" value="<%=mem_num %>" name="mem_num" readonly="readonly"></td>
-</tr>
-<tr>
-	<td>메뉴 이름</td>
-	<td><%=menu.getItem_name()%></td> 
-</tr>
-<tr>
-	<td>메뉴 이미지</td>
-	<td><img width="100" height="100" src="product/productUpload/<%=menu.getItem_img() %>"></td>
-</tr>
-<tr>
-	<td>메뉴 정보</td>
-	<td> <%=menu.getItem_info() %></td>
-</tr>
-<tr>
-	<td>메뉴 가격</td>
-	<td><%=menu.getItem_price() %> </td>
-</tr>
-<tr>
-	<td>테이블 번호</td>
-	<td><input type="text" value="<%=table_num %>" name="table_num" readonly="readonly"></td>
-</tr>
-</table>
-수량 : <input type="number" min="1" id="item_qty" name="item_qty"><br>
-<input type="submit" value="장바구니에 담기" >
+
+ 테이블 번호 : <%=table_num %> | id : <%=mem_num %> <br>
+<div class="max-w-sm rounded overflow-hidden shadow-lg">
+  <img class="w-full" src="product/productUpload/<%=menu.getItem_img() %>" alt="Sunset in the mountains">
+  <div class="px-6 py-4">
+    <div class="font-bold text-xl mb-2"><%=menu.getItem_name()%></div>
+    <p class="text-gray-700 text-base">
+     <%=menu.getItem_num() %> | <%=menu.getItem_name()%> | <%=menu.getItem_price() %>원 <br>
+     <%=menu.getItem_info() %> <br>
+          수량 : <input type="number" min="1" id="item_qty" name="item_qty">
+     <input type="submit" value="장바구니에 담기" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" >
+    </p>
+  </div>
+  <div class="px-6 pt-4 pb-2">
+    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
+    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
+    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
+  </div>
+</div>
+
+
 </form>
 <br><br><br>
 <hr>

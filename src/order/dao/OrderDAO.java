@@ -54,8 +54,8 @@ public class OrderDAO {
 			// 장바구니에 담긴 메뉴 (항목의)수량 조회 
 			String sql = "SELECT COUNT(item_num) FROM basket1 where mem_num=? and table_num=?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, basket.getMem_num());
-			pstmt.setInt(2, basket.getTable_num());
+			pstmt.setInt(1, basket.getMem_num()); // mem_num
+			pstmt.setInt(2, basket.getTable_num()); // basket_num
 			
 			rs = pstmt.executeQuery();
 
@@ -190,7 +190,7 @@ public class OrderDAO {
 	}
 	
 	
-	// 장바구니 담기 ///
+	// 처음 담는 항목 장바구니 담기 ///
 	public int insertBasket(BasketBean basket) {
 
 		// insert 성공여부 확인을 위한 변수 초기값 0 지정
@@ -199,7 +199,7 @@ public class OrderDAO {
 	
 		try {
 			
-			System.out.println("오나요?");
+			
 			String sql = "SELECT MAX(basket_num) FROM basket1 WHERE mem_num=? AND table_num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, basket.getMem_num());
@@ -485,7 +485,7 @@ public class OrderDAO {
 				pstmt.setInt(2, b.getMem_num());
 				pstmt.setInt(3, b.getTable_num());
 				pstmt.setInt(4, b.getItem_num());
-				pstmt.setInt(5, b.getItem_qty()); // order_tossed는 default=0이므로 따로 안줘도됨 
+				pstmt.setInt(5, b.getItem_qty()); // preorder 테이블의 order_tossed 칼럼은 default=0이므로 따로 안줘도됨 
 
 					
 				insertResult = pstmt.executeUpdate();
@@ -570,12 +570,13 @@ public class OrderDAO {
 	}
 
 	
-	// 장바구니에 있는 항목을 또 장바구니에 담을 경우 수량 증가시켜주는 메서드 
+	// 장바구니에 있는 항목을 또 장바구니에 추가로 담을 경우 수량 증가(update)시켜주는 메서드 
 	public int updateBasket(BasketBean basket) {
 		
 		int updateResult =0;
 		
 		try {
+			
 			// 장바구니에 담겨있는 수량 가져오기 
 			String sql ="SELECT item_qty FROM basket1 WHERE mem_num=? and table_num=? and item_num=?";
 			pstmt = con.prepareStatement(sql);
@@ -587,8 +588,9 @@ public class OrderDAO {
 			int qty = 0;
 			
 			if(rs.next()) {
+				
 				int alreadyInQty = rs.getInt("item_qty"); // 테이블에 이미 담겨있던 수량 
-				qty = alreadyInQty + basket.getItem_qty(); // 담겨져있던 수량 + 방금 담긴 수량 		
+				qty = alreadyInQty + basket.getItem_qty(); // 최종 수량 = 담겨져있던 수량 + 방금 담은 수량 		
 				
 				
 				sql ="update basket1 set item_qty = ? where mem_num=? and table_num=? and item_num=?";
@@ -620,15 +622,17 @@ public class OrderDAO {
 		String preorderInfo = "";
 		
 		try {
-			String sql = "SELECT * FROM preorder WHERE mem_num=? and table_num=?";
+			String sql = "SELECT * FROM preorder WHERE mem_num=? and table_num=? and order_tossed = ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, mem_num);
 			pstmt.setInt(2, table_num);
+			pstmt.setInt(3, 0);
 			rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
 				
 				preorderInfo += (rs.getInt("item_num") + "," + rs.getInt("item_qty") + ","+0+"/");
+				// 방금 주문된 항목이므로 reviewCk = 0 임 
 
 			}
 			
@@ -656,7 +660,7 @@ public class OrderDAO {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, basket.getMem_num());
 			pstmt.setInt(2, basket.getTable_num());
-			pstmt.setString(3, orderInfo);
+			pstmt.setString(3, orderInfo); // string형태로 만들어놓은 preorder정보(item_num,item_qty,reviewCk)
 			
 			insertResult = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -680,6 +684,7 @@ public class OrderDAO {
 		
 		try {
 			
+			// order_num을 주기 위해 존재하는 order_num 구하기 
 			String sql = "SELECT MAX(order_num) FROM order1";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
@@ -690,6 +695,8 @@ public class OrderDAO {
 				num = rs.getInt("MAX(order_num)") + 1 ;
 			}
 			
+			// product 테이블에 있는 가격 정보와 preorder 테이블에 있는 정보를 가져오기 위해 join절 사용
+			// item_qty는 최종수량을 구해야하므로 sum함수사용 
 			sql = "select p.item_num, i.item_price, (sum(item_qty) * i.item_price) as 'total_price',sum(item_qty) as 'item_qty'" + 
 					"from preorder p join product i on (p.item_num = i.item_num)" + 
 					"where p.mem_num=? and p.table_num=? and order_tossed = ? group by p.item_num";
@@ -701,7 +708,8 @@ public class OrderDAO {
 			
 			rs = pstmt.executeQuery();
 			
-//			reviewinfo(mem_num,table_num,orderInfo,orderTime) VALUES(?,?,?,now())
+
+			// 가져온 값을 order 테이블에 바로 저장하는 insert구문 
 			while(rs.next()) {
 				
 				sql = "insert into order1(order_num,mem_num,table_num,order_time,item_num,item_qty,item_price,total_price) "
@@ -729,8 +737,6 @@ public class OrderDAO {
 		}
 		
 		
-		
-		
 		return insertSuccess;
 	}
 
@@ -745,7 +751,7 @@ public class OrderDAO {
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, basket.getMem_num());
 			pstmt.setInt(2, basket.getTable_num());
-			pstmt.setInt(3, 0); // 결제완료 된적없는 행만 select 
+			pstmt.setInt(3, 0); // 결제완료 된 적 없는 행만 select 
 			
 			rs = pstmt.executeQuery();
 			

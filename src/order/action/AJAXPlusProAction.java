@@ -15,6 +15,7 @@ public class AJAXPlusProAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
+		// 장바구니 리스트에서 +1 클릭 시 수량 증가
 		ActionForward forward = null;
 		
 		// mem_num, table_num에 해당하는 장바구니 수량을 바꿔줘야 하므로 조회 

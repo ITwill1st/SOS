@@ -11,7 +11,7 @@ import order.dao.OrderDAO;
 
 public class MenuDetailService {
 
-	// 단일메뉴 하나에 대한 상세정보 조회를 위한 메서드 //
+	// 단일메뉴 이름 클릭시 상품에 대한 상세정보 조회를 위한 메서드 //
 	public ProductBean getDetail(int item_num) {
 		
 		Connection con = getConnection();

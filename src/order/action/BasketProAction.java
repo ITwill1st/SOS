@@ -44,24 +44,23 @@ public class BasketProAction implements Action {
 		boolean isAlreadyInsert = bps.basketInsertCheck(basket);
 		
 		// 이미 담겨있는 항목이라면 update
+		// 처음 담는 항목이라면 insert 
 		
 		if(isAlreadyInsert) {
-			// 이미 담겨있으므로 수량 update 
+			// 이미 담겨있는 항목이므로 수량을 update 
 			
 			BasketProService bps2 = new BasketProService();
 			int updateResult = bps2.updateBasket(basket);
 			
 			if(updateResult>0) {
-				
 				System.out.println("장바구니 담기 성공!");
-				
 			} else {
 				System.out.println("장바구니 담기 실패!");
 			}
 			
 		} else {
 			
-			// 장바구니에 없는 항목이므로 insert 
+			// 처음 담는 항목이므로 insert 
 			// 담긴 정보를 basket table에 저장하기 위한 서비스 호출
 			BasketProService bps3 = new BasketProService();
 			int insertResult = bps3.insertBasket(basket);
@@ -90,13 +89,6 @@ public class BasketProAction implements Action {
 			}
 			
 		}
-		
-		
-		// 없는 항목이라면 insert 
-		
-
-
-		
 		
 		forward = new ActionForward();
 		forward.setPath("OrderMain.or");

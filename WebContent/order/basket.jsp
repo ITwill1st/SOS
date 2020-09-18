@@ -12,13 +12,10 @@ int table_num = Integer.parseInt(request.getParameter("table_num"));
 
 ArrayList<BasketBean> basketList = (ArrayList<BasketBean>)request.getAttribute("basketList");
 ArrayList<ProductBean> menuList = (ArrayList<ProductBean>)request.getAttribute("menuList");
-
 %>
 <!DOCTYPE html>
 <html>
 <script src="js/jquery.js"></script>
-
-
 <head>
 <meta charset="UTF-8">
 <title>order/basket.jsp</title>
@@ -29,7 +26,7 @@ ArrayList<ProductBean> menuList = (ArrayList<ProductBean>)request.getAttribute("
 <h1>order/basket.jsp</h1>
 <h1 class="text-6xl">장바구니 정보</h1>
 <form method="get">
- <table border="1" class="table border-transparent">
+ <table border="1" class="table-auto">
  	<thead class="thead-dark">
          <tr>
             <td width="100" colspan="4">장바구니</td>
@@ -64,7 +61,7 @@ ArrayList<ProductBean> menuList = (ArrayList<ProductBean>)request.getAttribute("
  		 	<td>
  		 	<input type="button" value="-" id="minusQty_<%=basket.getItem_num() %>" class="button_minus" <%if(basket.getItem_qty()==1) {%> disabled="disabled" <% }%>>
  		 	<input type="text" min="1" value="<%=basket.getItem_qty() %>" name="item_qty" readonly="readonly" id="qty_<%=basket.getItem_num() %>">
- 		 	<input type="button" value="+" id="plusQty_<%=basket.getItem_num() %>" class="button_plus" > 	
+ 		 	<input type="button" value="+" id="plusQty_<%=basket.getItem_num() %>" class="button_plus" > <br>
  			<input type="button" class="btn btn-danger" value="삭제" 
  			       onclick="location.href='DeleteBasket.or?item_num=<%=basket.getItem_num() %>&mem_num=<%=mem_num %>&table_num=<%=table_num %>'"> 	
  			</td>

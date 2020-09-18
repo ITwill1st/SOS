@@ -16,7 +16,7 @@ public class BasketListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		// 장바구니 리스트 
+		// 장바구니 리스트 확인 
 		ActionForward forward= null;
 
 		// mem_num, table_num 받아오기 

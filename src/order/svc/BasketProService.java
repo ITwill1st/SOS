@@ -30,7 +30,7 @@ public class BasketProService {
 	}
 
 	
-	// 장바구니 담기 ///
+	// 처음 담는 항목 장바구니 담기 ///
 	public int insertBasket(BasketBean basket) {
 
 		int insertSuccess = 0;
@@ -121,7 +121,7 @@ public class BasketProService {
 
 
 	
-	// 장바구니List basket삭제 위한 메서드 //
+	// 장바구니List에서 항목 하나에 대한 삭제 
 	public int deleteBasket(BasketBean basket) {
 		
 		int deleteResult = 0;
@@ -145,7 +145,7 @@ public class BasketProService {
 	}
 
 
-	// preorder로 보내준 후 저장되어있는 장바구니에서 완전히 삭제 
+	// preorder로 보내준 후 장바구니에서 완전히 삭제 
 	public int deleteBasketTable(int mem_num, int table_num) {
 
 		int deleteResult = 0;
@@ -184,7 +184,7 @@ public class BasketProService {
 	}
 
 
-	// 장바구니에 담겨있는 항목에 또 추가로 담을 경우 수량 업데이트 해주는 메서드 
+	// 장바구니에 이미 담겨있는 항목을 또 추가로 담을 경우 수량 업데이트 해주는 메서드 
 	public int updateBasket(BasketBean basket) {
 		
 		int updateResult = 0;

@@ -13,6 +13,7 @@ public class DeleteBasketProAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
+		// 장바구니 List에서 항목 삭제 
 		ActionForward forward = null;
 		
 		// mem_num, table_num, item_num 가져오기 
@@ -26,7 +27,7 @@ public class DeleteBasketProAction implements Action {
 		basket.setMem_num(mem_num);
 		basket.setTable_num(table_num);
 		
-		// 담긴 정보에 해당하는 basket 항목 삭제하기 위한 서비스 호출
+		// 장바구니 리스트에서 담긴 정보에 해당하는 basket 항목 삭제하기 위한 서비스 호출
 		BasketProService bps = new BasketProService();
 		int deleteResult = bps.deleteBasket(basket);
 		

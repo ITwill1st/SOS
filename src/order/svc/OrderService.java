@@ -40,16 +40,20 @@ public class OrderService {
 	// 중복되는 아이템의 경우 qty를 합쳐주는 메서드 
 	public String PreOrderToOrder(ArrayList<ProductInfoBean> preorderarray) {
 		
+		// 중복비교를 막기위해 size-1 
 		for (int i = 0; i < preorderarray.size() - 1; i++) {
 
 			for(int j = i + 1; j<preorderarray.size(); j++) {
 				
+				// item_num이 같을 경우(중복된 항목일경우)
 				if (preorderarray.get(i).getItem_num() == preorderarray.get(j).getItem_num()) {
 					
 //					System.out.println("원본: " + list.get(i).getItem_no() + ", " + list.get(i).getItem_qty());
 //					System.out.println("대상: " + list.get(j).getItem_no() + ", " + list.get(j).getItem_qty());
 					
+					// 중복된 항목의 수량 합쳐줌 
 					preorderarray.get(i).setItem_qty(preorderarray.get(i).getItem_qty() + preorderarray.get(j).getItem_qty());
+					// 자리를 채워주기 위한 o 저장 
 					preorderarray.get(j).setItem_qty(0);
 									
 				}
@@ -60,17 +64,13 @@ public class OrderService {
 			
 		String listToString = "";
 		
+		// for문 돌려서 중복 제거한 array를 list형태로 만들어줌 
 		for(ProductInfoBean pib : preorderarray) {
 			
 			listToString += (pib.getItem_num() + "," + pib.getItem_qty() + "/");
 			
 		}
 
-		
-		System.out.println("0 지우기전: " + listToString);
-		
-		
-		
 		
 		ArrayList<ProductInfoBean> listCopy = new ArrayList<ProductInfoBean>();
 		
@@ -79,6 +79,7 @@ public class OrderService {
 		for(int i = 0; i<preorderarray.size(); i++){
 			
 			for(int x = 0; x < listCopy.size(); x++){
+				// 자리를 채우기 위해 넣어둔 0을 제거해줌 
 				if(preorderarray.get(x).getItem_qty()==0) {
 					listCopy.remove(x);
 				}				

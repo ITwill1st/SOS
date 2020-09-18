@@ -16,6 +16,8 @@ public class BasketToPreOrder implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		// 장바구니 table에 담긴 항목을 preorder테이블에 담기 
 		ActionForward forward = null;
 		
 		// mem_num & table_num 가져오기
@@ -26,7 +28,7 @@ public class BasketToPreOrder implements Action {
 		basket.setMem_num(mem_num);
 		basket.setTable_num(table_num);
 		
-		// mem_num & table_num에 해당하는 bakset List 가져오기 
+		// mem_num & table_num에 해당하는 장바구니 가져오기 
 		// 현재 장바구니 조회하기위해 BasketProService 호출 
 		BasketProService bps = new BasketProService();
 		ArrayList<BasketBean> basketList = bps.getBasketList(mem_num,table_num);
@@ -40,10 +42,11 @@ public class BasketToPreOrder implements Action {
 			//println()메서드로 문자열 출력
 			out.println("<script>");
 			out.println("alert('장바구니가 비어있습니다.')");//메세지 출력
-			out.println("history.back()");//이전페이지 이동
+			out.println("history.back()");//이전페이지로 이동
 			out.println("</script>");
 			
 		} else {
+			
 			
 			// basket에 저장된 정보를 preorder 테이블에 저장하기 위해 서비스 호출 
 			PreOrderService pos = new PreOrderService();

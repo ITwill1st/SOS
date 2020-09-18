@@ -12,8 +12,8 @@ public class AJAXMinusProAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		// 장바구니 List에서 수량 -1 했을 경우 호출
 		
+		// 장바구니 List에서 수량 -1 했을 경우
 		ActionForward forward = null;
 		
 		// 해당 item_num, mem_num, table_num 전달 받음 

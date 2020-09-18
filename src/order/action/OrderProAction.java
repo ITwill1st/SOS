@@ -20,9 +20,11 @@ public class OrderProAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
+		// 결제하기 
+		// preorder의 정보 -> order 테이블과  review check table 테이블에 넣어주기 
 		ActionForward forward = null;
 		
-		// id, table_num 가져오기 
+		// mem_num, table_num 가져오기
 		int mem_num = Integer.parseInt(request.getParameter("mem_num"));
 		int table_num = Integer.parseInt(request.getParameter("table_num"));
 
@@ -53,7 +55,7 @@ public class OrderProAction implements Action {
 			StringToArrayListService stal = new StringToArrayListService();
 			ArrayList<ProductInfoBean> preorderarray = stal.getArray(PreOrderInfo);
 		
-			// 합쳐주기 위한 서비스 
+			// item_num이 중복되는 항목들의 수량을 합쳐주기 위한 메서드 호출 
 			OrderService os3 = new OrderService();
 			String OrderInfo = os3.PreOrderToOrder(preorderarray);
 			
@@ -66,7 +68,7 @@ public class OrderProAction implements Action {
 						
 				System.out.println("order 성공!");
 						
-				// preorder 항목이 order테이블에 insert 성공했을시 
+				// preorder 항목이 order테이블에 insert 성공했을시 결제된적이 있는지 구분해주기 위해 
 				// 기존 preorder의 order_tossed 값을 1로 바꿔주기 
 				OrderService os5 = new OrderService();
 				int updateResult = os5.updatePreOrder(mem_num,table_num);

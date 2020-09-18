@@ -33,7 +33,7 @@ public class MainPageProAction implements Action {
 		basket.setMem_num(mem_num);
 		basket.setTable_num(table_num);
 		
-		// mem_num과 table_num에 해당하basket에 담긴 item 수량 받아오기 
+		// mem_num과 table_num에 해당하는 장바구니 수량 받아오는 메서드 호출
 		int basketCount = bps.getBasketCount(basket);
 		
 		// 메인에 출력해줄 전체 메뉴 조회 
