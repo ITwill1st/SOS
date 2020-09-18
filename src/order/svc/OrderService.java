@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 import order.dao.OrderDAO;
 import vo.BasketBean;
-import vo.PreOrderBean;
 import vo.ProductInfoBean;
 
 public class OrderService {
@@ -36,48 +35,6 @@ public class OrderService {
 		return updateSuccess;
 	}
 
-	
-	// preorder에 담긴 항목들 가져오기 위한 메서드 //
-	public ArrayList<PreOrderBean> getPreOrder(BasketBean basket) {
-		
-		ArrayList<PreOrderBean> preorder = null;
-		
-		Connection con = getConnection();
-		OrderDAO orderDAO = OrderDAO.getInstance();
-		orderDAO.setConnection(con);
-		
-		preorder = orderDAO.selectPreOrder(basket);
-		
-		close(con);
-		
-		return preorder;
-
-	}
-
-	
-	// preorder 정보를 order 테이블에 담기 위한 메서드 //
-	public int insertOrder(ArrayList<PreOrderBean> preorderList) {
-
-		int orderSuccess = 0;
-		
-		Connection con = getConnection();
-		OrderDAO orderDAO = OrderDAO.getInstance();
-		orderDAO.setConnection(con);
-		
-		// order 메서드 
-		orderSuccess = orderDAO.insertOrder(preorderList);
-		
-		if (orderSuccess>0) {
-			commit(con);
-		} else {
-			rollback(con);
-		}
-		
-		close(con);
-		
-		return orderSuccess;
-		
-	}
 
 
 	// 중복되는 아이템의 경우 qty를 합쳐주는 메서드 
@@ -169,6 +126,49 @@ public class OrderService {
 		
 		return orderSuccess;
 	
+	}
+
+	
+	// preorder에 저장된 정보를 order테이블에 저장하기 위한 메서드 
+	public int insertOrder(BasketBean basket) {
+		
+		int orderSuccess = 0;
+		
+		Connection con = getConnection();
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		orderDAO.setConnection(con);
+		
+		// preorder 테이블에 있는 정보를  order 테이블에 저장 
+		orderSuccess = orderDAO.insertOrder(basket);
+		
+		if (orderSuccess>0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		
+		close(con);
+		
+		return orderSuccess;
+	}
+
+
+	// mem_num, table_num에 해당하는 preorder가 있는지 먼저 확인! 
+	public int getPreorderCount(BasketBean basket) {
+		
+		
+		int preorderCount = 0;
+		
+		Connection con = getConnection();
+		OrderDAO orderDAO = OrderDAO.getInstance();
+		orderDAO.setConnection(con);
+		
+		// preorder 테이블에 있는 정보를  order 테이블에 저장 
+		preorderCount = orderDAO.selectPreorderCount(basket);
+				
+		close(con);
+		
+		return preorderCount;
 	}
 
 

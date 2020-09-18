@@ -12,7 +12,6 @@ import org.json.simple.JSONArray;
 import static db.JdbcUtil.*;
 
 import vo.BasketBean;
-import vo.PreOrderBean;
 import vo.ProductBean;
 
 
@@ -201,7 +200,7 @@ public class OrderDAO {
 		try {
 			
 			System.out.println("오나요?");
-			String sql = "SELECT MAX(basket_num) FROM basket1 WHERE mem_num=? AND basket_num=?";
+			String sql = "SELECT MAX(basket_num) FROM basket1 WHERE mem_num=? AND table_num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, basket.getMem_num());
 			pstmt.setInt(2, basket.getTable_num());
@@ -504,57 +503,7 @@ public class OrderDAO {
 	}
 	
 
-	
-	// preorder에 담긴 항목 담아오기 위한 메서드 //
-	public ArrayList<PreOrderBean> selectPreOrder(BasketBean basket) {
-		
-		ArrayList<PreOrderBean> preorderList = new ArrayList<PreOrderBean>();
-		
-		try {
 
-			String sql = "select sum(item_qty),item_num from preorder "
-					+ "where mem_num=? and table_num=? group by item_num;";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, basket.getMem_num());
-			pstmt.setInt(2, basket.getTable_num());
-			
-			rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				
-				PreOrderBean preorder= new PreOrderBean();
-				preorder.setItem_num(rs.getInt("item_num"));
-				preorder.setItem_qty(rs.getInt("sum(item_qty)"));
-				
-				preorderList.add(preorder);
-				
-			}
-
-			} catch (NumberFormatException e) {
-				e.printStackTrace();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				close(rs);
-				close(pstmt);
-			}
-
-			return preorderList;
-	}
-
-
-
-	// preorder에 담긴 정보 order테이블에 담기 위한 메서드 //
-	public int insertOrder(ArrayList<PreOrderBean> preorderList) {
-		
-		int insertResult = 0;
-		
-		// 조인...모르겠고요...모르겠스빈다....
-		
-		
-		return insertResult;
-		
-	}
 
 	// 장바구니 정보를 preorder로 넘겨준 후 삭제하는 메서드
 	// * 장바구니 리스트에서 항목 하나를 삭제 하는 메서드와 헷갈리지 말기 
@@ -720,6 +669,99 @@ public class OrderDAO {
 		
 		return insertResult;
 	
+	}
+
+	
+	
+	// preorder에 있는 항목을 order 테이블에 저장하는 메서드 
+	public int insertOrder(BasketBean basket) {
+		
+		int insertSuccess =0;
+		
+		try {
+			
+			String sql = "SELECT MAX(order_num) FROM order1";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			int num = 0;
+
+			if(rs.next()) {
+				num = rs.getInt("MAX(order_num)") + 1 ;
+			}
+			
+			sql = "select p.item_num, i.item_price, (sum(item_qty) * i.item_price) as 'total_price',sum(item_qty) as 'item_qty'" + 
+					"from preorder p join product i on (p.item_num = i.item_num)" + 
+					"where p.mem_num=? and p.table_num=? and order_tossed = ? group by p.item_num";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, basket.getMem_num());
+			pstmt.setInt(2, basket.getTable_num());
+			pstmt.setInt(3, 0); // 결제 여부 확인하기 위한 order_tossed
+			
+			rs = pstmt.executeQuery();
+			
+//			reviewinfo(mem_num,table_num,orderInfo,orderTime) VALUES(?,?,?,now())
+			while(rs.next()) {
+				
+				sql = "insert into order1(order_num,mem_num,table_num,order_time,item_num,item_qty,item_price,total_price) "
+						+ "values(?,?,?,now(),?,?,?,?)";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, num);
+				pstmt.setInt(2, basket.getMem_num());
+				pstmt.setInt(3, basket.getTable_num());
+				pstmt.setInt(4, rs.getInt("item_num"));
+				pstmt.setInt(5, rs.getInt("item_qty"));
+				pstmt.setInt(6, rs.getInt("item_price"));
+				pstmt.setInt(7, rs.getInt("total_price"));
+				
+
+				insertSuccess = pstmt.executeUpdate();
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("OrderDAO - insertOrder() 메서드 " + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		
+		
+		
+		return insertSuccess;
+	}
+
+	
+	// mem_num, table_num에 해당하는 preorder가 있는지 먼저 확인! 
+	public int selectPreorderCount(BasketBean basket) {
+		
+		int preorderCount = 0;
+		
+		try {
+			String sql = "SELECT COUNT(item_num) FROM preorder where mem_num=? and table_num=? and order_tossed=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, basket.getMem_num());
+			pstmt.setInt(2, basket.getTable_num());
+			pstmt.setInt(3, 0); // 결제완료 된적없는 행만 select 
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				preorderCount = rs.getInt(1);
+
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("OrderDAO - selectPreorderCount() 메서드 " + e.getMessage());
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return preorderCount;
 	}
 
 

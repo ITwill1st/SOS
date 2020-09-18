@@ -12,7 +12,6 @@ import order.svc.OrderService;
 import order.svc.StringToArrayListService;
 import vo.ActionForward;
 import vo.BasketBean;
-import vo.PreOrderBean;
 import vo.ProductInfoBean;
 
 
@@ -32,33 +31,18 @@ public class OrderProAction implements Action {
 		basket.setTable_num(table_num);
 		
 		
-		// mem_num, table_num에 해당하는 preorder가져오기 
-		// 
+		// mem_num, table_num에 해당하는 preorder가 있는지 먼저 확인! 
 		OrderService os = new OrderService();
-		ArrayList<PreOrderBean> preorderList = os.getPreOrder(basket);
+		int preorderCount = os.getPreorderCount(basket);
+	
 		
-		// preorder가 없을경우 
-		if(preorderList == null) {
-					
-			//자바스크립트로 주문목록 비어있음 출력 
-			response.setContentType("text/html;charset=UTF-8");//문서타입지정
-			PrintWriter out=response.getWriter();//PrintWriter 객체 가져오기
-			//println()메서드로 문자열 출력
-			out.println("<script>");
-			out.println("alert('주문목록이 비어있습니다.')");//메세지 출력
-			out.println("history.back()");//이전페이지 이동
-			out.println("</script>");
-					
-		} else {
-		
-//			
-//			// 가져온 preorder를 order테이블에 담기 위한 서비스 호출 
-//			// 이야 이건 진짜 모르겠다 ;; 
-//			OrderService os2 = new OrderService();
-//			int insertResult = os2.insertOrder(preorderList);
+		// preorder가 존재할 경우 
+		if(preorderCount > 0) {
+			// preorder를 order테이블에 담기 위한 서비스 호출  
+			OrderService os2 = new OrderService();
+			int insertResult = os2.insertOrder(basket);
 
-			
-			
+						
 			// 동현쓰를 위한 review check table에 값 넘겨주기 
 			// 이전에 만들어놓은 메서드들 활용 
 			// mem_num, table_num 에 해당하는 preorder를 String타입으로 가져오기 
@@ -77,28 +61,40 @@ public class OrderProAction implements Action {
 			OrderService os4 = new OrderService();
 			int insertResult2 = os4.insertOrder(basket,OrderInfo);
 			
-//			if (insertResult>0) {
-//						
-//				System.out.println("order 성공!");
-//						
-//				// preorder 항목이 order테이블에 insert 성공했을시 
-//				// 기존 preorder의 order_tossed 값을 1로 바꿔주기 
-//				OrderService os4 = new OrderService();
-//				int updateResult = os3.updatePreOrder(mem_num,table_num);
-//						
-//				if (updateResult>0) {
-//					 System.out.println("order_tossed =1 성공!");
-//				} else {
-//					System.out.println("order_tossed =1 실패!");
-//				}
-//						
-//			} else {
-//				System.out.println("order 실패!");
-//			}
+			
+			if (insertResult>0) {
+						
+				System.out.println("order 성공!");
+						
+				// preorder 항목이 order테이블에 insert 성공했을시 
+				// 기존 preorder의 order_tossed 값을 1로 바꿔주기 
+				OrderService os5 = new OrderService();
+				int updateResult = os5.updatePreOrder(mem_num,table_num);
+						
+				if (updateResult>0) {
+					 System.out.println("order_tossed =1 성공!");
+				} else {
+					System.out.println("order_tossed =1 실패!");
+				}
+						
+			} else {
+				System.out.println("order 실패!");
+			}
 					
 					
 			forward = new ActionForward();
-			forward.setPath("/OrderMain.or");
+			forward.setPath("/OrderMain.or");		
+						
+		} else {
+			
+			//자바스크립트로 주문목록 비어있음 출력 
+			response.setContentType("text/html;charset=UTF-8");//문서타입지정
+			PrintWriter out=response.getWriter();//PrintWriter 객체 가져오기
+			//println()메서드로 문자열 출력
+			out.println("<script>");
+			out.println("alert('주문목록이 비어있습니다.')");//메세지 출력
+			out.println("history.back()");//이전페이지 이동
+			out.println("</script>");
 		
 		}
 	
