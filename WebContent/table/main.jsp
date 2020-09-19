@@ -44,7 +44,7 @@ This text is displayed if your browser does not support HTML5 Canvas.
 					<button>주문 내역</button>
 				</div>
 				<div class="right-bar-List">
-					<button onclick="location.href='RsvList.rsv'">예약 내역</button>
+					<button onclick="location.href='MyRsvList.rsv">예약 내역</button>
 				</div>
 				<div class="right-bar-List">
 					<button onclick="location.href='ProductList.po'">상품 관리</button>
