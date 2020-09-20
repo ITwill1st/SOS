@@ -104,13 +104,15 @@ private ReviewDAO() {
 		return reviewList;
 	}
 	public ArrayList<OrderDTO> getOrderList(int mem_num) {
+		// 구매내역 가져오는 메서드
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		ArrayList<OrderDTO> orderList = new ArrayList<OrderDTO>();
 		
 		try {
-			String sql = "select * from orders where mem_num=?";
+			// 가져올때 리뷰가 안된것들만 가져옴
+			String sql = "select * from orders where mem_num=? and review_chk=0";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, mem_num);
 			rs = pstmt.executeQuery();
@@ -120,10 +122,8 @@ private ReviewDAO() {
 				
 				orderDTO.setOrder_num(rs.getInt("order_num"));
 				orderDTO.setMem_num(rs.getInt("mem_num"));
-				orderDTO.setOrder_info(rs.getString("order_info"));
-				orderDTO.setTable_num(rs.getInt("table_num"));
-				orderDTO.setOrder_datetime(rs.getTimestamp("order_datetime"));
-				orderDTO.setOrder_confirm(rs.getInt("order_confirm"));
+				orderDTO.setItem_num(rs.getInt("item_num"));
+				orderDTO.setReview_chk(rs.getInt("review_chk"));
 				
 				orderList.add(orderDTO);
 			}
@@ -176,21 +176,18 @@ private ReviewDAO() {
 		return productBean;
 	}
 	
-	public int reviewCheckerUpdate(int order_num, String order_info_toString) {
+	public int reviewCheckerUpdate(int order_num) {
 		
 		PreparedStatement pstmt = null;
-		System.out.println("reviewCheckerUpdate");
-		System.out.println(order_num);
-		System.out.println(order_info_toString);
+
 		int a = 0;
 		try {
 			
-			String sql = "UPDATE orders SET order_info=? WHERE order_num=?";
+			String sql = "UPDATE orders SET review_chk=1 WHERE order_num=?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, order_info_toString);
-			pstmt.setInt(2, order_num);
+			pstmt.setInt(1, order_num);
 			a = pstmt.executeUpdate();
-			System.out.println(a);
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

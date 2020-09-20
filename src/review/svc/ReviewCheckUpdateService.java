@@ -14,13 +14,10 @@ import vo.ProductInfoBean;
 public class ReviewCheckUpdateService {
 
 	public void reviewCheckUpdate(int mem_num) {
-
-		System.out.println("ReviewCheckUpdateService - reviewCheckUpdate");
+		
 		int a = 0;
 		ReviewListService service = new ReviewListService();
-		ArrayListToStringService arrayListToStringService = new ArrayListToStringService();
 		ArrayList<OrderDTO> orderList = service.getOrderList(mem_num);
-		ArrayList<ProductInfoBean> order_info = null;
 		
 		Connection con = getConnection();
 		ReviewDAO rda = ReviewDAO.getInstance();
@@ -29,19 +26,8 @@ public class ReviewCheckUpdateService {
 		for (int i = 0; i < orderList.size(); i++) {
 			
 			OrderDTO orderDTO = orderList.get(i);
-			int order_num = orderDTO.getOrder_num();
-			StringToArrayListService service_stringToArrayList = new StringToArrayListService();
-			 order_info = service_stringToArrayList.getOrderInfoArray(orderDTO);
-			 
-			 for(int x = 0 ; x < order_info.size() ; x++) {
-					
-					ProductInfoBean pib = order_info.get(x);
-					pib.setReview_ck(1);
-									
-			}
-			 
-			 String order_info_toString = arrayListToStringService.toString(order_info);
-			 a = rda.reviewCheckerUpdate(order_num, order_info_toString);			
+			a = rda.reviewCheckerUpdate(orderDTO.getOrder_num());
+			
 		}
 		
 		if(a > 0) {

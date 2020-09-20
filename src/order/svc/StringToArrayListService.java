@@ -38,32 +38,32 @@ public class StringToArrayListService {
 //		return dbBasketInfo;
 //	}
 
-	public ArrayList<ProductInfoBean> getOrderInfoArray(OrderDTO orderDTO) {
-
-		ArrayList<ProductInfoBean> dbBasketInfo = new ArrayList<ProductInfoBean>();
-
-		String[] OrderInfo = orderDTO.getOrder_info().split("/");
-
-		if (OrderInfo.length >= 1) {
-
-			for (String info : OrderInfo) {
-
-				ProductInfoBean pib = new ProductInfoBean();
-
-				String[] OrderInfo2 = info.split(",");
-
-				pib.setItem_num(Integer.parseInt(OrderInfo2[0]));
-				pib.setItem_qty(Integer.parseInt(OrderInfo2[1]));
-				pib.setReview_ck(Integer.parseInt(OrderInfo2[2]));
-
-				dbBasketInfo.add(pib);
-
-			}
-
-		}
-
-		return dbBasketInfo;
-	}
+//	public ArrayList<ProductInfoBean> getOrderInfoArray(OrderDTO orderDTO) {
+//
+//		ArrayList<ProductInfoBean> dbBasketInfo = new ArrayList<ProductInfoBean>();
+//
+//		String[] OrderInfo = orderDTO.getOrder_info().split("/");
+//
+//		if (OrderInfo.length >= 1) {
+//
+//			for (String info : OrderInfo) {
+//
+//				ProductInfoBean pib = new ProductInfoBean();
+//
+//				String[] OrderInfo2 = info.split(",");
+//
+//				pib.setItem_num(Integer.parseInt(OrderInfo2[0]));
+//				pib.setItem_qty(Integer.parseInt(OrderInfo2[1]));
+//				pib.setReview_ck(Integer.parseInt(OrderInfo2[2]));
+//
+//				dbBasketInfo.add(pib);
+//
+//			}
+//
+//		}
+//
+//		return dbBasketInfo;
+//	}
 
 
 
