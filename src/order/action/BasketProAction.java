@@ -48,7 +48,6 @@ public class BasketProAction implements Action {
 		
 		if(isAlreadyInsert) {
 			// 이미 담겨있는 항목이므로 수량을 update 
-			
 			BasketProService bps2 = new BasketProService();
 			int updateResult = bps2.updateBasket(basket);
 			

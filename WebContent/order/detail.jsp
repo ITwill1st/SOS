@@ -27,17 +27,19 @@ ArrayList<ReviewDTO> reviewList = (ArrayList<ReviewDTO>)request.getAttribute("re
 <body>
 
 <form action="BasketPro.or" method="post" id="basket_form" name="basket_form">
-
- 테이블 번호 : <%=table_num %> | id : <%=mem_num %> <br>
+ 테이블 번호 :<input type="text" name="table_num" value="<%=table_num %>" readonly="readonly">
+  회원 번호 :<input type="text" name="mem_num" value="<%=mem_num %>" readonly="readonly">
 <div class="max-w-sm rounded overflow-hidden shadow-lg">
   <img class="w-full" src="product/productUpload/<%=menu.getItem_img() %>" alt="Sunset in the mountains">
   <div class="px-6 py-4">
     <div class="font-bold text-xl mb-2"><%=menu.getItem_name()%></div>
     <p class="text-gray-700 text-base">
-     <%=menu.getItem_num() %> | <%=menu.getItem_name()%> | <%=menu.getItem_price() %>원 <br>
+         아이템 넘버 :<input type="text" name="item_num" value="<%=menu.getItem_num() %>" readonly="readonly"> <br>
+     <%=menu.getItem_name()%> | <%=menu.getItem_price() %>원 <br>
      <%=menu.getItem_info() %> <br>
           수량 : <input type="number" min="1" id="item_qty" name="item_qty">
      <input type="submit" value="장바구니에 담기" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" >
+     
     </p>
   </div>
   <div class="px-6 pt-4 pb-2">

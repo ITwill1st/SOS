@@ -208,25 +208,6 @@ public class BasketProService {
 		
 	}
 
-	// mem_num, table_num 에 해당하는 preorder를 String타입으로 가져오기
-	public String getPreOrder(int mem_num, int table_num) {
-		
-		String preorderInfo = null;
-		
-		Connection con = getConnection();
-		OrderDAO orderDAO = OrderDAO.getInstance();
-		orderDAO.setConnection(con);
-		
-		preorderInfo = orderDAO.selectPreorderInfo(mem_num,table_num);
-		
-		close(con);
-		
-		System.out.println(preorderInfo);
-		
-		return preorderInfo;
-		
-
-	}
 
 
 

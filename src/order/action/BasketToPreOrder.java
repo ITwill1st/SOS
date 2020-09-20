@@ -51,7 +51,7 @@ public class BasketToPreOrder implements Action {
 			// basket에 저장된 정보를 preorder 테이블에 저장하기 위해 서비스 호출 
 			PreOrderService pos = new PreOrderService();
 			int insertResult = pos.basketToPreOrder(basketList);
-
+			
 			if (insertResult>0) {
 				
 				System.out.println("Preorder 성공!");
