@@ -41,9 +41,6 @@ public class RsvSubmitProAction implements Action {
 		dto.setMem_email(email);
 		dto.setRsv_time(rsv_time);
 		
-		//MemberDTO에서 Guest의 allergy에 값을 입력하기 위한 객체 불러오기
-		
-		
 		
 		//DB에 저장하기 위한 Service 불러오기.
 		RsvSubmitProService Rsvc=new RsvSubmitProService();
