@@ -32,7 +32,6 @@ public class RsvSubmitProAction implements Action {
 		String rsv_time=request.getParameter("rsv_time");
 		String phone=request.getParameter("phone");
 		String email=request.getParameter("email");
-		String allergy=request.getParameter("allergy");
 		
 		//예약 내역 객체에 저장하기.
 		RsvDTO dto=new RsvDTO();
