@@ -16,6 +16,6 @@
 예약 시간 : <input type="time" name="time"><br>
 <input type="submit" value="예약접수">
 </form>
-<a href="RsvCheck.rsv">예약일정확인</a>
+<a href="RsvResult.rsv">예약일정확인</a>
 </body>
 </html>
