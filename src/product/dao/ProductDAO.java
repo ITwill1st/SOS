@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import vo.ProductBean;
 
@@ -43,7 +45,7 @@ public class ProductDAO {
 						
 			}
 			
-			sql = "INSERT INTO product VALUES(?,?,?,?,?,?,?,?,?,?)";
+			sql = "INSERT INTO product VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 			pstmt=con.prepareStatement(sql);
 			
 			pstmt.setInt(1,num);
@@ -53,11 +55,13 @@ public class ProductDAO {
 			pstmt.setInt(5,pb.getItem_calorie());
 			pstmt.setString(6,pb.getItem_info());
 			pstmt.setString(7,pb.getItem_category());
-			pstmt.setString(8,pb.getItem_allergie());
+			pstmt.setString(8,pb.getItem_allergies());
 			pstmt.setString(9, pb.getItem_img());
 			pstmt.setInt(10,pb.getItem_show());
+			pstmt.setInt(11, pb.getRead_count());
 			
 			insertProduct = pstmt.executeUpdate();
+			
 		} catch (SQLException e) {
 			System.out.println("ProductDAO - insertProduct() 에러! : " + e.getMessage());
 			e.printStackTrace();
@@ -121,7 +125,7 @@ public class ProductDAO {
 				product.setItem_calorie(rs.getInt("item_calorie"));
 				product.setItem_info(rs.getString("item_info"));
 				product.setItem_category(rs.getString("item_category"));
-				product.setItem_allergie(rs.getString("item_allergie"));
+				product.setItem_allergies(rs.getString("item_allergies"));
 				product.setItem_img(rs.getString("item_img"));
 				
 				productList.add(product);
@@ -177,7 +181,7 @@ public class ProductDAO {
 				product.setItem_calorie(rs.getInt("item_calorie"));
 				product.setItem_info(rs.getString("item_info"));
 				product.setItem_category(rs.getString("item_category"));
-				product.setItem_allergie(rs.getString("item_allergie"));
+				product.setItem_allergies(rs.getString("item_allergies"));
 				product.setItem_img(rs.getString("item_img"));
 				
 			}
@@ -224,7 +228,46 @@ public class ProductDAO {
 		return updateCount;
 	}
 
-	
+	//카테고리
+		public JSONArray selectProductList(int page, int limit, String category) {
+			JSONArray productList = new JSONArray();
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			System.out.println(category);
+			try {
+				int startRow = (page - 1) * 10;
+				
+				String sql = "SELECT * FROM product WHERE item_category=? LIMIT ?,? ";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, category);
+				pstmt.setInt(2,startRow);
+				pstmt.setInt(3,limit);
+				rs =pstmt.executeQuery();
+				while(rs.next()) {
+					JSONObject mb = new JSONObject();
+					mb.put("item_num", rs.getInt("item_num"));
+					mb.put("item_name", rs.getString("item_name"));
+					mb.put("item_price", rs.getInt("item_price"));
+					mb.put("item_origin", rs.getString("item_origin"));
+					mb.put("item_calorie", rs.getInt("item_calorie"));
+					mb.put("item_info", rs.getString("item_info"));
+					mb.put("item_category", rs.getString("item_category"));	
+					mb.put("item_allergies", rs.getString("item_allergies"));	
+					mb.put("item_img", rs.getString("item_img"));	
+					productList.add(mb);	
+						
+//				
+					}
+			} catch (SQLException e) {
+				System.out.println("ProductDAO - selectProductList() 에러!");
+				e.printStackTrace();
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			return productList;
+		}
+		
 	
 	
 	

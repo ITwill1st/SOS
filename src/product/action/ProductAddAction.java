@@ -67,7 +67,7 @@ public class ProductAddAction implements Action {
 			pb.setItem_calorie(Integer.parseInt(multi.getParameter("item_calorie")));
 			pb.setItem_info(multi.getParameter("item_info"));
 			pb.setItem_category(multi.getParameter("item_category"));
-			pb.setItem_allergie(multi.getParameter("item_allergie"));
+			pb.setItem_allergies(multi.getParameter("item_allergies"));
 			pb.setItem_img(multi.getOriginalFileName((String)multi.getFileNames().nextElement()));
 //		pb.setProduct_like(Integer.parseInt(multi.getParameter("product_like")));
 			   

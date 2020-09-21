@@ -10,7 +10,7 @@ import product.svc.ProductModifyProService;
 import vo.ActionForward;
 import vo.ProductBean;
 
-public class BoardModifyProAction implements Action {
+public class ProductModifyProAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {

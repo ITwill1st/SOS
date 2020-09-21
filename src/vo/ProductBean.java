@@ -8,9 +8,9 @@ public class ProductBean {
 	private int item_calorie;
 	private String item_info;
 	private String item_category;
-	private String item_allergie;
+	private String item_allergies;
 	private String item_img;
-	
+	private int read_count;
 
 	private int item_show;
 	public int getItem_num() {
@@ -55,11 +55,12 @@ public class ProductBean {
 	public void setItem_category(String item_category) {
 		this.item_category = item_category;
 	}
-	public String getItem_allergie() {
-		return item_allergie;
+	
+	public String getItem_allergies() {
+		return item_allergies;
 	}
-	public void setItem_allergie(String item_allergie) {
-		this.item_allergie = item_allergie;
+	public void setItem_allergies(String item_allergies) {
+		this.item_allergies = item_allergies;
 	}
 	public String getItem_img() {
 		return item_img;
@@ -72,6 +73,12 @@ public class ProductBean {
 	}
 	public void setItem_show(int item_show) {
 		this.item_show = item_show;
+	}
+	public int getRead_count() {
+		return read_count;
+	}
+	public void setRead_count(int read_count) {
+		this.read_count = read_count;
 	}
 	
 	

@@ -10,11 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import product.action.BoardModifyProAction;
+import product.action.ProductModifyProAction;
 import product.action.ProductAddAction;
 import product.action.ProductDeleteProAction;
 import product.action.ProductDetailAction;
 import product.action.ProductListAction;
+import product.action.ProductListCategoryAction;
 import product.action.ProductModifyFormAction;
 import vo.ActionForward;
 
@@ -77,7 +78,7 @@ public class ProductFrontController extends HttpServlet {
 			}
 		}
 		if (command.equals("/ProductModifyPro.po")) {
-			action = new BoardModifyProAction();
+			action = new ProductModifyProAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
@@ -95,6 +96,18 @@ public class ProductFrontController extends HttpServlet {
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 			
+				e.printStackTrace();
+			}
+		}
+		else if(command.equals("/ProductListCategory.po")) {
+			// 글목록 요청 비즈니스 로직을 위한 Action 클래스 인스턴스 생성
+			// => BoardListAction 클래스 인스턴스 생성 및 공통 메서드 execute() 호출
+			// => 로직 수행 후 ActionForward 객체를 리턴받아 포워딩 작업 수행
+			action = new ProductListCategoryAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
