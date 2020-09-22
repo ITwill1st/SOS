@@ -35,7 +35,9 @@ public class ReviewWriteProAction implements Action{
 								
 				ReviewCheckUpdateService checkUpdateService = new ReviewCheckUpdateService();
 				boolean isReviewSucess = service.insertReview(mem_num, item_num, review_rating, review_comment);
-				checkUpdateService.reviewCheckUpdate(mem_num);
+				if(isReviewSucess) {
+					checkUpdateService.reviewCheckUpdate(mem_num);					
+				}
 				
 				if(!isReviewSucess) {
 					response.setContentType("text/html;charset=UTF-8");
