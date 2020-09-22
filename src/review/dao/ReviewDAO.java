@@ -43,13 +43,13 @@ private ReviewDAO() {
 				review_comment_num = rs.getInt(1) + 1;				
 			}
 			
-			sql = "insert into review values(?,?,?,?,?,now(),null,0)";
+			sql = "insert into review values(?,?,?,?,now(),null,null,?)";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, mem_num);
-			pstmt.setInt(2, item_num);
-			pstmt.setInt(3, review_comment_num);
-			pstmt.setString(4, review_comment);
-			pstmt.setInt(5, review_rating);
+			pstmt.setInt(1, item_num);
+			pstmt.setInt(2, review_comment_num);
+			pstmt.setString(3, review_comment);
+			pstmt.setInt(4, review_rating);
+			pstmt.setInt(5, mem_num);
 			
 			isReviewCount = pstmt.executeUpdate();
 			
@@ -86,7 +86,7 @@ private ReviewDAO() {
 				rdt.setReview_datetime(rs.getTimestamp("review_datetime"));
 				rdt.setReview_re_comment(rs.getString("review_re_comment"));
 				rdt.setReview_re_checker(rs.getInt("review_re_checker"));
-				rdt.setMem_num(rs.getInt("mem_num"));
+				rdt.setMem_num(rs.getInt("member_num"));
 				
 				reviewList.add(rdt);
 				
@@ -159,7 +159,7 @@ private ReviewDAO() {
 				productBean.setItem_calorie(rs.getInt("item_calorie"));
 				productBean.setItem_info(rs.getString("item_info"));
 				productBean.setItem_category(rs.getString("item_category"));
-				productBean.setItem_allergie(rs.getString("item_allergie"));
+				productBean.setItem_allergies(rs.getString("item_allergies"));
 				productBean.setItem_img(rs.getString("item_img"));
 				
 				System.out.println(rs.getString("item_img"));

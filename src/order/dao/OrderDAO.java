@@ -96,7 +96,7 @@ public class OrderDAO {
 				p.setItem_origin(rs.getString("item_origin"));
 				p.setItem_calorie(rs.getInt("item_calorie"));
 				p.setItem_category(rs.getString("item_category"));
-				p.setItem_allergie(rs.getString("item_allergie"));
+				p.setItem_allergies(rs.getString("item_allergies"));
 				p.setItem_info(rs.getString("item_info"));
 
 				// ArrayList에 담기
