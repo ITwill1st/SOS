@@ -137,6 +137,7 @@ private ReviewDAO() {
 		
 		return orderList;
 	}
+	
 	public ProductBean getProduct(int item_num) {
 		
 		PreparedStatement pstmt = null;

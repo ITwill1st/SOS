@@ -13,7 +13,6 @@ import vo.ProductInfoBean;
 
 public class ReviewListService {
 	// orders 테이블에서 리뷰 해야할 것들 가져오는 서비스 
-
 	public ArrayList<OrderDTO> getOrderList(int mem_num) {
 
 		Connection con = getConnection();

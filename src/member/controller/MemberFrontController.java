@@ -16,6 +16,7 @@ import member.action.MemberJoinProAction;
 import member.action.MemberListAction;
 import member.action.MemberLoginProAction;
 import member.action.MemberSnsLoginProAction;
+import member.action.MyOrderListAction;
 import vo.ActionForward;
 
 @WebServlet("*.me")
@@ -86,6 +87,14 @@ public class MemberFrontController extends HttpServlet {
 			}
 		}else if (command.equals("/MyInfo.me")) {
 			action = new MemberMyInfoAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else if(command.equals("/MyOrderList.me")) {
+			action = new MyOrderListAction();
 			try {
 				forward = action.execute(request, response);
 			} catch (Exception e) {

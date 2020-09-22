@@ -12,8 +12,10 @@ public class OrderDTO {
 	int item_num;
 	int item_qty;
 	int item_price;
+	int total_price;
 	Timestamp order_datetime;
 	int review_chk;
+	
 	public int getOrder_num() {
 		return order_num;
 	}
@@ -74,6 +76,13 @@ public class OrderDTO {
 	public void setReview_chk(int review_chk) {
 		this.review_chk = review_chk;
 	}
+	public int getTotal_price() {
+		return total_price;
+	}
+	public void setTotal_price(int total_price) {
+		this.total_price = total_price;
+	}
+	
 	
 	
 		

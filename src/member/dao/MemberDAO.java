@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import vo.MemberBean;
+import vo.OrderDTO;
 
 import static db.JdbcUtil.*;
 public class MemberDAO {
@@ -318,6 +319,46 @@ public class MemberDAO {
 			close(pstmt);
 		}
 		return mb;
+	}
+
+
+	public ArrayList<OrderDTO> getOrderList(int mem_num) {
+		// 구매내역 가져오는 메서드
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		ArrayList<OrderDTO> orderList = new ArrayList<OrderDTO>();
+		
+		try {
+			String sql = "select * from orders where mem_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, mem_num);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				OrderDTO orderDTO = new OrderDTO();
+				
+				orderDTO.setOrder_num(rs.getInt("order_num"));
+				orderDTO.setMem_num(rs.getInt("mem_num"));
+				orderDTO.setTable_num(rs.getInt("table_num"));
+				orderDTO.setItem_num(rs.getInt("item_num"));
+				orderDTO.setItem_qty(rs.getInt("item_qty"));
+				orderDTO.setItem_price(rs.getInt("item_price"));
+				orderDTO.setTotal_price(rs.getInt("total_price"));
+				orderDTO.setOrder_datetime(rs.getTimestamp("order_datetime"));
+				orderDTO.setReview_chk(rs.getInt("review_chk"));
+				
+				orderList.add(orderDTO);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return orderList;
 	}
 
 
