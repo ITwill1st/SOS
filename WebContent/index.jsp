@@ -4,18 +4,17 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<script src="js/jquery.js"></script>
 <head>
+<link rel="stylesheet" href="css/bootstrap.css">
+<script type="text/javascript" src="js/bootstrap.js"></script>
+<script src="js/jquery.js"></script>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style type="text/css">
-	header {
-		text-align: right;
-	}
-	
-	h1 {
-		text-align: center;
-	}
+body { padding-top: 30px; }
+header {text-align: right;}
+h1 {text-align: center;}
+
 </style>
 <%
 	request.setCharacterEncoding("UTF-8");
@@ -28,9 +27,9 @@
 %>
 </head>
 <body>
+	<nav class="navbar navbar-default navbar-fixed-top">
+	<div class="container">
 	<header>
-		
-		
 		<%if(mem_id == null){
 			%> 
 			<a href="MemberLoginForm.me">로그인</a>&nbsp; || &nbsp;<a href="MemberJoinForm.me">회원가입</a>
@@ -49,20 +48,22 @@
 	 	
 	</header>
 	<h1>MainControll</h1>
-	<h1><a href="OrderMain.or">Order</a></h1>
-	<h1><a href="RsvMain.rsv">RsvMain</a></h1>
-	<h1><a href="Login.me">Login</a></h1>
-	<h1><a href="Join.me">Join</a></h1>
-	<h1><a href="MyInfo.me">MyInfo</a></h1>	
-	<h1><a href="MyOrderList.me">MyOrderList</a></h1>
-	<h1><a href="MyRsvList.rsv">MyRsvList</a></h1>
-	<h1><a href="MyProfile.me">MyProfile</a></h1>
-	<h1><a href="TablesMain.tb">Tables</a></h1>
-	<h1><a href="ProductMGM.po">ProductMGM</a></h1>
-	<h1><a href="ProfitAnalysis.pa">ProfitAnalysis</a></h1>
-	<h1><a href="review/reviewMain.jsp">review</a></h1>
+    <ul>
+	<li><a href="OrderMain.or">Order</a></li>
+	<li><a href="RsvMain.rsv">RsvMain</a></li>
+	<li><a href="Login.me">Login</a></li>
+	<li><a href="Join.me">Join</a></li>
+	<li><a href="MyInfo.me">MyInfo</a></li>
+	<li><a href="MyOrderList.me">MyOrderList</a></li>
+	<li><a href="MyRsvList.rsv">MyRsvList</a></li>
+	<li><a href="MyProfile.me">MyProfile</a></li>
+	<li><a href="TablesMain.tb">Tables</a></li>
+	<li><a href="ProductMGM.po">ProductMGM</a></li>
+	<li><a href="ProfitAnalysis.pa">ProfitAnalysis</a></li>
+    </ul>
 	
-	
+  </div>
+</nav>
 	
 <script type="text/javascript">
 
