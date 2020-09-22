@@ -4,6 +4,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+<script src="js/jquery.js"></script>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -23,7 +24,7 @@
 	String mem_name = (String)session.getAttribute("mem_name");
 	String mem_phone = (String)session.getAttribute("mem_phone");
 	MemberBean mb=(MemberBean)session.getAttribute("memberInfo");
-	
+
 %>
 </head>
 <body>
@@ -60,6 +61,38 @@
 	<h1><a href="ProductMGM.po">ProductMGM</a></h1>
 	<h1><a href="ProfitAnalysis.pa">ProfitAnalysis</a></h1>
 	
+	
+	
+	
+<script type="text/javascript">
+
+ $(document).ready(function() {
+	 
+	 $.getJSON('itemInfo.jsp', function(rdata) {
+	// itemInfo에 뿌려져있는 정보 가져올 것
+		 $.each(rdata, function(index, item) {
+			 
+			 var img = "<img src='product/productUpload/"+item.img+"' width =150/>";
+			 // img 변수 선언 
+			 $('table').append("<tr><td rowspan='4'>"+img+"</td><td>번호</td><td>"+item.num+"</td></tr><tr><td>메뉴가격</td><td>"+item.price+"</td></tr><tr><td>메뉴이름</td><td>"+item.name+"</td></tr><tr><td>메뉴설명</td><td>"+item.info+"</td></tr>");
+			 
+			
+				
+		 });
+		 
+	});
+	
+	 console(log);
+	 
+});
+
+</script>
+
+<table border="1">
+<tr><td>메뉴사진</td><td>항목</td><td>내용</td></tr>
+
+
+</table>
 	
 </body>
 </html>
