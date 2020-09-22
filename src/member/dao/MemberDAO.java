@@ -34,20 +34,29 @@ public class MemberDAO {
 	// 회원가입 처리를 위한 insertMember() 메서드
 	public int insertMember(MemberBean mb) {
 		int insertCount = 0;
-		
 		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try{
+			int mem_num=0;
 		
-		try {
-			String sql = "INSERT into member values(null,?,?,?,?,?,?,?,?,now())";
+			String sql="select max(mem_num) from member";
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			if(rs.next()){
+				mem_num=rs.getInt("max(mem_num)")+1;
+			}
+			
+			sql = "INSERT into member values(?,?,?,?,?,?,?,?,?,now())";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, mb.getMem_nickname());
-			pstmt.setString(2, mb.getMem_name());
-			pstmt.setString(3, mb.getMem_id());
-			pstmt.setString(4, mb.getMem_passwd());
-			pstmt.setString(5, mb.getMem_email());
-			pstmt.setBoolean(6, mb.isMem_gender());
-			pstmt.setString(7, mb.getMem_phone());
-			pstmt.setString(8, mb.getMem_birth());
+			pstmt.setInt(1, mem_num);
+			pstmt.setString(2, mb.getMem_nickname());
+			pstmt.setString(3, mb.getMem_name());
+			pstmt.setString(4, mb.getMem_id());
+			pstmt.setString(5, mb.getMem_passwd());
+			pstmt.setString(6, mb.getMem_email());
+			pstmt.setBoolean(7, mb.isMem_gender());
+			pstmt.setString(8, mb.getMem_phone());
+			pstmt.setString(9, mb.getMem_birth());
 			insertCount = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -63,25 +72,27 @@ public class MemberDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rs=null;	
 		try {
-			String sql = "select * from member where mem_id=?";
+			int mem_num=100000000;
+			
+			String sql="select max(mem_num) from member";
 			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, mb.getMem_id());
 			rs=pstmt.executeQuery();
-			if(rs.next()) {
-				SnsLogincount=-1;
-			}else {
-				sql = "INSERT into member values(null,?,?,?,?,?,?,?,?,now())";
-				pstmt = con.prepareStatement(sql);
-				pstmt.setString(1, mb.getMem_nickname());
-				pstmt.setString(2, mb.getMem_name());
-				pstmt.setString(3, mb.getMem_id());
-				pstmt.setString(4, mb.getMem_passwd());
-				pstmt.setString(5, mb.getMem_email());
-				pstmt.setBoolean(6, mb.isMem_gender());
-				pstmt.setString(7, mb.getMem_phone());
-				pstmt.setString(8, mb.getMem_birth());
-				SnsLogincount = pstmt.executeUpdate();
+			if(rs.next()){
+				mem_num=rs.getInt("max(mem_num)")+1;
 			}
+			
+			sql = "INSERT into member values(?,?,?,?,?,?,?,?,?,now())";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, mem_num);
+			pstmt.setString(2, mb.getMem_nickname());
+			pstmt.setString(3, mb.getMem_name());
+			pstmt.setString(4, mb.getMem_id());
+			pstmt.setString(5, mb.getMem_passwd());
+			pstmt.setString(6, mb.getMem_email());
+			pstmt.setBoolean(7, mb.isMem_gender());
+			pstmt.setString(8, mb.getMem_phone());
+			pstmt.setString(9, mb.getMem_birth());
+			SnsLogincount = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("snsLogin오류"+e);
 			e.printStackTrace();
@@ -92,39 +103,6 @@ public class MemberDAO {
 		
 		
 		return SnsLogincount;
-	}
-	public int dupCheckMember2(String mem_id) {
-		int check = 0;
-		
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			String sql = "select mem_id from member where mem_id=?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, mem_id);
-			
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				// 1이면 중복 0이면 중복아님 
-					check = 1;
-			}else {
-					check = 0;
-			}
-				
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			close(rs);
-			close(pstmt);
-		}
-		
-		
-		
-		return check;
 	}
 
 	public int dupCheckMember(String mem_id) {
@@ -141,12 +119,11 @@ public class MemberDAO {
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				if(mem_id.equals(rs.getString("mem_id"))) {
 					check = 1;
-				}else {
-					check = 0;
-				}
+					
 				
+			}else {
+				check = 0;
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

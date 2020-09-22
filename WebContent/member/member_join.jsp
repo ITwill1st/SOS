@@ -41,9 +41,10 @@ jQuery(document).ready(function () {
 		var mem_id=$('#mem_id').val();
 		if(regex.exec(mem_id)) { 
 			//중복 체크 실행
-			$.ajax('idCheck.jsp',{
-				data:{id:mem_id},
+			$.ajax('dupCheck.me',{
+				data:{mem_id:mem_id},
 					success:function(rdata){
+// 						alert(rdata)
 						$('#checkIdResult').html(rdata);
 					}});
 			
@@ -161,7 +162,7 @@ function inputPhoneNumber(obj) {
 <body>
 	<section id="joinFormArea">
 		<h1>회원가입</h1>
-		<form action="MemberJoinPro.me" id="join" method="get" name="joinForm">
+		<form action="MemberJoinPro.me" id="join" method="post" name="joinForm">
 			<fieldset>
 				<table>
 				<tr>

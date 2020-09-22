@@ -19,11 +19,13 @@ public class MemberSnsLoginProAction implements Action {
 		System.out.println("MemberSnsLoginProAction");
 		ActionForward forward=null;
 		boolean isSnsLoginsuccess=false;
+		
 		String mem_id=request.getParameter("mem_id");
 		String mem_email = request.getParameter("mem_email");
 		String mem_birth = request.getParameter("mem_birth");
 		String mem_name = request.getParameter("mem_name");
 		boolean mem_gender = false;
+		String mem_nickname = request.getParameter("mem_nickname");
 		if(request.getParameter("mem_gender").equals("male") ||request.getParameter("mem_gender").equals("M") ) {
 			mem_gender = true;
 		}else {
@@ -35,7 +37,7 @@ public class MemberSnsLoginProAction implements Action {
 		System.out.println(mem_birth);
 		System.out.println(mem_gender);
 		System.out.println(mem_name);
-		
+		System.out.println(mem_nickname);
 		
 		MemberBean mb = new MemberBean();
 		mb.setMem_name(request.getParameter("mem_name"));
@@ -43,19 +45,24 @@ public class MemberSnsLoginProAction implements Action {
 		mb.setMem_email(request.getParameter("mem_email"));
 		mb.setMem_birth(request.getParameter("mem_birth"));
 		mb.setMem_gender(mem_gender);
+		mb.setMem_nickname(request.getParameter("mem_nickname"));
 		MemberSnsLoginProService SnsProService=new MemberSnsLoginProService();
 		isSnsLoginsuccess=SnsProService.snsLogin(mb);
-		
+		System.out.println("isSnsLogin 성공!"+isSnsLoginsuccess);
 		
 		
 		if(isSnsLoginsuccess) {
-//			request.setAttribute("email",email);
 			HttpSession session= request.getSession(); 
 			session.setAttribute("mem_id", request.getParameter("mem_id"));
 			session.setAttribute("mem_email", request.getParameter("mem_email"));
 		    RsvListCheckProService listCheck = new RsvListCheckProService();
 		    mb = listCheck.getMemberInfo(mem_id);
-		       
+		    response.setContentType("text/html;charset=UTF-8"); 
+			PrintWriter out = response.getWriter(); 
+			out.println("<script>"); 
+			out.println("alert('로그인 성공!')"); 
+			out.println("</script>");
+			
 		    // UserInfoForm.jsp에 회원정보를 전달하기 위해 request에 MemberBean을 세팅한다.
 		    session.setAttribute("memberInfo", mb);
 			
@@ -73,5 +80,5 @@ public class MemberSnsLoginProAction implements Action {
 		
 		return forward;
 	}
-
+	
 }

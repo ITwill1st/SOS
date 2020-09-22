@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import member.action.MemberLogoutAction;
 import member.action.MemberMyInfoAction;
 import action.Action;
+import member.action.MemberDupCheckAction;
 import member.action.MemberJoinProAction;
 import member.action.MemberListAction;
 import member.action.MemberLoginProAction;
@@ -93,16 +94,24 @@ public class MemberFrontController extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		} else if(command.equals("/MyOrderList.me")) {
-			action = new MyOrderListAction();
-			try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		} else if(command.equals("/dupCheck.me")) {
+	         action = new MemberDupCheckAction();
+	         try {
+	            forward = action.execute(request, response);
+	         } catch (Exception e) {
+	            // TODO Auto-generated catch block
+	            e.printStackTrace();
+	         }
+	      } else if(command.equals("/MyOrderList.me")) {
+				action = new MyOrderListAction();
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
-		}
-    	
+	    	
     	
     	if(forward!=null) {
     		
