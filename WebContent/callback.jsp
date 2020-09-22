@@ -9,6 +9,7 @@
     <title>네이버로그인</title>
   </head>
   <body>
+  <script src="js/jquery.js"></script>
   <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
    <script>
       var naverLogin = new naver.LoginWithNaverId(
@@ -31,16 +32,31 @@
                }
                //alert( email ); // 로그인 한 이메일 ***@naver.com 이 출력된다.
                //window.location.replace("http://127.0.0.1/test2.html");
-//             	var nickName = naverLogin.user.getNickName();
+            	var nickname = naverLogin.user.getNickName();
 				var email = naverLogin.user.getEmail();
 				var name = naverLogin.user.getName();
 				var birth = naverLogin.user.getBirthday();
 				var id = naverLogin.user.getId();
             	var gender = naverLogin.user.getGender();
-               	location.href='SnsLogin.me?mem_id='+id+"&mem_email="+email+"&mem_birth="+birth+"&mem_name="+name+"&mem_gender="+gender;
+            	var num = 1;
+            	location.href='SnsLogin.me?mem_id='+id+"&mem_email="+email+"&mem_birth="+birth+
+            			"&mem_gender="+gender+"&mem_name="+name+"&mem_nickname="+nickname;
                	
-               	console(id);
-               	alert(email);
+//				$.ajax('SnsLogin.me',{
+//		         data:{
+//		                     mem_id:id,
+//		                     mem_email:email,
+//		                     mem_birth:birth,
+//		                     mem_gender:gender,
+//		                     mem_name:name,
+//		                     mem_nickname:nickname,
+//		                  },
+//		         success:function(rdata){
+//		            location.href ='index.jsp';
+//		         }
+//		   });
+//                	console(id);
+//                	alert(email);
 
             } else {
                console.log("callback 처리에 실패하였습니다.");

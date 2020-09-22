@@ -90,8 +90,24 @@ table {
     						var email = res.kakao_account.email;   	// 유저의 이메일
     						var birth = res.kakao_account.birthday;  // 유저의 생년 월일
     						var gender = res.kakao_account.gender;	// 유저의 성별
-    						var name = res.properties.nickname;	// 유저의 닉네임
-   							location.href='SnsLogin.me?mem_id='+id+"&mem_email="+email+"&mem_birth="+birth+"&mem_gender="+gender+"&mem_name="+name;
+    						var nickname = res.properties.nickname;	// 유저의 닉네임
+    						var name = res.properties.name;
+   							location.href='SnsLogin.me?mem_id='+id+"&mem_email="+email+"&mem_birth="+birth+"&mem_gender="+gender+"&mem_name="+name+"&mem_nickname="+nickname;
+
+//    						$.ajax('SnsLogin.me',{
+//    					         data:{
+//    					                     mem_id:id,
+//    					                     mem_email:email,
+//    					                     mem_birth:birth,
+//    					                     mem_gender:gender,
+//    					                     mem_name:name,
+//    					                     mem_nickname:nickname,
+//    					                  },
+//    					         success:function(rdata){
+//    					            location.href ='index.jsp';
+//    					         }
+//    					   });
+   							
    							},
    							
 	
