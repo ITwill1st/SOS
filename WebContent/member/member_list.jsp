@@ -96,7 +96,7 @@
 					<td><%=mb.getMem_id() %></td>
 					<td><%=mb.getMem_passwd() %></td>
 					<td><%=mb.getMem_email() %></td>
-					<td><%=mb.isMem_gender() %></td>
+					<td><%=mb.getMem_gender() %></td>
 					<td><%=mb.getMem_phone() %></td>
 					<td><%=mb.getMem_birth() %></td>
 					<td><%=mb.getMem_regdate() %></td>

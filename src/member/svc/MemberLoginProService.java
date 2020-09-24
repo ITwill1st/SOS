@@ -26,6 +26,34 @@ public class MemberLoginProService {
 		return isLoginSuccess;
 	}
 
+	public int NonLogin() {
+		System.out.println("NonLoginService");
+		
+		int NonLoginSuccess = 0;
+		
+		Connection con = getConnection();
+		MemberDAO memberDAO = MemberDAO.getInstance();
+
+		memberDAO.setConnection(con);
+		
+		NonLoginSuccess = memberDAO.NonLogin();
+		
+		if(NonLoginSuccess==1) {
+			commit(con);
+			System.out.println("commit 성공!");
+		}else {
+			rollback(con);
+			System.out.println("실패!");
+		}
+		close(con);
+		
+		
+		return NonLoginSuccess;
+	}
+	
+	
+	
+
 
 	
 }

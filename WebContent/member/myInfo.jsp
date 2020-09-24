@@ -20,7 +20,7 @@ MemberBean mb = (MemberBean)session.getAttribute("memberInfo");
 <h3>이름 :<%=mb.getMem_name() %><br></h3>
 <h3>가입날짜:<%=mb.getMem_regdate() %><br></h3>
 <h3>이메일:<%=mb.getMem_email() %><br></h3>
-<h3>성별:<%=mb.isMem_gender() %><br></h3>	
+<h3>성별:<%=mb.getMem_gender() %><br></h3>	
 <h3>전화번호:<%=mb.getMem_phone()%><br></h3>
 <h3>생일:<%=mb.getMem_birth() %><br></h3>
 </fieldset>

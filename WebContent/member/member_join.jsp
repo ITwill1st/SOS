@@ -89,13 +89,42 @@ jQuery(document).ready(function () {
 		}		
 	}
 	
+	function checkBirthday(mem_birth){
+		var regEx = /([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))/;
+
+		var element = document.getElementById('checkBirth'); // checkBirth 값을 ID 로 갖는 태그 찾기
+		
+		if(mem_birth.value!=""){
+			if(regEx.exec(mem_birth.value)){
+				element.innerHTML = "올바른 주민번호";
+			}else{
+				element.innerHTML = "주민번호를 올바르게 작성 하세요";
+			}
+		}else{
+				element.innerHTML = "";
+		}	
+	}
+	
+	function checkEmail(mem_email){
+		var emailRule = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+
+		var element = document.getElementById('checkEmail'); // checkBirth 값을 ID 로 갖는 태그 찾기
+		
+		if(mem_email.value!=""){
+			if(emailRule.exec(mem_email.value)){
+				element.innerHTML = "올바른 이메일";
+			}else{
+				element.innerHTML = "이메일을 올바르게 작성 하세요";
+			}
+		}else{
+				element.innerHTML = "";
+		}	
+	}
 // 번호 입력할 때  -표시 하는 함수 	
 function inputPhoneNumber(obj) {
 
 	  var number = obj.value.replace(/[^0-9]/g, "");
 	  var phone = "";
-
-
 
 	  if(number.length < 4) {
 	      return number;
@@ -119,7 +148,8 @@ function inputPhoneNumber(obj) {
 	  obj.value = phone;
 }
 	
-	
+var birthJ = false;
+
  $(document).ready(function() {
 		
 		$('#join').submit(function() {
@@ -136,6 +166,16 @@ function inputPhoneNumber(obj) {
 			
 			if($('#mem_passwd').val()==""){
 				alert("비밀번호를 입력하세요");
+				$('#mem_passwd').focus();
+				return false;
+	 		}
+			if($('#mem_passwd2').val()==""){
+				alert("비밀번호 재입력을 입력하세요");
+				$('#mem_passwd').focus();
+				return false;
+	 		}
+			if($('#mem_passwd').val()!=$('#mem_passwd2').val()){
+				alert("비밀번호가 다릅니다");
 				$('#mem_passwd').focus();
 				return false;
 	 		}
@@ -216,7 +256,7 @@ function inputPhoneNumber(obj) {
 						<td>패스워드 재확인</td>
 						<td>
 							<input type="password" name="mem_passwd2"  
-								placeholder="비번 재확인">
+							placeholder="8~16자리 영문,숫자,특수문자 조합"	placeholder="비번 재확인">
 						</td>
 					</tr>
 					<tr height="35px">
@@ -225,10 +265,11 @@ function inputPhoneNumber(obj) {
 					</tr>
 					<tr>
 						<td>E-Mail</td>
-						<td><input type="email" name="mem_email" id="mem_email"></td>
+						<td><input type="email" name="mem_email" id="mem_email" 
+						placeholder="ex)zheor@naver.com" onkeyup="checkEmail(this)"></td>
 					</tr>
 					<tr height="25px">
-						<td></td>
+						<td colspan="2"><span id="checkEmail"><!-- 자바스크립스에 의해 메세지 출력할 공간 --></span></td>
 						<td></td>
 					</tr>
 					<tr>
@@ -244,7 +285,8 @@ function inputPhoneNumber(obj) {
 					</tr>
 					<tr>
 						<td>전화번호</td>
-						<td><input type="text" name="mem_phone" id="mem_phone" onKeyup="inputPhoneNumber(this)"></td>
+						<td><input type="text" name="mem_phone" id="mem_phone"
+						placeholder=" - 없이 입력" onKeyup="inputPhoneNumber(this)"maxlength="13"></td>
 					</tr>
 					<tr height="25px">
 						<td></td>
@@ -252,10 +294,11 @@ function inputPhoneNumber(obj) {
 					</tr>
 					<tr>
 						<td>생년월일</td>
-						<td><input type="text" name="mem_birth" id="mem_birth"></td>
+						<td><input type="text" name="mem_birth" id="mem_birth"
+						placeholder="ex)19930316" onkeyup="checkBirthday(this)" maxlength="8"></td>
 					</tr>
 					<tr height="25px">
-						<td></td>
+						<td colspan="2"><span id="checkBirth"><!-- 자바스크립스에 의해 메세지 출력할 공간 --></span></td>
 						<td></td>
 					</tr>
 					<tr>

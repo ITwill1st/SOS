@@ -24,12 +24,13 @@ public class MemberSnsLoginProAction implements Action {
 		String mem_email = request.getParameter("mem_email");
 		String mem_birth = request.getParameter("mem_birth");
 		String mem_name = request.getParameter("mem_name");
-		boolean mem_gender = false;
+		int mem_gender = Integer.parseInt(request.getParameter("mem_gender"));
 		String mem_nickname = request.getParameter("mem_nickname");
+		
 		if(request.getParameter("mem_gender").equals("male") ||request.getParameter("mem_gender").equals("M") ) {
-			mem_gender = true;
+			mem_gender = 1;
 		}else {
-			mem_gender = false;
+			mem_gender = 0;
 		}
 		
 		System.out.println(mem_id);
@@ -80,5 +81,5 @@ public class MemberSnsLoginProAction implements Action {
 		
 		return forward;
 	}
-	
+
 }

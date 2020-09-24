@@ -32,7 +32,7 @@ h1 {text-align: center;}
 	<header>
 		<%if(mem_id == null){
 			%> 
-			<a href="MemberLoginForm.me">로그인</a>&nbsp; || &nbsp;<a href="MemberJoinForm.me">회원가입</a>
+			<a href="MemberLoginForm.me">로그인</a>&nbsp;|| &nbsp;<a href="NonLogin.me">비회원</a> || &nbsp;<a href="MemberJoinForm.me">회원가입</a>
 			<%
 		}else{%>
 		<%
