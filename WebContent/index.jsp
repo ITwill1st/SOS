@@ -1,3 +1,4 @@
+<%@page import="vo.MemberBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -18,10 +19,17 @@
 <link href="plugins/jquery-timepicker/jquery.timepicker.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="styles/main_styles.css">
 <link rel="stylesheet" type="text/css" href="styles/responsive.css">
+<%
+	request.setCharacterEncoding("UTF-8");
+	String mem_id = (String)session.getAttribute("mem_id");
+	String mem_email = (String)session.getAttribute("mem_email");
+	String mem_name = (String)session.getAttribute("mem_name");
+	String mem_phone = (String)session.getAttribute("mem_phone");
+	MemberBean mb=(MemberBean)session.getAttribute("memberInfo");
+
+%>
 </head>
 <body>
-<<<<<<< HEAD
-=======
 	<nav class="navbar navbar-default navbar-fixed-top">
 	<div class="container">
 	<header>
