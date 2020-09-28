@@ -9,23 +9,21 @@ public class MemberBean {
 	private String mem_id;
 	private String mem_passwd;
 	private String mem_email;
-	private boolean mem_gender;
+	private int mem_gender;
 	private String mem_phone;
 	private String mem_birth;
 	private Date mem_regdate;
-	
-	
-	public String getMem_nickname() {
-		return mem_nickname;
-	}
-	public void setMem_nickname(String mem_nickname) {
-		this.mem_nickname = mem_nickname;
-	}
 	public int getMem_num() {
 		return mem_num;
 	}
 	public void setMem_num(int mem_num) {
 		this.mem_num = mem_num;
+	}
+	public String getMem_nickname() {
+		return mem_nickname;
+	}
+	public void setMem_nickname(String mem_nickname) {
+		this.mem_nickname = mem_nickname;
 	}
 	public String getMem_name() {
 		return mem_name;
@@ -51,10 +49,10 @@ public class MemberBean {
 	public void setMem_email(String mem_email) {
 		this.mem_email = mem_email;
 	}
-	public boolean isMem_gender() {
+	public int getMem_gender() {
 		return mem_gender;
 	}
-	public void setMem_gender(boolean mem_gender) {
+	public void setMem_gender(int mem_gender) {
 		this.mem_gender = mem_gender;
 	}
 	public String getMem_phone() {
@@ -75,6 +73,8 @@ public class MemberBean {
 	public void setMem_regdate(Date mem_regdate) {
 		this.mem_regdate = mem_regdate;
 	}
+	
+	
 	
 	
 	

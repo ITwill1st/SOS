@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import member.action.MemberLogoutAction;
 import member.action.MemberMyInfoAction;
+import member.action.MemberNonMemberAction;
 import action.Action;
 import member.action.MemberDupCheckAction;
 import member.action.MemberJoinProAction;
@@ -110,8 +111,16 @@ public class MemberFrontController extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+			}else if(command.equals("/NonLogin.me")) {
+				action = new MemberNonMemberAction();
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
-	    	
+	    		
     	
     	if(forward!=null) {
     		

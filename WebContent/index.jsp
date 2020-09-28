@@ -20,6 +20,48 @@
 <link rel="stylesheet" type="text/css" href="styles/responsive.css">
 </head>
 <body>
+<<<<<<< HEAD
+=======
+	<nav class="navbar navbar-default navbar-fixed-top">
+	<div class="container">
+	<header>
+		<%if(mem_id == null){
+			%> 
+			<a href="MemberLoginForm.me">로그인</a>&nbsp;|| &nbsp;<a href="NonLogin.me">비회원</a> || &nbsp;<a href="MemberJoinForm.me">회원가입</a>
+			<%
+		}else{%>
+		<%
+ 			if(mem_phone == null){
+ 				%> 
+				<a href="MyInfo.me"><%=mem_email %>님</a>&nbsp; || &nbsp;<a href="MemberList.me">관리자 페이지</a>&nbsp; || &nbsp;<a href="MemberLogout.me">로그아웃</a>
+			<%}else{
+				%> 
+				<a href="MyInfo.me"><%=mem_id %>님</a>&nbsp; || &nbsp;<a href="MemberList.me">관리자 페이지</a>&nbsp; || &nbsp;<a href="MemberLogout.me">로그아웃</a>
+			<%}	
+	 	}%> 
+	 	
+	 	
+	</header>
+	<h1>MainControll</h1>
+    <ul>
+	<li><a href="OrderMain.or">Order</a></li>
+	<li><a href="RsvMain.rsv">RsvMain</a></li>
+	<li><a href="Login.me">Login</a></li>
+	<li><a href="Join.me">Join</a></li>
+	<li><a href="MyInfo.me">MyInfo</a></li>
+	<li><a href="MyOrderList.me">MyOrderList</a></li>
+	<li><a href="MyRsvList.rsv">MyRsvList</a></li>
+	<li><a href="MyProfile.me">MyProfile</a></li>
+	<li><a href="TablesMain.tb">Tables</a></li>
+	<li><a href="ProductMGM.po">ProductMGM</a></li>
+	<li><a href="ProfitAnalysis.pa">ProfitAnalysis</a></li>
+    </ul>
+	
+  </div>
+</nav>
+	
+<script type="text/javascript">
+>>>>>>> branch 'master' of https://github.com/ITwill1st/SOS.git
 
 <div class="super_container">
 <!-- header -->

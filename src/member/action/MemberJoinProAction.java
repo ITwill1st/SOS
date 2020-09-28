@@ -18,7 +18,7 @@ public class MemberJoinProAction implements Action {
 		ActionForward forward = null;
 		System.out.println("memberJoinPro.me");
 		String mem_id = request.getParameter("mem_id");
-		boolean mem_gender = Boolean.parseBoolean(request.getParameter("mem_gender"));
+		
 		
 		MemberBean mb = new MemberBean();
 		mb.setMem_nickname(request.getParameter("mem_nickname"));
@@ -26,7 +26,7 @@ public class MemberJoinProAction implements Action {
 		mb.setMem_id(request.getParameter("mem_id"));
 		mb.setMem_passwd(request.getParameter("mem_passwd"));
 		mb.setMem_email(request.getParameter("mem_email"));
-		mb.setMem_gender(Boolean.parseBoolean(request.getParameter("mem_gender")));
+		mb.setMem_gender(Integer.parseInt(request.getParameter("mem_gender")));
 		mb.setMem_phone(request.getParameter("mem_phone"));
 		mb.setMem_birth(request.getParameter("mem_birth"));
 		

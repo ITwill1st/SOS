@@ -36,8 +36,8 @@ public class MemberDAO {
 		int insertCount = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		int mem_num=100000000;
 		try{
-			int mem_num=0;
 		
 			String sql="select max(mem_num) from member";
 			pstmt=con.prepareStatement(sql);
@@ -48,13 +48,13 @@ public class MemberDAO {
 			
 			sql = "INSERT into member values(?,?,?,?,?,?,?,?,?,now())";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, mem_num);
+			pstmt.setInt(1,mem_num);
 			pstmt.setString(2, mb.getMem_nickname());
 			pstmt.setString(3, mb.getMem_name());
 			pstmt.setString(4, mb.getMem_id());
 			pstmt.setString(5, mb.getMem_passwd());
 			pstmt.setString(6, mb.getMem_email());
-			pstmt.setBoolean(7, mb.isMem_gender());
+			pstmt.setInt(7,mb.getMem_gender());
 			pstmt.setString(8, mb.getMem_phone());
 			pstmt.setString(9, mb.getMem_birth());
 			insertCount = pstmt.executeUpdate();
@@ -89,7 +89,7 @@ public class MemberDAO {
 			pstmt.setString(4, mb.getMem_id());
 			pstmt.setString(5, mb.getMem_passwd());
 			pstmt.setString(6, mb.getMem_email());
-			pstmt.setBoolean(7, mb.isMem_gender());
+			pstmt.setInt(7,mb.getMem_gender());
 			pstmt.setString(8, mb.getMem_phone());
 			pstmt.setString(9, mb.getMem_birth());
 			SnsLogincount = pstmt.executeUpdate();
@@ -196,7 +196,7 @@ public class MemberDAO {
 				mb.setMem_name(rs.getString("mem_name"));
 				mb.setMem_passwd(rs.getString("mem_passwd"));
 				mb.setMem_email(rs.getString("mem_email"));
-				mb.setMem_gender(rs.getBoolean("mem_gender"));
+				mb.setMem_gender(rs.getInt("mem_gender"));
 				mb.setMem_phone(rs.getString("mem_phone"));
 				mb.setMem_birth(rs.getString("mem_birth"));
 				mb.setMem_regdate(rs.getDate("mem_regdate"));
@@ -237,7 +237,7 @@ public class MemberDAO {
 					mb.setMem_name(rs.getString("mem_name"));
 					mb.setMem_passwd(rs.getString("mem_passwd"));
 					mb.setMem_email(rs.getString("mem_email"));
-					mb.setMem_gender(rs.getBoolean("mem_gender"));
+					mb.setMem_gender(rs.getInt("mem_gender"));
 					mb.setMem_phone(rs.getString("mem_phone"));
 					mb.setMem_birth(rs.getString("mem_birth"));
 					mb.setMem_regdate(rs.getDate("mem_regdate"));
@@ -282,7 +282,7 @@ public class MemberDAO {
 				mb.setMem_name(rs.getString("mem_name"));
 				mb.setMem_passwd(rs.getString("mem_passwd"));
 				mb.setMem_email(rs.getString("mem_email"));
-				mb.setMem_gender(rs.getBoolean("mem_gender"));;
+				mb.setMem_gender(rs.getInt("mem_gender"));;
 				mb.setMem_phone(rs.getString("mem_phone"));
 				mb.setMem_birth(rs.getString("mem_birth"));
 				mb.setMem_regdate(rs.getDate("mem_regdate"));
@@ -336,6 +336,35 @@ public class MemberDAO {
 		}
 		
 		return orderList;
+	}
+
+
+	public int NonLogin() {
+		int NonLogCount = 1;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try{
+			String sql = "INSERT into member2 values(?,?,?,?,?,?,?,?,?,now())";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1,0);
+			pstmt.setString(2, null);
+			pstmt.setString(3, null);
+			pstmt.setString(4, null);
+			pstmt.setString(5, null);
+			pstmt.setString(6, null);
+			pstmt.setInt(7, -1);
+			pstmt.setString(8, null);
+			pstmt.setString(9, null);
+			NonLogCount = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("nondao - 오류");
+		}finally {
+			close(pstmt);
+		}
+		
+		return NonLogCount;
 	}
 
 
