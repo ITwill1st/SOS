@@ -13,7 +13,7 @@ import action.Action;
 import mgr.staff.action.ManagerStaffJoinAction;
 import vo.ActionForward;
 
-@WebServlet("*.stf")
+@WebServlet("*.do")
 public class ManagerStaffFrontController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -25,22 +25,12 @@ public class ManagerStaffFrontController extends HttpServlet {
     	
     	String command = request.getServletPath();
 		
-    	if(command.equals("/StaffJoinForm.stf")) {
+    	if(command.equals("/Main.do")) {
     		forward = new ActionForward();
-    		forward.setPath("/mgr/staff/staffJoinForm.jsp");
+    		forward.setPath("/index.jsp");
     		forward.setRedirect(false);
     	}
     	
-    	if (command.equals("/StaffJoinPro.stf")) {
-    		action = new ManagerStaffJoinAction();
-    		try {
-				forward = action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-    		
-    		
-		}
     	
 		
     	
