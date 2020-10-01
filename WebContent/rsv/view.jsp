@@ -10,7 +10,6 @@
 <body>
 <h1>rsv/view.jsp</h1>
 <h1>main페이지에서 예약 후 예약한 정보를 뿌려주는 페이지</h1>
-
 <c:if test="${empty sessionScope.id }">
 <form action="RsvSubmitProAction.rsv" method="post">
 예약날짜 : <input type="date" name="rsv_date" value="${param.date }"><br>

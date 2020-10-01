@@ -33,12 +33,15 @@ public class RsvSubmitProAction implements Action {
 		String phone=request.getParameter("phone");
 		String email=request.getParameter("email");
 		
+		
+		
 		//예약 내역 객체에 저장하기.
 		RsvDTO dto=new RsvDTO();
 		dto.setRsv_date(rsv_date);
 		dto.setRsv_pax(rsv_pax);
 		dto.setMem_email(email);
 		dto.setRsv_time(rsv_time);
+		dto.setRsv_check(1);
 		
 		
 		//DB에 저장하기 위한 Service 불러오기.
@@ -110,6 +113,7 @@ public class RsvSubmitProAction implements Action {
 			}
 			
 		}
+		
 		
 		
 		return forward;
