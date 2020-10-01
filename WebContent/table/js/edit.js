@@ -92,14 +92,20 @@ function draw() {
 		 pst[i][1] = Math.floor(pst[i][1]);
 		 pst[i][2] = Math.floor(pst[i][2]);
 		 pst[i][3] = Math.floor(pst[i][3]);
+		 
+		ctx.fillStyle = "#232323";	 
+		rect(pst[i][0]-5, pst[i][1]-5, (pst[i][2]+10), (pst[i][3]+10));
 			 
-		
-		ctx.fillStyle = "#f2f2f2";
+		ctx.fillStyle = "#ffffff";
 		rect(pst[i][0], pst[i][1], pst[i][2], pst[i][3]);
+			
+		ctx.fillStyle = "#00805e";
+		rect(pst[i][0], pst[i][1], pst[i][2], (pst[i][3] / 7));
 		
+	
 		ctx.fillStyle = "#000000";		
-		var fontSize = (pst[0][2] / 5);	
-		ctx.font = fontSize + "px '맑은 고딕'";
+		var fontSize = (pst[0][2] / 7);	
+		ctx.font = fontSize + "px New Gulim";
 		ctx.textAlign = "center";
 		ctx.textBaseline = "top";
 		ctx.fillText((i+1)+"번",pst[i][0]+(pst[i][2]/2),pst[i][1]);

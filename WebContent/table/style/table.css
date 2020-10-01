@@ -1,5 +1,5 @@
 @charset "UTF-8";
-
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans+Narrow&display=swap');
 html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p,
 	blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd,
 	q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li,
@@ -17,6 +17,7 @@ html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p,
 
 body {
 	line-height: 1;
+	font-family: 'PT Sans Narrow', sans-serif;
 }
 
 article, aside, details, figcaption, figure, footer, header, hgroup,
@@ -91,12 +92,60 @@ input, select {
 
 /*여기서 부터 css코드 작성*/
 
+
+
+.top{
+	width: 100%;
+	height: 80px;
+	background-color: #232323;
+	
+}
+
+.logo{
+	width: 300px;
+	height: 80px;
+	margin-left: 20px;
+	float:left;
+}
+
+.logo_img{
+	margin-left: 100px;
+	float:left;
+}
+
+.logo_title{
+	font-size: 50px;
+	color: white;
+}
+
+.logo_subtitle{
+	font-size: 19px;
+    text-transform: uppercase;
+    color: #FFFFFF;
+	letter-spacing: 0.680em;
+    line-height: 0.75;
+}
+
+.logo_pos{
+	float: right;
+	margin-right: 150px;
+}
+.pos_title{
+	color: #FFFFFF;
+	font-size: 50px;
+	font-style: italic;
+	line-height: 80px;
+	vertical-align: middle;
+	letter-spacing: 0.3em;
+}
+
 .content{
 	border: 1px solid #000000;
 	margin: 2%;
-	height: 800px;
-	width: 1350px;
+	height: 730px;
+	width: 1750px;
 	padding: 2%;
+	background-color: #232323;
 }
 
 #canvas {
@@ -118,14 +167,24 @@ input, select {
 }
 
 .right-bar {
-	float: left;
+	float: right;
 	width: 300px;
+	background-color: #f2f2f2;
 }
 
 .right-bar-List {
 	height: 100px;
 	border: 1px solid;
 	margin: 5%;
+}
+
+.right-bar-List button{	
+	width: 100%;
+	height: 100%;
+	background-color: #232323;
+	color: white;
+	font-weight: bold;
+	font-size: 35px;
 }
 
 .left{
@@ -140,11 +199,13 @@ input, select {
 
 .tableOrderList {
 	width:600px;
-	height: 600px;
 	border:1px solid;
 
 }
 
+.tableOrderList tr{
+	height: 50px;
+}
 
 .tableOrderList thead{
 	height: 50px;
@@ -161,10 +222,12 @@ input, select {
 }
 
 .tableOrderList td{
-	height: 500px;
+	height: 50px;
     background-color: #e5e5e5;
     border:1px solid;
 }
+
+
 
 .tableOrderPrice {
 	width:600px;
@@ -179,4 +242,18 @@ input, select {
 	border:1px solid;
 	width:600px;
 	height: 700px;
+	table-layout: fixed;
+}
+
+.tableProductList button{
+	width: 100%;
+}
+
+.items{
+	float: left;
+	width: 30%;
+	height: 50px;
+	border: 1px solid;
+	margin: 1%;
+	
 }

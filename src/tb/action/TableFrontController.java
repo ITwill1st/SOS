@@ -70,6 +70,26 @@ public class TableFrontController extends HttpServlet{
 				e.printStackTrace();
 			}
 			
+		}else if(command.equals("/GetThisMenu.tb")) {
+			
+			action = new GetThisMenuAction();
+		
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}else if(command.equals("/PreOrderPro.tb")) {
+			
+			action = new PreOrderProAction();
+		
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	
 			

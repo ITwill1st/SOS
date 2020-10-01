@@ -34,24 +34,45 @@ for(int i=0;i<list.size();i++){
 
 </script>
 
-<!-- <h1>table/edit.jsp</h1> -->
+<div class="top">			
+
+					<div class="logo_img">					
+					<img alt="" src="inc/SOS logo_v2.png" height="70px">
+					</div>
+	
+					<div class="logo">					
+						<p class="logo_title">Silent Order</p>
+						<p class="logo_subtitle">restaurant</p>
+					</div>
+					
+					<div class="logo_pos">
+						<p class="pos_title">POS Manager</p>
+					</div>
+
+</div>
 	
 <div class="content">	
 	
 <section>
-<canvas id="canvas" width="1000" height="720">
+<canvas id="canvas" width="1400" height="720">
 This text is displayed if your browser does not support HTML5 Canvas.
 </canvas>
 
 			<div class="right-bar">
 				<div class="right-bar-List">
-				<div>테이블 추가</div>
 					<button id="addTable">4인용</button>
+				</div>
+				<div class="right-bar-List">	
 					<button id="addTable2-1">2인용(세로)</button>
+				</div>	
+				<div class="right-bar-List">	
 					<button id="addTable2-2">2인용(가로)</button>
 				</div>
 				<div class="right-bar-List">
-					<button id="sizeUp">SizeUp</button><button id="sizeDown">SizeDown</button>
+					<button id="sizeUp">SizeUp</button>
+				</div>
+				<div class="right-bar-List">
+					<button id="sizeDown">SizeDown</button>
 				</div>
 				<div class="right-bar-List">
 					<button id="save">테이블 저장</button>
