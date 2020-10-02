@@ -54,12 +54,22 @@ ArrayList<ReviewDTO> reviewList = (ArrayList<ReviewDTO>)request.getAttribute("re
 <br><br><br>
 <hr>
 <h2>댓글</h2>
+<%
+for(int i = 0 ; i < reviewList.size() ; i++){%>
+<script type="text/javascript">
+$(document).ready(function() {
+	var star = "";
+		for(var x = 0 ; x < <%=reviewList.get(i).getReview_rating()%> ; x++) {
+			star += "★";
+		}
+	$("#starRating_<%=reviewList.get(i).getReview_comment_num()%>").html(star);
+});
+</script>
 
 <%
-for(int i = 0 ; i < reviewList.size() ; i++){
 	ReviewDTO rdt = reviewList.get(i);%>
 <table border="1" style="width: 366px; height: 70px; text-align: left;">
-	<tr><td><%=rdt.getMem_num()%></td><td>★ </td></tr>
+	<tr><td><%=rdt.getMem_num()%></td><td><div id="starRating_<%=reviewList.get(i).getReview_comment_num()%>"></div></td></tr>
 	<tr><td colspan="2"><%=rdt.getReview_comment()%></td></tr>
 </table>
 <br>

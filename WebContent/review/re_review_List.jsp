@@ -27,8 +27,17 @@ ArrayList<ReviewDTO> reviewList = (ArrayList<ReviewDTO>)request.getAttribute("re
 <body>
 <h1>댓글 모아보기</h1>
 <%for(ReviewDTO review : reviewList){%>
+<script type="text/javascript">
+$(document).ready(function() {
+	var star = "";
+		for(var x = 0 ; x < <%=review.getReview_rating()%> ; x++) {
+			star += "★";
+		}
+	$("#starRating_<%=review.getReview_comment_num()%>").html(star);
+});
+</script>
 <div id="div">
-	메뉴이름 <%=review.getItem_num()%> 평점 : <%=review.getReview_rating()%> <%=review.getReview_datetime() %><br>
+	메뉴이름 <%=review.getItem_num()%> 평점 : <div id="starRating_<%=review.getReview_comment_num()%>"></div> <%=review.getReview_datetime() %><br>
 	<%=review.getReview_comment()%><br>
 </div>
 <div>
