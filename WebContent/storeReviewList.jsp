@@ -14,27 +14,25 @@ String dbPass = "1234";
 
 Connection con = DriverManager.getConnection(dbUrl,dbId,dbPass);
 
-String sql = "select * from product";
+String sql = "select * from review where item_num = 0 limit 0,3";
 PreparedStatement pstmt = con.prepareStatement(sql);
 
 ResultSet rs = pstmt.executeQuery();
 
-JSONArray productList = new JSONArray();
+JSONArray storeReviewList = new JSONArray();
 
 while (rs.next()){
 	
-	JSONObject pb = new JSONObject();
+	JSONObject srl = new JSONObject();
 	
-	pb.put("name", rs.getString("item_name"));
-	pb.put("num", rs.getString("item_num"));
-	pb.put("price", rs.getString("item_price"));
-	pb.put("info", rs.getString("item_info"));
-	pb.put("img", rs.getString("item_img"));
+	srl.put("rating", rs.getInt("review_rating"));
+	srl.put("comment", rs.getString("review_comment"));
+	srl.put("datetime", rs.getTimestamp("review_datetime"));		
 	
-	productList.add(pb);
+	storeReviewList.add(srl);
 }
-
 %>
-<%=productList %>
+
+<%=storeReviewList%>
 
 

@@ -23,6 +23,7 @@ public class ReviewWriteProAction implements Action{
 		
 		for(int i = 0 ; i < review_count ; i++) {
 			
+			// 인덱스를 통해 구분 해놓은 요소들 가져오기
 			String review_comment = request.getParameter("review_comment_"+i);
 			int item_num = Integer.parseInt(request.getParameter("item_num_"+i));
 			int review_rating = 0;
@@ -31,29 +32,13 @@ public class ReviewWriteProAction implements Action{
 				review_rating = Integer.parseInt(request.getParameter("review_rating_"+i));
 			}
 					
-			if(review_rating != 0) {
-								
+			if(review_rating != 0) {								
 				ReviewCheckUpdateService checkUpdateService = new ReviewCheckUpdateService();
 				boolean isReviewSucess = service.insertReview(mem_num, item_num, review_rating, review_comment);
 				if(isReviewSucess) {
 					checkUpdateService.reviewCheckUpdate(mem_num);					
 				}
 				
-				if(!isReviewSucess) {
-					response.setContentType("text/html;charset=UTF-8");
-					PrintWriter out = response.getWriter();
-					out.println("<script>");
-					out.println("alert('리뷰 등록 실패 !')");
-					out.println("history.back()");
-					out.println("</script>");
-				} else {
-					response.setContentType("text/html;charset=UTF-8");
-					PrintWriter out = response.getWriter();
-					out.println("<script>");
-					out.println("alert('리뷰 등록 성공 !')");
-					out.println("</script>");
-					
-				}
 			}
 			
 		}

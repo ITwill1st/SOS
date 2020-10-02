@@ -27,16 +27,25 @@ public class MyOrderListService {
 			for(int j = i+1 ; j < orderList.size() ; j++) {
 				if(orderList.get(i).getOrder_num() == orderList.get(j).getOrder_num()) {
 					orderList.get(i).setItem_qty(orderList.get(i).getItem_qty() + orderList.get(j).getItem_qty());
+					orderList.get(j).setItem_qty(0);
 					orderList.get(i).setTotal_price(orderList.get(i).getTotal_price() + orderList.get(j).getTotal_price());
+					orderList.get(j).setTotal_price(0);
 				}
 			}
-			ArrayList<OrderDTO> myOrderList = orderList;
 		}
 		
+		ArrayList<OrderDTO> myOrderList = orderList;
+		for(int i = 0 ; i < orderList.size() ; i++) {
+			for(int j = 0 ; j < myOrderList.size(); j++) {
+				if(orderList.get(j).getItem_qty() == 0) {
+					myOrderList.remove(j);					
+				}
+			}
+		}
 		
 		close(con);
 
-		return orderList;
+		return myOrderList;
 	}
 
 }

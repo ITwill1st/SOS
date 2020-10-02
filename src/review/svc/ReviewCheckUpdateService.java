@@ -16,8 +16,8 @@ public class ReviewCheckUpdateService {
 	public void reviewCheckUpdate(int mem_num) {
 		
 		int a = 0;
-		ReviewListService service = new ReviewListService();
-		ArrayList<OrderDTO> orderList = service.getOrderList(mem_num);
+		OrderListService orderListService = new OrderListService();
+		ArrayList<OrderDTO> orderList = orderListService.getOrderList(mem_num);
 		
 		Connection con = getConnection();
 		ReviewDAO rda = ReviewDAO.getInstance();
@@ -37,6 +37,26 @@ public class ReviewCheckUpdateService {
 		}
 		
 		close(con);
+	}
+	
+	public void store_reviewCheckUpdate(int order_num) {
+		
+		Connection con = getConnection();
+		
+		ReviewDAO rda = ReviewDAO.getInstance();
+		
+		rda.setConnection(con);
+		
+		int isSuccess = rda.store_reviewCheckerUpdate(order_num);
+		
+		if(isSuccess > 0) {
+			commit(con);
+		} else {
+			rollback(con);
+		}
+		
+		close(con);
+		
 	}
 	
 }
