@@ -1,0 +1,53 @@
+@charset "UTF-8";
+
+
+
+/*********************************
+1. Order Main 페이지 
+*********************************/
+
+.shopping-basket {
+	position: fixed;
+	bottom: 100;
+	transform : translateY(-50%);
+	right: 0;
+	z-index:100;
+	font-size: larger;
+	border: 1px solid black;
+	border-radius: 10px;
+	margin-bottom: 10px;
+	
+}
+
+.user-photo,
+.user-name {
+  float: left;
+}
+.user-photo {
+  position: relative;
+  margin: 8px 12px;
+}
+.user-photo img {
+  display: block;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+}
+.user-status {
+  position: absolute;
+  left: 40px;
+  top: 27px;
+  width: 30px;
+  height: 30px;
+  box-sizing: content-box;
+  border-radius: 50%;
+  border: 4px solid #ffffff;
+  background-color: #282828;
+  color: #ffffff;
+  font-size: 23px;
+  text-align: center;
+}
+
+.shopping-detail {
+	margin: 0 auto;
+}
