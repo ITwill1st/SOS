@@ -14,16 +14,17 @@ int table_num = Integer.parseInt(request.getParameter("table_num"));
 ArrayList<ReviewDTO> reviewList = (ArrayList<ReviewDTO>)request.getAttribute("reviewList");
 %>
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="styles/bootstrap-4.1.2/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="./styles/main_styles.css">
-<link rel="stylesheet" type="text/css" href="styles/responsive.css">
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>order/detail.jsp</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="styles/bootstrap-4.1.2/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="./styles/main_styles.css">
+<link rel="stylesheet" type="text/css" href="styles/responsive.css">
+<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="order/style/order.css">
 <script src="js/jquery.js"></script>
 <script type="text/javascript">
 
@@ -37,7 +38,7 @@ function checkNumber(event) {
 	  return false;
 	}
 </script>
-<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+
 </head>
 <body>
 <div class="shopping-detail">
@@ -52,15 +53,20 @@ function checkNumber(event) {
     <input type="hidden" name="item_num" value="<%=menu.getItem_num() %>" readonly="readonly">
      <%=menu.getItem_info() %> <br>
      <%=menu.getItem_price() %>원 <br>
-     <input type="number" min="1" id="item_qty" name="item_qty" onkeypress='return checkNumber(event)'>
-     <input type="submit" value="담기" class="btn btn-warning btn-xs">
-    </p>
+     <div class="detail-qty">
+     	<label>수량</label>
+    	<input type="number" class="detail-qty-form" min="1" id="item_qty" name="item_qty" onkeypress='return checkNumber(event)'>
+ 	  <input type="submit" value="담기" class="btn btn-xs">
+ 	 </div>
+   
+
   </div>
 </div>
 
 
 </form>
 </div>
+
 <br><br><br>
 <hr>
 <h2>댓글</h2>

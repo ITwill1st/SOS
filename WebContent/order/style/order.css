@@ -48,6 +48,22 @@
   text-align: center;
 }
 
+/*********************************
+2. Detail 페이지 
+*********************************/
+
 .shopping-detail {
 	margin: 0 auto;
+	width: 500px;
+}
+
+.detail-qty {
+	display: inline;
+	float: left;
+	
+}
+
+.detail-qty-form {
+	width: 100px;
+	margin: 20px;
 }

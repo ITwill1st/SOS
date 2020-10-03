@@ -14,18 +14,17 @@ ArrayList<BasketBean> basketList = (ArrayList<BasketBean>)request.getAttribute("
 ArrayList<ProductBean> menuList = (ArrayList<ProductBean>)request.getAttribute("menuList");
 %>
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="styles/bootstrap-4.1.2/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="styles/main_styles.css">
-<link rel="stylesheet" type="text/css" href="styles/order.css">
-<link rel="stylesheet" type="text/css" href="styles/responsive.css">
+
 <!DOCTYPE html>
 <html>
 <script src="js/jquery.js"></script>
 <head>
 <meta charset="UTF-8">
 <title>order/basket.jsp</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="styles/bootstrap-4.1.2/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="./styles/main_styles.css">
+<link rel="stylesheet" type="text/css" href="styles/responsive.css">
 <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body>
@@ -47,33 +46,21 @@ ArrayList<ProductBean> menuList = (ArrayList<ProductBean>)request.getAttribute("
 			</div>
 
 
-
+<!-- 장바구니 목록 -->
 <form method="get">
  <table border="1" class="table">
- 	<thead>
-         <tr>
-            <td width="100" colspan="4">장바구니</td>
-         </tr>
-    </thead>
+ 
     <tbody>
-         <tr>
-         	<td>mem_num</td>
-            <td width="100"><%=mem_num %></td>
-         	<td>table_num</td>
-            <td width="100"><%=table_num %></td>
-         </tr>         
+    
         <% 
      		for(BasketBean basket : basketList){		 
      			for(ProductBean product : menuList){
      				if(basket.getItem_num()==product.getItem_num()){
    		%>
-         <tr>
-         	<td>메뉴 번호 </td>
-            <td colspan="3"><%=basket.getItem_num() %></td> 
- 		 </tr>
+
  		 <tr>
- 		 	<td>메뉴 이름</td> 
- 		 	<td colspan="3"><%=product.getItem_name() %></td> 
+ 		 	<th>메뉴 이름</th> 
+ 		 	<th colspan="3"><%=product.getItem_name() %></th> 
  		 </tr>
  		 <tr>
  		 	<td>메뉴 가격</td> 
@@ -85,7 +72,7 @@ ArrayList<ProductBean> menuList = (ArrayList<ProductBean>)request.getAttribute("
  		 	<input type="button" value="-" id="minusQty_<%=basket.getItem_num() %>" class="button_minus" <%if(basket.getItem_qty()==1) {%> disabled="disabled" <% }%>>
  		 	<input type="text" min="1" value="<%=basket.getItem_qty() %>" name="item_qty" readonly="readonly" id="qty_<%=basket.getItem_num() %>">
  		 	<input type="button" value="+" id="plusQty_<%=basket.getItem_num() %>" class="button_plus" >
- 			<input type="button" class="btn btn-warning" value="삭제" 
+ 			<input type="button" class="btn" value="X" 
  			       onclick="location.href='DeleteBasket.or?item_num=<%=basket.getItem_num() %>&mem_num=<%=mem_num %>&table_num=<%=table_num %>'"> 	
  			</td>
  		 </tr>
