@@ -200,6 +200,58 @@ public class RsvDAO {
 		
 		return allList;
 	}
+
+	//비회원 예약 조회를 위한 메서드 정의
+	public RsvDTO selectNonMember(String mem_email) {
+		RsvDTO dto=null;
+		
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		try {
+			String sql="select * from reservation where mem_email=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, mem_email);
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				dto.setMem_email(mem_email);
+				dto.setRsv_check(rs.getInt("rsv_check"));
+				dto.setRsv_date(rs.getString("rsv_date"));
+				dto.setRsv_num(rs.getInt("rsv_num"));
+				dto.setRsv_pax(rs.getInt("rsv_pax"));
+				dto.setRsv_time(rs.getString("rsv_time"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("RsvDAO - selectNonMember() 오류");
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return dto;
+	}
+
+	//예약을 취소하기 위한 메서드
+	public int deleteRsv(int rsv_num) {
+		int resultCount=0;
+		PreparedStatement pstmt=null;
+		
+		try {
+			String sql="delete from reservation where rsv_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, rsv_num);
+			resultCount=pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("RsvDAO - deleteRsv() 오류");
+		}finally {
+			close(pstmt);
+		}
+		
+		return resultCount;
+	}
 	
 	
 }

@@ -13,44 +13,54 @@ int table_num = Integer.parseInt(request.getParameter("table_num"));
 ArrayList<BasketBean> basketList = (ArrayList<BasketBean>)request.getAttribute("basketList");
 ArrayList<ProductBean> menuList = (ArrayList<ProductBean>)request.getAttribute("menuList");
 %>
+
+
 <!DOCTYPE html>
 <html>
 <script src="js/jquery.js"></script>
 <head>
 <meta charset="UTF-8">
 <title>order/basket.jsp</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="styles/bootstrap-4.1.2/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="./styles/main_styles.css">
+<link rel="stylesheet" type="text/css" href="styles/responsive.css">
 <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body>
-<h1>order/basket.jsp</h1>
-<h1 class="text-6xl">장바구니 정보</h1>
+
+<!--상단부분  -->
+<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="themenu_title_bar_container">
+						<div class="themenu_stars text-center page_subtitle">Silent Order</div>
+						<div class="themenu_rating text-center">
+							<div class="rating_r rating_r_5"><i></i><i></i><i></i><i></i><i></i></div>
+						</div>
+						<div class="themenu_title_bar d-flex flex-column align-items-center justify-content-center">
+							<div class="themenu_title">The Basket</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+<!-- 장바구니 목록 -->
 <form method="get">
- <table border="1" class="table-auto">
- 	<thead class="thead-dark">
-         <tr>
-            <td width="100" colspan="4">장바구니</td>
-         </tr>
-    </thead>
+ <table border="1" class="table">
+ 
     <tbody>
-         <tr>
-         	<td>mem_num</td>
-            <td width="100"><%=mem_num %></td>
-         	<td>table_num</td>
-            <td width="100"><%=table_num %></td>
-         </tr>         
+    
         <% 
      		for(BasketBean basket : basketList){		 
      			for(ProductBean product : menuList){
      				if(basket.getItem_num()==product.getItem_num()){
    		%>
-         <tr>
-         	<td>메뉴번호 </td>
-            <td colspan="3"><%=basket.getItem_num() %></td> 
- 		 </tr>
+
  		 <tr>
- 		 	<td>메뉴 이름</td> 
- 		 	<td colspan="3"><%=product.getItem_name() %></td> 
+ 		 	<th>메뉴 이름</th> 
+ 		 	<th colspan="3"><%=product.getItem_name() %></th> 
  		 </tr>
  		 <tr>
  		 	<td>메뉴 가격</td> 
@@ -61,8 +71,8 @@ ArrayList<ProductBean> menuList = (ArrayList<ProductBean>)request.getAttribute("
  		 	<td>
  		 	<input type="button" value="-" id="minusQty_<%=basket.getItem_num() %>" class="button_minus" <%if(basket.getItem_qty()==1) {%> disabled="disabled" <% }%>>
  		 	<input type="text" min="1" value="<%=basket.getItem_qty() %>" name="item_qty" readonly="readonly" id="qty_<%=basket.getItem_num() %>">
- 		 	<input type="button" value="+" id="plusQty_<%=basket.getItem_num() %>" class="button_plus" > <br>
- 			<input type="button" class="btn btn-danger" value="삭제" 
+ 		 	<input type="button" value="+" id="plusQty_<%=basket.getItem_num() %>" class="button_plus" >
+ 			<input type="button" class="btn" value="X" 
  			       onclick="location.href='DeleteBasket.or?item_num=<%=basket.getItem_num() %>&mem_num=<%=mem_num %>&table_num=<%=table_num %>'"> 	
  			</td>
  		 </tr>
@@ -125,9 +135,10 @@ ArrayList<ProductBean> menuList = (ArrayList<ProductBean>)request.getAttribute("
  			} %>
  			</tbody>
       </table>
-	  <input type="button" class=".bg-black" value="주문하기" onclick="location.href='PreOrder.or?mem_num=<%=mem_num %>&table_num=<%=table_num %>'">     
+	  <input type="button" class="btn btn-default btn-lg btn-block" value="주문하기" onclick="location.href='PreOrder.or?mem_num=<%=mem_num %>&table_num=<%=table_num %>'">     
 </form>
 
+</div>
 
 
 </body>

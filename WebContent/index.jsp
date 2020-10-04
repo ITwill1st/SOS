@@ -68,8 +68,7 @@
   </div>
 </nav>
 	
-<script type="text/javascript">
->>>>>>> branch 'master' of https://github.com/ITwill1st/SOS.git
+<!-- <script type="text/javascript"> -->
 
 <div class="super_container">
 <!-- header -->
@@ -133,19 +132,19 @@
 						<div class="res_stars page_subtitle">5 Stars</div>
 						<div class="res_title">Make a Reservation</div>
 						<div class="res_form_container">
-							<form action="#" id="res_form" class="res_form">
+							<form action="RsvView.rsv" id="res_form" class="res_form" method="post">
 								<div class="d-flex flex-sm-row flex-column align-items-center justify-content-start">
-									<input type="text" id="datepicker" class="res_input" required="required">
-									<input type="text" class="res_input timepicker" required="required">
-									<select class="res_select">
+									<input type="text" id="datepicker" class="res_input" name="date" required="required">
+									<input type="text" class="res_input timepicker" name="time" required="required">
+									<select class="res_select" name="pax">
 										<option disabled="" selected="">2 person</option>
 										<option>3 person</option>
 										<option>4 person</option>
 										<option>5 person</option>
 										<option>6 person</option>
 									</select>
+								<button type="submit" class="res_button">Make a Reservation</button>
 								</div>
-								<button class="res_button">Make a Reservation</button>
 							</form>
 						</div>
 					</div>
@@ -547,7 +546,7 @@
 	</script>
 <jsp:include page="inc/bottom.jsp"/>
 <!-- /footer -->
-</div>
+
 
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="styles/bootstrap-4.1.2/popper.js"></script>

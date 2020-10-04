@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 </head>
 <body>
 	<c:if test="${sessionScope.id eq 'admin' }">
@@ -38,6 +39,7 @@
 			</table>
 		</c:forEach>
 	</c:if>
+	<form action="RsvDelete.rsv">
 	<c:if test="${sessionScope.id != 'admin' }">
 	<table border="1">
 		<tr>
@@ -50,10 +52,12 @@
 			<td>예약 인원</td><td>${rsv_list.rsv_pax }</td>
 		</tr>
 		<tr>
-			<td>예약 번호</td><td>${rsv_list.rsv_num }</td>
+			<td>예약 번호</td><td><input type="text" name="rsv_num" value="${rsv_list.rsv_num }"></td>
 		</tr>
 	</table>
+	<input type="submit" value="예약취소">
 	</c:if>
+	</form>
 	
 </body>
 </html>

@@ -19,47 +19,73 @@ ArrayList<ReviewDTO> reviewList = (ArrayList<ReviewDTO>)request.getAttribute("re
 <head>
 <meta charset="UTF-8">
 <title>order/detail.jsp</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="styles/bootstrap-4.1.2/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="./styles/main_styles.css">
+<link rel="stylesheet" type="text/css" href="styles/responsive.css">
+<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="order/style/order.css">
 <script src="js/jquery.js"></script>
 <script type="text/javascript">
+
+//수량 0이하 입력불가능하도록제어 
+function checkNumber(event) {
+	//수량 input폼에 onkeypress 이벤트가 발생하면 checkNumber 함수를 호출하여 결과를 리턴
+	  if(event.key >= 1 && event.key <= 9) {
+		  // 1~9까지의 숫자만 입력 가능하도록 제어 
+	    return true;
+	  }
+	  return false;
+	}
 </script>
-<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+
 </head>
 <body>
-
+<div class="shopping-detail">
 <form action="BasketPro.or" method="post" id="basket_form" name="basket_form">
- 테이블 번호 :<input type="text" name="table_num" value="<%=table_num %>" readonly="readonly">
-  회원 번호 :<input type="text" name="mem_num" value="<%=mem_num %>" readonly="readonly">
+<input type="hidden" name="table_num" value="<%=table_num %>" readonly="readonly">
+<input type="hidden" name="mem_num" value="<%=mem_num %>" readonly="readonly">
 <div class="max-w-sm rounded overflow-hidden shadow-lg">
   <img class="w-full" src="product/productUpload/<%=menu.getItem_img() %>" alt="Sunset in the mountains">
   <div class="px-6 py-4">
     <div class="font-bold text-xl mb-2"><%=menu.getItem_name()%></div>
     <p class="text-gray-700 text-base">
-         아이템 넘버 :<input type="text" name="item_num" value="<%=menu.getItem_num() %>" readonly="readonly"> <br>
-     <%=menu.getItem_name()%> | <%=menu.getItem_price() %>원 <br>
+    <input type="hidden" name="item_num" value="<%=menu.getItem_num() %>" readonly="readonly">
      <%=menu.getItem_info() %> <br>
-          수량 : <input type="number" min="1" id="item_qty" name="item_qty">
-     <input type="submit" value="장바구니에 담기" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" >
-     
-    </p>
-  </div>
-  <div class="px-6 pt-4 pb-2">
-    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#photography</span>
-    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#travel</span>
-    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">#winter</span>
+     <%=menu.getItem_price() %>원 <br>
+     <div class="detail-qty">
+     	<label>수량</label>
+    	<input type="number" class="detail-qty-form" min="1" id="item_qty" name="item_qty" onkeypress='return checkNumber(event)'>
+ 	  <input type="submit" value="담기" class="btn btn-xs">
+ 	 </div>
+   
+
   </div>
 </div>
 
 
 </form>
+</div>
+
 <br><br><br>
 <hr>
 <h2>댓글</h2>
+<%
+for(int i = 0 ; i < reviewList.size() ; i++){%>
+<script type="text/javascript">
+$(document).ready(function() {
+	var star = "";
+		for(var x = 0 ; x < <%=reviewList.get(i).getReview_rating()%> ; x++) {
+			star += "★";
+		}
+	$("#starRating_<%=reviewList.get(i).getReview_comment_num()%>").html(star);
+});
+</script>
 
 <%
-for(int i = 0 ; i < reviewList.size() ; i++){
 	ReviewDTO rdt = reviewList.get(i);%>
 <table border="1" style="width: 366px; height: 70px; text-align: left;">
-	<tr><td><%=rdt.getMem_num()%></td><td>★ </td></tr>
+	<tr><td><%=rdt.getMem_num()%></td><td><div id="starRating_<%=reviewList.get(i).getReview_comment_num()%>"></div></td></tr>
 	<tr><td colspan="2"><%=rdt.getReview_comment()%></td></tr>
 </table>
 <br>

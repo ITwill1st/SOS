@@ -13,21 +13,6 @@ import vo.ProductInfoBean;
 
 public class ReviewListService {
 	// orders 테이블에서 리뷰 해야할 것들 가져오는 서비스 
-	public ArrayList<OrderDTO> getOrderList(int mem_num) {
-
-		Connection con = getConnection();
-
-		ReviewDAO rda = ReviewDAO.getInstance();
-
-		rda.setConnection(con);
-
-		// mem_num을 이용해 구매내역 조회후 orderList 가져오기(리뷰체커로 안된것만 가져옴)
-		ArrayList<OrderDTO> orderList = rda.getOrderList(mem_num);
-
-		close(con);
-
-		return orderList;
-	}
 
 	public ProductBean getProduct(int item_num) {
 
@@ -50,7 +35,8 @@ public class ReviewListService {
 	public ArrayList<ProductBean> getProduct_list(int mem_num) {
 
 		ArrayList<ProductBean> product_list = new ArrayList<ProductBean>();
-		ArrayList<OrderDTO> orderList = getOrderList(mem_num);
+		OrderListService orderListService = new OrderListService();
+		ArrayList<OrderDTO> orderList = orderListService.getOrderList(mem_num);
 
 		for(int i = 0 ; i < orderList.size() ; i++) {
 			OrderDTO orderDTO = orderList.get(i);

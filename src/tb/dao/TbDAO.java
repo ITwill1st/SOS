@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import vo.PreOrderBean;
 import vo.ProductBean;
 import vo.TableDTO;
 
@@ -155,6 +156,7 @@ public class TbDAO {
 				pb.setItem_category(rs.getString("item_category"));
 				pb.setItem_name(rs.getString("item_name"));
 				pb.setItem_price(rs.getInt("item_price"));
+				pb.setItem_num(rs.getInt("item_num"));
 				list.add(pb);
 			}
 		} catch (SQLException e) {
@@ -167,6 +169,113 @@ public class TbDAO {
 		
 		return list;
 	}
+
+	//해당 식당에 주문된 모든 정보를 조회하는 메서드
+	public ArrayList<PreOrderBean> getAllPreOrderList() {
+		
+		ArrayList<PreOrderBean> list = new ArrayList<PreOrderBean>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;	
+		
+		try {
+			String sql = "SELECT * FROM preorders, product WHERE product.item_num = preorders.item_num;";
+			
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				PreOrderBean pob = new PreOrderBean();
+				pob.setTable_num(rs.getInt("table_num"));
+				pob.setItem_num(rs.getInt("item_num"));
+				pob.setItem_qty(rs.getInt("item_qty"));
+				pob.setMem_num(rs.getInt("mem_num"));
+				pob.setItem_name(rs.getString("item_name"));
+				pob.setItem_price(rs.getInt("item_price"));
+				
+				list.add(pob);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+	public ArrayList<ProductBean> getProductList() {
+		
+		
+		ArrayList<ProductBean> list = new ArrayList<ProductBean>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "SELECT * FROM product";
+			pstmt = con.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				ProductBean pb = new ProductBean();
+				
+				pb.setItem_name(rs.getString("item_name"));
+				
+				list.add(pb);
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return list;
+		
+	}
+
+	public ArrayList<PreOrderBean> getThisTablePreOrder(int no) {
+		
+		ArrayList<PreOrderBean> list = new ArrayList<PreOrderBean>();
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;	
+		
+		try {
+			String sql = "SELECT * FROM preorders, product WHERE product.item_num = preorders.item_num and preorders.table_num=?";
+			
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				PreOrderBean pob = new PreOrderBean();
+				pob.setTable_num(rs.getInt("table_num"));
+				pob.setItem_num(rs.getInt("item_num"));
+				pob.setItem_qty(rs.getInt("item_qty"));
+				pob.setMem_num(rs.getInt("mem_num"));
+				pob.setItem_name(rs.getString("item_name"));
+				pob.setItem_price(rs.getInt("item_price"));
+				
+				list.add(pob);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		return list;
+	}
+
+
 	
 
 

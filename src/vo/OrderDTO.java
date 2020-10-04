@@ -9,12 +9,14 @@ public class OrderDTO {
 	int mem_num;
 	int basket_num;
 	int table_num;
+	String item_name;
 	int item_num;
 	int item_qty;
 	int item_price;
 	int total_price;
 	Timestamp order_datetime;
 	int review_chk;
+	int store_review_chk;
 	
 	public int getOrder_num() {
 		return order_num;
@@ -82,6 +84,19 @@ public class OrderDTO {
 	public void setTotal_price(int total_price) {
 		this.total_price = total_price;
 	}
+	public String getItem_name() {
+		return item_name;
+	}
+	public void setItem_name(String item_name) {
+		this.item_name = item_name;
+	}
+	public int getStore_review_chk() {
+		return store_review_chk;
+	}
+	public void setStore_review_chk(int store_review_chk) {
+		this.store_review_chk = store_review_chk;
+	}
+	
 	
 	
 	

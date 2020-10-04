@@ -10,7 +10,10 @@ import javax.servlet.http.HttpServletResponse;
 import action.Action;
 import tb.svc.MakeJsonService;
 import tb.svc.TableDetailViewService;
+import tb.svc.TablePreOrderListService;
+import tb.svc.TablePreOrderService;
 import vo.ActionForward;
+import vo.PreOrderBean;
 import vo.ProductBean;
 
 public class TableDetailViewAction implements Action {
@@ -22,10 +25,15 @@ public class TableDetailViewAction implements Action {
 		
 		String tableNo = request.getParameter("tableNo");
 		
-		TableDetailViewService tableDetailViewService = new TableDetailViewService();
 		
 		//메뉴불러오기
+		TableDetailViewService tableDetailViewService = new TableDetailViewService();	
 		ArrayList<ProductBean> list = tableDetailViewService.getArticle();
+		
+		//해당테이블 preorder조회
+		TablePreOrderService tablePreOrderService = new TablePreOrderService();	
+		ArrayList<PreOrderBean> list2 = tablePreOrderService.getArticle(tableNo);
+		
 		
 		
 		//중복을 제거하여 존재하는 카테고리를 HashSet에 저장한다
@@ -47,6 +55,7 @@ public class TableDetailViewAction implements Action {
 		request.setAttribute("category", category);
 		request.setAttribute("menu", list);
 		request.setAttribute("tableNo", tableNo);
+		request.setAttribute("preorderInfo", list2);
 		
 		forward = new ActionForward();
 		forward.setPath("/table/detail.jsp");	

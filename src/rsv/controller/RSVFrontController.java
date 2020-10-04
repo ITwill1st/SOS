@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import rsv.action.RsvCheckProAction;
 import rsv.action.RsvDateCheckProAction;
+import rsv.action.RsvDeleteProAction;
 import rsv.action.RsvListCheckProAction;
 import rsv.action.RsvSubmitProAction;
 import vo.ActionForward;
@@ -26,12 +28,7 @@ public class RSVFrontController extends HttpServlet{
 		Action action = null;
 		ActionForward forward = null;
 		
-		if(command.equals("/RsvMain.rsv")) {
-			
-			forward = new ActionForward();
-			forward.setPath("/rsv/main.jsp");
-			
-		}else if(command.equals("/RsvView.rsv")) {
+		if(command.equals("/RsvView.rsv")) {
 			
 			forward = new ActionForward();
 			forward.setPath("/rsv/view.jsp");
@@ -56,6 +53,20 @@ public class RSVFrontController extends HttpServlet{
 			}
 		}else if(command.equals("/MyRsvList.rsv")) {
 			action=new RsvListCheckProAction();
+			try {
+				forward=action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/RsvCheck.rsv")) {
+			action=new RsvCheckProAction();
+			try {
+				forward=action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}else if(command.equals("/RsvDelete.rsv")) {
+			action=new RsvDeleteProAction();
 			try {
 				forward=action.execute(request, response);
 			} catch (Exception e) {
