@@ -7,6 +7,7 @@ import product.dao.ProductDAO;
 public class ProductDeleteProService {
 	
 	public boolean removeArticle(int item_num) {
+		System.out.println("ProduxtDelete");
 		boolean isDeleteSuccess = false;
 		int deleteCount = 0;
 		

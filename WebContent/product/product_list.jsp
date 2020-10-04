@@ -13,88 +13,93 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <!-- <link rel="stylesheet" href="product/style/product.css"> -->
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 </head>
 <body>
 
 	<%
        ArrayList<ProductBean> productList = (ArrayList<ProductBean>)request.getAttribute("productList");
-	String category = (String) request.getAttribute("category");   
-	PageInfo pageInfo = (PageInfo)request.getAttribute("pageInfo");
-    int listCount=pageInfo.getListCount();
-    int nowPage=pageInfo.getPage();
-    int maxPage=pageInfo.getMaxPage();
-    int startPage=pageInfo.getStartPage();
-    int endPage=pageInfo.getEndPage();
+       ArrayList<ProductBean> category = (ArrayList<ProductBean>)request.getAttribute("category");
+
     %>
+<!-- ----------카테고리---------- -->  
+<%
+// 현재 카테고리 뿌려주기 
+for(ProductBean cate : category){
+    %><ul><li id="<%=cate.getItem_category() %>"><%=cate.getItem_category() %></li>
     
-	<script type="text/javascript">
-	//카테고리
+    
+    <script type="text/javascript">
+    // category 클릭 시 해당 메뉴만 출력하기 
+    $('#<%=cate.getItem_category() %>').click(function() {
+        
+        $('#table').empty();  
+        var category = $('#<%=cate.getItem_category() %>').val();
 
- $(document).ready(function() {
-    
-     
-       var category = <%=category%>;
-        var category2 = "";
-        for(var i=0; i < category.length; i++){
-            $('.cate').append("<option id=" + category[i] + " value="+category[i]+">"+category[i]+"</option>");
-        }
+        $.ajax({
+            url: "CategoryShow.po?item_category=<%=cate.getItem_category() %>",
+            type:'GET',
+            dataType: "json",
+            success: function(data) {
+                console.log("성공");
+                console.log(data);
+            
+                $.each(data, function(index,item){
+                
+                    var img = "<img src='product/productUpload/"+item.item_img+"' width =150/>";
+               
+                
+                      $('#table ').append("<tr><td>"+img+"</td><td>"+item.item_num+"</td><td>"+item.item_name+"</td><td>"+item.item_price+"</td><td>"+item.item_category+
+                              "</td><td>"+item.item_info+"</td><td>"+item.item_calorie
+                             +"</td><td>"+item.item_origin+"</td><td style = 'text-align: center;'><a href='ProductModifyForm.po?item_num="
+                                 +item.item_num+"&page='><input type='button' value='수정'>"
+                                 +"</a><input type = 'button' value = '삭제' onclick='button_event();'>"
+                                 +"<script type='text/javascript'>function button_event(){"
+                                 +"if(confirm('삭제하겠습니까?')== true){location.href = 'ProductDeletePro.po?item_num="
+                                 +item.item_num+"&page='alert('삭제되었습니다');"
+                                 +"}else{return;}}</td></tr>");
+                            
+                      });
+                
+            
+                
+            },
+            error: function(data) {
+                console.log("에러!");
+            }
+            
+        
+            
+        })
         
         
-        $("#selectByCategory").on("click", function() {
-        	$('#cate22 > tbody').empty();	
-        	  
-        	  
-//          alert($(".cate option:selected").val());
-         var selectedCategory = $(".cate option:selected").val();
+    });
+    
+    
+    </script>
+    
+    </ul><%
+}
+%>
 
-		     $.ajax({
-		         url: 'ProductListCategory.po', // 호출할 url정보
-		         method: 'get',
-		         dataType: "json",
-		         data: {
-		        	  category:selectedCategory       
-		         },
-		         success: function(data) {
-// 		          alert(JSON.stringify(data));
-		        	    
-		            $.each(data, function(index,item){
-		        	 var img = "<img src='product/productUpload/"+item.item_img+"' width =150/>";
-		        			        	    
-		                $('#cate22 > tbody').append("<tr><td>"+img+"</td><td>"+item.item_num+"</td><td>"+item.item_name+"</td><td>"+item.item_price+"</td><td>"+item.item_category+
-                          "</td><td>"+item.item_info+"</td><td>"+item.item_calorie
-                         +"</td><td>"+item.item_origin+"</td></tr>");
-		                
-		          
-		          });
-		            		            
-		         }
-		     });
-        });
-         
- });
+<!-- ----------상품 삭제---------- -->
+		
+		
+<!-- ----------상품 리스트---------- -->
+	
+	<h2>상품 리스트</h2>
+				
+<!-- ----------카테고리---------- -->
 
 	
 	
-	</script>
-
-	
-	<button onclick='location.href="ProductAddForm.po"'>상품추가</button>
-	
-	<select class="cate">
 	
 
-	</select>
-
-    <button id="selectByCategory">조회</button>
-
-	
-<script type="text/javascript">
-</script>
-<!-- 	<div id="category11"> -->
-		<table border="1" id = "cate22">
-		<thead>
-			<tr>
+	<button id = "btnAdd" onclick='location.href="ProductAddForm.po"'>상품추가</button>
+<!-- 			<div id ="table">  -->
+			<table border="1px" id = "table">
+			
+				<tr>
 				<th>상품이미지</th>
 				<th>상품번호</th>
 				<th>상품이름</th>
@@ -104,46 +109,43 @@
 				<th>칼로리</th>
 				<th>원산지</th>
 				<th>수정/삭제</th>
-			</tr>
-		</thead>
-		<tbody>
-		 
-               <%
-                    for (int i = 0; i < productList.size(); i++) { 
-               %> 
-               <tr>
-               <td style="table-layout: fixed;">
-                   상품 이미지 <a
-                   href="ProductDetail.po?item_num=<%=productList.get(i).getItem_num()%>&page=<%=nowPage%>">
-                       <img width="200px" height="100px"
-                       src="product/productUpload/<%=productList.get(i).getItem_img()%>">
-               </a>
-               </td>
-               
-               <td><%=productList.get(i).getItem_num()%></td>
-               <td><%=productList.get(i).getItem_name()%></td>
-               <td><%=productList.get(i).getItem_price()%></td>
-               <td><%=productList.get(i).getItem_category()%></td>
-               <td><%=productList.get(i).getItem_info()%></td>
-               <td><%=productList.get(i).getItem_calorie()%></td>
-               <td><%=productList.get(i).getItem_origin()%></td>
-               <td><a
-                   href="ProductModifyForm.po?item_num=<%=productList.get(i).getItem_num()%>&page=<%=nowPage%>">
-                       <input type="button" value="수정">
-               </a> <a
-                   href="ProductDeleteForm.po?item_num=<%=productList.get(i).getItem_num()%>&page=<%=nowPage%>">
-                       <input type="button" value="삭제">
-               </a></td>
-            </tr>
-            
-            <%
-             }
-            %>
+				</tr>
 
-		</tbody>
-			
 
-		</table>
-<!-- 	</div> -->
+
+				<%
+			    for(ProductBean item : productList) {
+			%>
+
+				  <tr>
+				  <td><a  href="ProductDetail.po?item_num=<%=item.getItem_num()%>">
+				  <img src="${pageContext.request.contextPath}/product/productUpload/<%=item.getItem_img()%>" width="200px" height="100px"></a></td>
+				  <td> <%=item.getItem_num() %> </td>
+				  <td><%=item.getItem_name() %></td>
+				  <td> <%=item.getItem_price() %> </td>
+				  <td> <%=item.getItem_category() %> </td>
+				  <td><%=item.getItem_info() %> </td>
+				  <td><%=item.getItem_calorie() %> </td>
+				  <td><%=item.getItem_origin() %> </td>
+				  <td style = "text-align: center;"><a
+                      href="ProductModifyForm.po?item_num=<%=item.getItem_num()%>">
+                          <input type="button" value="수정"></a> 
+                  <input type = "button" value = "삭제" onclick="button_event();">
+                  <script type="text/javascript">
+                     function button_event(){
+                        if(confirm("삭제하겠습니까?")== true){
+                            location.href = "ProductDeletePro.po?item_num=<%=item.getItem_num()%>"
+                           alert("삭제되었습니다");
+                        }else{
+                           return;
+                        }
+                     }
+      </script>
+                  </td>
+				<%} %>
+			</table>	
+<!-- 			 </div>	   	 -->
+		
+
 </body>
 </html>

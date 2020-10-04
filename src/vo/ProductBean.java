@@ -10,7 +10,7 @@ public class ProductBean {
 	private String item_category;
 	private String item_allergies;
 	private String item_img;
-	private int read_count;
+	private int item_visable;
 
 	private int item_show;
 	public int getItem_num() {
@@ -74,12 +74,13 @@ public class ProductBean {
 	public void setItem_show(int item_show) {
 		this.item_show = item_show;
 	}
-	public int getRead_count() {
-		return read_count;
+	public int getItem_visable() {
+		return item_visable;
 	}
-	public void setRead_count(int read_count) {
-		this.read_count = read_count;
+	public void setItem_visable(int item_visable) {
+		this.item_visable = item_visable;
 	}
+	
 	
 	
 }

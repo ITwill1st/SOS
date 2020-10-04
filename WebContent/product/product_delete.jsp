@@ -10,7 +10,8 @@ String nowPage = request.getParameter("page");
 <head>
 <meta charset="UTF-8">
 <title>DELETE</title>
-<link rel="stylesheet" href="product/style/product.css">
+<!-- <link rel="stylesheet" href="product/style/product.css"> -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 
 </head>
 <body>
@@ -19,8 +20,8 @@ String nowPage = request.getParameter("page");
 		<form
 			action="ProductDeletePro.po?item_num=<%=item_num%>&page=<%=nowPage%>"
 			method="post">
-
-			<table>
+			<h2>상품 삭제</h2>
+			<table class="table table-striped">
 
 				<tr>
 					<td><input type="submit" value="삭제" /> &nbsp;&nbsp; <input

@@ -5,16 +5,27 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="product/style/product.css">
+<!-- <link rel="stylesheet" href="product/style/product.css"> -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
 </head>
 <body>
 	<!-- 상품 등록 -->
 
 	<section id="writeForm">
-		<h2>등록</h2>
+		<h2>상품 등록</h2>
 		<form action="ProductAddPro.po" method="post"
 			enctype="multipart/form-data" name="boardform">
-			<table>
+			<table class="table table-striped">
+			
+				<tr>
+					<td class="td_left"><label for="board_file">사진등록  </label></td>
+					<td class="td_right"><input name="item_img" type="file"
+						id="item_img" required="required" 
+
+						/></td>
+				</tr>
+
 				<tr>
 					<td class="td_left"><label for="board_name">상품명</label></td>
 					<td class="td_right"><input type="text" name="item_name"
@@ -52,13 +63,8 @@
 				</tr>
 				
 				
-				<tr>
-					<td class="td_left"><label for="board_file">  </label></td>
-					<td class="td_right"><input name="item_img" type="file"
-						id="item_img" required="required" 
-
-						/></td>
-				</tr>
+				
+			
 			</table>
 			<section id="commandCell">
 				<input type="submit" value="등록">&nbsp;&nbsp; <input

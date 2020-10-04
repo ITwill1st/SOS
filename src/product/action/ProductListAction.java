@@ -20,79 +20,26 @@ public class ProductListAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ActionForward forward = null;
 		System.out.println("ProductAction");
-		String category = request.getParameter("category");
-		System.out.println(category);
 		
+		//상품 리스트
+		ProductListService pls = new ProductListService();
+		ArrayList<ProductBean> productList = pls.getProductList();
 		
-		int page = 1;
-		int limit = 50;
-		
-		if (request.getParameter("page")!=null) {
-			page = Integer.parseInt(request.getParameter("page"));
-		}
-		
+	// 상품 넘버 카운트
 		ProductListService productListService = new ProductListService();
 		int listCount = productListService.getListCount();
 		
-		
-//		if(category==null) {
-//		
-//		ArrayList<ProductBean> productList = productListService.getProductList(page, limit);
-//		}else {
-//		ArrayList<ProductBean> productList = productListService.getProductList(page, limit,category);
-//
-//		}
-		ArrayList<ProductBean> productList =null;
-		
-		if(category == null) {
-			System.out.println("카테고리 없음");
-			productList = productListService.getProductList(page, limit);
-		}else {
-			System.out.println("카테고리 있음");
-			productList = productListService.getProductList(page,limit,category);
-			
-		}
-			
-		
-		int maxPage = (int)((double)listCount / limit+0.95);
-		int startPage = ((int)((double)page / 10 + 0.9)-1)*10 + 1;
-		int endPage = startPage + 10 -1;
-		
-		if (endPage>maxPage) {
-			endPage = maxPage;
-		}
-		
-		PageInfo pageInfo = new PageInfo(page, maxPage, startPage, endPage, listCount);
+		//상품 카테고리
+		ProductListService pls2 = new ProductListService();
+		ArrayList<ProductBean> category = pls2.getCategoryList();
 		
 		
-		
-		//=========================
-		
-		HashSet<String> hash = new HashSet<String>();
-		
-		for(int i=0; i<productList.size(); i++) {
-			hash.add(productList.get(i).getItem_category());
-		}
-		
-		Iterator<String> iteratorCategory = hash.iterator();
-		
-		MakeJsonService makeJsonService = new MakeJsonService();
-		
-		category = makeJsonService.getCategoryJson(iteratorCategory);
-		
-//		System.out.println(category);
-		
-		request.setAttribute("category", category);
-		
-		
-		System.out.println("aaa" + productList);
-
-		request.setAttribute("pageInfo", pageInfo);
 		request.setAttribute("productList", productList );
+		request.setAttribute("category", category);
 		
 		forward = new ActionForward();
 		forward.setPath("/product/product_list.jsp");
-		
+
 		
 		return forward;
 		

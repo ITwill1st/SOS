@@ -10,6 +10,7 @@ html, body, div, object, iframe, fieldset {
     border: 0;
 } 
 ol, ul { 
+	float:left;
     list-style: none;
     margin: 0;
     padding: 0;

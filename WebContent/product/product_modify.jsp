@@ -15,17 +15,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Modify</title>
-<link rel="stylesheet" href="product/style/product.css">
-
-</head>
+<!-- <link rel="stylesheet" href="product/style/product.css"> -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"></head>
 <body>
 	<!-- 상품 수정 -->
 	<section id="writeForm">
-		<h2>수정</h2>
+		<h2>상품 수정</h2>
 		<form action="ProductModifyPro.po" method="post" name="boardForm">
 			<input type="hidden" name="item_num" value="<%=product.getItem_num() %>" />
 			<input type="hidden" name="page" value="<%=nowPage%>" />
-			<table>
+			
+			<table class="table table-striped">
 				<tr>
 					
 					
@@ -82,7 +82,7 @@
 				
 				
 			</table>
-			<section id="commandCell">
+			<section id="commandCell" style = "text-align: center;">
 				<input type="submit" value="수정" />&nbsp;&nbsp;
 				<input type="button" value="뒤로" onclick="history.back()" />
 			</section>

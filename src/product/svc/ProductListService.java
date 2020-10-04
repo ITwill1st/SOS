@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import org.json.simple.JSONArray;
 
+import order.dao.*;
 import product.dao.ProductDAO;
 import vo.ProductBean;
 public class ProductListService {
@@ -23,38 +24,45 @@ public class ProductListService {
 		return listCount;
 				
 	}
-	public ArrayList<ProductBean> getProductList(int page, int limit){
-		ArrayList<ProductBean> productList = new ArrayList<ProductBean>();
-		ProductBean pb = new ProductBean();
-//		pb.setItem_name("아무거나");
-		productList.add(pb);
+	// product 전체 메뉴 가져오기///
+	public ArrayList<ProductBean> getProductList(){
 		
 		Connection con = getConnection();
 		ProductDAO productDAO = ProductDAO.getInstance();
 		productDAO.setConnection(con);
 		
-		productList = productDAO.selectProductList(page,limit);
+		ArrayList<ProductBean> productList = productDAO.selectProductList();
 		
 		close(con);
 		
 		return productList;
 	}
-	public JSONArray getProductList(int page, int limit, String category) {
-		System.out.println("Service");
-		JSONArray productList = new JSONArray();
-		ProductBean pb = new ProductBean();
-//		pb.setItem_name("아무거나");
-		productList.add(pb);
-		
+//------------------------------------------------------------
+
+	//카테고리 가져오기 ///
+	public ArrayList<ProductBean> getCategoryList() {
 		Connection con = getConnection();
-		ProductDAO productDAO = ProductDAO.getInstance();
-		productDAO.setConnection(con);
-		
-		productList = productDAO.selectProductList(page,limit,category);
+		ProductDAO dao = ProductDAO.getInstance();
+		dao.setConnection(con);
+		ArrayList<ProductBean> categoryList = dao.selectCategory();
 		
 		close(con);
-		
-		return productList;
+		return categoryList;
+	}
+	
+	// 카테고리에 해당하는 아템 가져오기
+		public JSONArray getProductList(String category) {
+			
+			Connection con = getConnection();
+			 ProductDAO dao = ProductDAO.getInstance();
+			dao.setConnection(con);
+			
+			// 카테고리에 해당하는 아이템 찾아오기
+			JSONArray list = dao.selectListTest(category);
+			
+			close(con);
+			
+			return list;
 		}
 
 }
