@@ -16,7 +16,14 @@
 	border: 1px solid black;
 	border-radius: 10px;
 	margin-bottom: 10px;
+	background: #282828;
 	
+}
+
+.shopping-basket-inner {
+	border-radius: 10px;
+	margin: 10px;
+	border:  2px solid #8c7c74;
 }
 
 .user-photo,
@@ -35,16 +42,16 @@
 }
 .user-status {
   position: absolute;
-  left: 40px;
-  top: 27px;
-  width: 30px;
-  height: 30px;
+  left: 20px;
+  top: 15px;
+  width: 20px;
+  height: 20px;
   box-sizing: content-box;
   border-radius: 50%;
-  border: 4px solid #ffffff;
+  border: 3px solid #ffffff;
   background-color: #282828;
   color: #ffffff;
-  font-size: 23px;
+  font-size: 15px;
   text-align: center;
 }
 
@@ -66,4 +73,27 @@
 .detail-qty-form {
 	width: 100px;
 	margin: 20px;
+}
+
+.shopping-detail-flag-container {
+	width: 150px;
+	height: 30px;
+    background: #282828;
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-right: 10px;
+    border-radius: 10px 10px 0 0 ;
+    text-align: center;
+    
+}
+
+.shopping-detail-flag {
+	border:  2px solid #8c7c74;
+}
+
+.shopping-detail-flag-text {
+	color: white;
+	font-weight: bold;
+	background: #282828;
+	height: 40px;
 }

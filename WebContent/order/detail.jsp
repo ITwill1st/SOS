@@ -41,7 +41,15 @@ function checkNumber(event) {
 
 </head>
 <body>
+<br>
+<br>
+<br>
 <div class="shopping-detail">
+<div class="shopping-detail-flag-container">
+	<div class="shopping-detail-flag">
+		<h1 class="shopping-detail-flag-text"><%=menu.getItem_category() %></h1>
+	</div>
+</div>
 <form action="BasketPro.or" method="post" id="basket_form" name="basket_form">
 <input type="hidden" name="table_num" value="<%=table_num %>" readonly="readonly">
 <input type="hidden" name="mem_num" value="<%=mem_num %>" readonly="readonly">
@@ -66,6 +74,8 @@ function checkNumber(event) {
 
 </form>
 </div>
+</div>
+
 
 <br><br><br>
 <hr>

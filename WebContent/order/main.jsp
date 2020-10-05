@@ -54,16 +54,18 @@ ArrayList<ProductBean> category = (ArrayList<ProductBean>)request.getAttribute("
  
    <aside class="as-shopping-basket">
 	    <div class="shopping-basket">
+	     <div class="shopping-basket-inner">
 	 		<div class="user-card clearfix">
 	      		<div class="user-photo">
-	       			<a href="BasketList.or?mem_num=<%=mem_num %>&table_num=<%=table_num %>"><i class="fas fa-shopping-basket fa-4x"></i></a>
+	       			<a href="BasketList.or?mem_num=<%=mem_num %>&table_num=<%=table_num %>"><i class="fas fa-shopping-basket fa-2x" style="color:#8c7c74;"></i></a>
 	        		<span class="user-status" aria-label="Active"><%=basketCount %></span>
 	     		</div>
 	    	</div>
 	    	<div class="user-card clearfix">
     			<div class="user-photo">
-        			<a href="Order.or?mem_num=<%=mem_num %>&table_num=<%=table_num %>"><i class="fab fa-cc-visa fa-4x"></i></a>
+        			<a href="Order.or?mem_num=<%=mem_num %>&table_num=<%=table_num %>"><i class="fab fa-cc-visa fa-2x" style="color:#8c7c74;" ></i></a>
      			</div>
+    		</div>
     		</div>
 		</div>
     </aside>
