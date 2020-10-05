@@ -14,80 +14,113 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Modify</title>
-<!-- <link rel="stylesheet" href="product/style/product.css"> -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"></head>
+<link rel="stylesheet" href="product/style/list.css">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"></head> -->
 <body>
+
+    <div class="top">           
+
+                    <div class="logo_img">                  
+                    <img alt="" src="inc/SOS logo_v2.png" height="70px">
+                    </div>
+    
+                    <div class="logo">                  
+                        <p class="logo_title">Silent Order</p>
+                        <p class="logo_subtitle">restaurant</p>
+                    </div>
+                    
+                    <div class="logo_pos">
+                        <p class="pos_title">PRODUCT MODIFY</p>
+                    </div>
+
+    </div>
+
 	<!-- 상품 수정 -->
-	<section id="writeForm">
-		<h2>상품 수정</h2>
+<div class="content">  
+	
 		<form action="ProductModifyPro.po" method="post" name="boardForm">
 			<input type="hidden" name="item_num" value="<%=product.getItem_num() %>" />
 			<input type="hidden" name="page" value="<%=nowPage%>" />
 			
-			<table class="table table-striped">
-				<tr>
+		<div class = view-left>
+			<img src="product/productUpload/<%=product.getItem_img()%>"> <br>
+            <input name="item_img" type="file" value = "<%=product.getItem_img() %>">
+			
+		</div>		
+		<div class = "view-left">
+			<table class="detail-talbe">
 					
-					
 				<tr>
-					<td class="td_left"><label for="item_img">상품이미지</label></td>
-					<td class="td_right">
-					<img src="product/productUpload/<%=product.getItem_img()%>"> <br>
-					<input name="item_img" type="file" value = "<%=product.getItem_img() %>"></td>
-				</tr>
-				
-				<tr>
-					<td class="td_left"><label for="item_num">상품번호</label></td>
-					<td class="td_right">
-						<input type="text" name="item_num" id="item_num" value="<%=product.getItem_num()%>" />
+					<td>상품이름:
+						<input type="text" name="item_name"  value="<%=product.getItem_name() %>" required="required" />
 					</td>
 				</tr>
 				<tr>
-					<td class="td_left"><label for="item_name">상품이름</label></td>
-					<td class="td_right">
-						<input type="text" name="item_name" id="item_name" value="<%=product.getItem_name() %>" required="required" />
+					<td>상품가격:
+						<input type="text" name="item_price"  value="<%=product.getItem_price() %>" required="required" />
 					</td>
 				</tr>
 				<tr>
-					<td class="td_left"><label for="item_price">상품가격</label></td>
-					<td class="td_right">
-						<input type="text" name="item_price" id="item_price" value="<%=product.getItem_price() %>" required="required" />
-					</td>
-				</tr>
+                    <td>카테고리:
+                        <input type="text" name="item_category"value="<%=product.getItem_category() %>" required="required" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>상품정보:
+                        <input type="text" name="item_info" value="<%=product.getItem_info() %>" required="required" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>칼로리:
+                        <input type="text" name="item_calorie" value="<%=product.getItem_calorie() %>" required="required" />
+                    </td>
+                </tr>
 				<tr>
-					<td class="td_left"><label for="item_origin">원산지</label></td>
-					<td class="td_right">
-						<input type="text" name="item_origin" id="item_origin" value="<%=product.getItem_origin()%>" required="required" />
-					</td>
-				</tr>
-				<tr>
-					<td class="td_left"><label for="item_calorie">칼로리</label></td>
-					<td class="td_right">
-						<input type="text" name="item_calorie" id="item_calorie" value="<%=product.getItem_calorie() %>" required="required" />
-					</td>
-				</tr>
-				<tr>
-					<td class="td_left"><label for="item_info">상품정보</label></td>
-					<td class="td_right">
-						<input type="text" name="item_info" id="item_info" value="<%=product.getItem_info() %>" required="required" />
-					</td>
-				</tr>
-				<tr>
-					<td class="td_left"><label for="item_category">카테고리</label></td>
-					<td class="td_right">
-						<input type="text" name="item_category" id="item_category" value="<%=product.getItem_category() %>" required="required" />
+					<td>원산지:
+						<input type="text" name="item_origin" value="<%=product.getItem_origin()%>" required="required" />
 					</td>
 				</tr>
 				
 				
 				
+				
+				<tr><td>
+				<input type="submit"  value="수정" />&nbsp;&nbsp;
+				<input type="button"  value="뒤로" onclick="history.back()" /> 
+				</td></tr>
+				
+			
 			</table>
-			<section id="commandCell" style = "text-align: center;">
-				<input type="submit" value="수정" />&nbsp;&nbsp;
-				<input type="button" value="뒤로" onclick="history.back()" />
-			</section>
-		</form>	
-	</section>
+		
+			
+	       	</form>	
+	    </div>
+	
+	<!--   --------사이드메뉴------------ -->
+	   
+        
+                    <div class="right-bar">
+                        <div class="right-bar-List">
+                            <button>주문 내역</button>
+                        </div>
+                        <div class="right-bar-List">
+                            <button onclick="location.href='MyRsvList.rsv">예약 내역</button>
+                        </div>
+                        <div class="right-bar-List">
+                            <button onclick="location.href='ProductList.po'">상품 관리</button>
+                        </div>
+                        <div class="right-bar-List">
+                            <button>매출 관리</button>
+                        </div>
+                        <div class="right-bar-List">
+                            <button onclick="location.href='TablesEditForm.tb'">테이블 관리</button>
+                        </div>
+                        <div class="right-bar-List">
+                            <button>설정</button>
+                        </div>
+                    </div>
+        
+	
 </body>
 </html>
 

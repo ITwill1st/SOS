@@ -12,34 +12,53 @@
 <head>
 <meta charset="UTF-8">
 <title>View</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"></head>
+<link rel="stylesheet" href="product/style/list.css">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"></head> -->
 
 </head>
 <body>
+
+<div class="top">           
+
+                    <div class="logo_img">                  
+                    <img alt="" src="inc/SOS logo_v2.png" height="70px">
+                    </div>
+    
+                    <div class="logo">                  
+                        <p class="logo_title">Silent Order</p>
+                        <p class="logo_subtitle">restaurant</p>
+                    </div>
+                    
+                    <div class="logo_pos">
+                        <p class="pos_title">PRODUCT DETAIL</p>
+                    </div>
+
+</div>
+
+
 	<!-- 상품 디테일 -->
-	<section id="articleForm">
-		<h2>상세보기</h2>
-		<section id="basicInfoArea">
-		<table class="table table-striped">
-		<tr>	상품이미지 : 
-			<%if(productBean.getItem_img() != null) { %>
-				<img src = "product/productUpload/<%=productBean.getItem_img() %>" width=200; height =200; >
-			<%}%></td></tr>
-			<tr><td>상품이름 : <%=productBean.getItem_name() %></td></tr>
-		<tr><td>	상품가격 : <%=productBean.getItem_price() %></td></tr>
-		<tr><td>	카테고리 : <%=productBean.getItem_category() %></td></tr>
-		<tr><td>	상품정보 : <%=productBean.getItem_info() %></td></tr>
-		<tr><td>	칼로리 : <%=productBean.getItem_calorie() %></td></tr>
-		<tr><td>	원산지 : <%=productBean.getItem_origin() %></td></tr>
-			
-			</table>
-		</section>
-		
-	</section>
-	<section id="commandList">
+<div class="content">  
+    
+    
+    <div class = view-left>
+            <%if(productBean.getItem_img() != null) { %>
+                <img src = "product/productUpload/<%=productBean.getItem_img() %>"  >
+            <%}%>
+    </div>
+    <div class = view-left>
+        <table class = "detail-talbe">
+	        <tr><td>   상품이름 : <%=productBean.getItem_name() %></td></tr>
+	        <tr><td>    상품가격 : <%=productBean.getItem_price() %></td></tr>
+	        <tr><td>    카테고리 : <%=productBean.getItem_category() %></td></tr>
+	        <tr><td>    상품정보 : <%=productBean.getItem_info() %></td></tr>
+	        <tr><td>    칼로리 : <%=productBean.getItem_calorie() %></td></tr>
+	        <tr><td>    원산지 : <%=productBean.getItem_origin() %></td></tr>
+            
+           <tr><td>
 <%-- 	<%     if(mem_id.equals("admin")){ %> --%>
-		<a href="ProductModifyForm.po?item_num=<%=productBean.getItem_num()%>&page=<%=nowPage %>"><input type="button" value="수정" ></a>
-		<input type = "button" value = "삭제" onclick="button_event();">
+		<a href="ProductModifyForm.po?item_num=<%=productBean.getItem_num()%>&page=<%=nowPage %>">
+		<input type="button" value="수정" ></a>
+		<input type = "button"  value = "삭제" onclick="button_event();">
 						<script type="text/javascript">
 							function button_event(){
 								if(confirm("삭제하겠습니까?")== true){
@@ -52,8 +71,37 @@
 							}
 		</script>
 <%-- 		<%} %> --%>
-		<a href="ProductList.po?page=<%=nowPage %>"><input type="button" value="목록" ></a>
-	</section>
+		<a href="ProductList.po?page=<%=nowPage %>"><input type="button"  value="목록" ></a>
+		</td></tr>
+		
+ </table>
+  </div>
+	<!--   --------사이드메뉴------------ -->
+        <section>
+        
+                    <div class="right-bar">
+                        <div class="right-bar-List">
+                            <button>주문 내역</button>
+                        </div>
+                        <div class="right-bar-List">
+                            <button onclick="location.href='MyRsvList.rsv">예약 내역</button>
+                        </div>
+                        <div class="right-bar-List">
+                            <button onclick="location.href='ProductList.po'">상품 관리</button>
+                        </div>
+                        <div class="right-bar-List">
+                            <button>매출 관리</button>
+                        </div>
+                        <div class="right-bar-List">
+                            <button onclick="location.href='TablesEditForm.tb'">테이블 관리</button>
+                        </div>
+                        <div class="right-bar-List">
+                            <button>설정</button>
+                        </div>
+                    </div>
+        
+        </section>      
+</div>
 </body>
 </html>
 
