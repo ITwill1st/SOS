@@ -40,7 +40,6 @@ public class MemberLoginProAction implements Action {
 		    String mem_phone = mb.getMem_phone();
 		    session.setAttribute("mem_phone", mb.getMem_phone());
 		    System.out.println(mem_phone);
-		    
 			
 			forward=new ActionForward();
 			forward.setPath("Main.me");
