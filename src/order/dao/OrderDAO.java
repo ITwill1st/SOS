@@ -80,7 +80,7 @@ public class OrderDAO {
 		try {
 
 			// product테이블에 담긴 전체 메뉴 조회
-			String sql = "select * from product";
+			String sql = "select * from product order by read_count desc";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 
@@ -167,6 +167,7 @@ public class OrderDAO {
 				menu.setItem_img(rs.getString("item_img"));
 				menu.setItem_info(rs.getString("item_info"));
 				menu.setItem_price(rs.getInt("item_price"));
+				menu.setItem_category(rs.getString("item_category"));
 
 			}
 		} catch (SQLException e) {
@@ -641,6 +642,29 @@ public class OrderDAO {
 		
 		
 		return deleteResult;
+	}
+
+	
+	// 상품 클릭시 조회수 +1 
+	public int updateReadcount(int item_num) {
+
+		int updateSuccess = 0;
+		
+		try {
+			String sql = "update product set read_count = read_count+1 where item_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, item_num);
+			
+			updateSuccess = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			System.out.println("OrderDAO - updateReadcount() 메서드 " + e.getMessage());
+		} finally {
+			close(pstmt);
+		}
+		
+		return updateSuccess;
 	}
 
 }

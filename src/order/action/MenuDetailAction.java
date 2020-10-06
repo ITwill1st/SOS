@@ -26,6 +26,8 @@ public class MenuDetailAction implements Action {
 		int item_num = Integer.parseInt(request.getParameter("item_num"));
 
 		
+		
+		
 		// 선택한 Menu에 대한 상세정보를 가져오기 위한  MenuDetailService 호출
 		MenuDetailService mds = new MenuDetailService();
 		MenuDetailReviewListService reviewService = new MenuDetailReviewListService();
@@ -34,7 +36,18 @@ public class MenuDetailAction implements Action {
 		ProductBean menu  = mds.getDetail(item_num);
 		ArrayList<ReviewDTO> reviewList = reviewService.getReview(item_num);
 
-		forward = new ActionForward();
+		
+		// 조회수 +1 
+		MenuDetailService mds2 = new MenuDetailService();
+		int updateSuccess = mds2.updateReadcount(item_num);
+		
+		if(updateSuccess>0) {
+			System.out.println("readcount +1 성공");
+		} else {
+			System.out.println("readcount +1 실패");
+		}
+		
+ 		forward = new ActionForward();
 		forward.setPath("/order/detail.jsp");
 		
 		// 조회해온 menu 상세정보 담아가기 

@@ -5,7 +5,8 @@
     pageEncoding="UTF-8"%>
       
 <%
-int mem_num= 1;
+// 임시 mem_num
+int mem_num= (int)request.getAttribute("mem_num");
 // 임시 table_num
 int table_num = (int)request.getAttribute("table_num");
 

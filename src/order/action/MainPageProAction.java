@@ -50,7 +50,10 @@ public class MainPageProAction implements Action {
 		// 메인페이지에 뿌려줄 menuList(전체메뉴)와  basketCount(장바구니 수량) 전달 
 		request.setAttribute("menuList", menuList);
 		request.setAttribute("basketCount", basketCount);
+		
 		request.setAttribute("table_num", table_num);
+		request.setAttribute("mem_num", mem_num);
+		
 				
 		return forward;
 		

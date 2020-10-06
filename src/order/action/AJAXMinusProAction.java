@@ -33,9 +33,9 @@ public class AJAXMinusProAction implements Action {
 	
 		// Consol창에 성공여부 출력 
 		if(insertResult>0) {
-			System.out.println("AJAXMinusProAction - 장바구니 수량 +1 성공");
+			System.out.println("AJAXMinusProAction - 장바구니 수량 -1 성공");
 		} else {
-			System.out.println("AJAXMinusProAction - 장바구니 수량 +1 실패");
+			System.out.println("AJAXMinusProAction - 장바구니 수량 -1 실패");
 		}
 		
 		return forward;
