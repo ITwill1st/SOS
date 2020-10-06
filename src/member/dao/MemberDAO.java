@@ -63,10 +63,114 @@ public class MemberDAO {
 			e.printStackTrace();
 		}finally {
 			close(pstmt);
+			close(rs);
 		}
 		
 		return insertCount;
 	}
+	public int NonLogin(int mem_num) {
+		int NonLogCount = -1;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try{
+			
+			String sql = "INSERT into member3 values(?,?,?,?,?,?,?,?,?,now())";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1,mem_num);
+			pstmt.setString(2, null);
+			pstmt.setString(3, null);
+			pstmt.setString(4, null);
+			pstmt.setString(5, null);
+			pstmt.setString(6, null);
+			pstmt.setInt(7, -1);
+			pstmt.setString(8, null);
+			pstmt.setString(9, null);
+			NonLogCount = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("nondao - 오류");
+		}finally {
+			close(pstmt);
+			close(rs);
+		}
+		
+		return NonLogCount;
+	}
+
+	public int selectNotMember() {
+		int mem_num=-1;
+		PreparedStatement pstmt = null;
+		ResultSet rs=null;	
+		try {
+			
+			String sql="select max(mem_num) from member3";
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			if(rs.next()){
+				mem_num=rs.getInt("max(mem_num)");
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("snsLogin오류"+e);
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		
+		return mem_num;
+	}
+	
+//	public int NonLogin() {
+//		int NonLogCount = -1;
+////		int mem_num = 900004;
+//		int mem_num = -1;
+//		PreparedStatement pstmt = null;
+//		ResultSet rs = null;
+//		try{
+//			
+//			String sql = "INSERT into member3 values(?,?,?,?,?,?,?,?,?,now())";
+//			pstmt=con.prepareStatement(sql);
+//			pstmt.setInt(1,mem_num);
+//			pstmt.setString(2, null);
+//			pstmt.setString(3, null);
+//			pstmt.setString(4, null);
+//			pstmt.setString(5, null);
+//			pstmt.setString(6, null);
+//			pstmt.setInt(7, -1);
+//			pstmt.setString(8, null);
+//			pstmt.setString(9, null);
+//			NonLogCount = pstmt.executeUpdate();
+//			
+//			if(NonLogCount>0) {
+//				sql="select max(mem_num) from member3";
+//				pstmt=con.prepareStatement(sql);
+//				rs=pstmt.executeQuery();
+//				if(rs.next()){
+//					mem_num=rs.getInt("max(mem_num)")+1;
+//					System.out.println(mem_num+"성공했음");
+//				}else {
+//					System.out.println("실패");
+//				}
+//			}
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			System.out.println("nondao - 오류");
+//		}finally {
+//			close(pstmt);
+//			close(rs);
+//		}
+//		
+//		return mem_num;
+//	}
+//	
+	
+	
+	
 	public int snsLogin(MemberBean mb) {
 		int SnsLogincount=0;
 		PreparedStatement pstmt = null;
@@ -339,38 +443,6 @@ public class MemberDAO {
 	}
 
 
-	public int NonLogin() {
-		int NonLogCount = 1;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		try{
-			String sql = "INSERT into member2 values(?,?,?,?,?,?,?,?,?,now())";
-			pstmt=con.prepareStatement(sql);
-			pstmt.setInt(1,0);
-			pstmt.setString(2, null);
-			pstmt.setString(3, null);
-			pstmt.setString(4, null);
-			pstmt.setString(5, null);
-			pstmt.setString(6, null);
-			pstmt.setInt(7, -1);
-			pstmt.setString(8, null);
-			pstmt.setString(9, null);
-			NonLogCount = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("nondao - 오류");
-		}finally {
-			close(pstmt);
-		}
-		
-		return NonLogCount;
-	}
-
-
-
-
-
-
+	
 	
 }
