@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import vo.BasketBean;
 import vo.PreOrderBean;
 import vo.ProductBean;
 import vo.TableDTO;
@@ -157,6 +158,7 @@ public class TbDAO {
 				pb.setItem_name(rs.getString("item_name"));
 				pb.setItem_price(rs.getInt("item_price"));
 				pb.setItem_num(rs.getInt("item_num"));
+				pb.setItem_img(rs.getString("item_img"));
 				list.add(pb);
 			}
 		} catch (SQLException e) {
@@ -192,6 +194,7 @@ public class TbDAO {
 				pob.setMem_num(rs.getInt("mem_num"));
 				pob.setItem_name(rs.getString("item_name"));
 				pob.setItem_price(rs.getInt("item_price"));
+				pob.setPre_confirm(rs.getInt("pre_confirm"));
 				
 				list.add(pob);
 			}
@@ -273,6 +276,67 @@ public class TbDAO {
 		}
 		
 		return list;
+	}
+
+	public int acceptPreOrder(int table_num) {
+		
+		int updateResult = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		try {
+			String sql = "UPDATE preorders SET pre_confirm=1 WHERE table_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, table_num);
+			updateResult = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return updateResult;
+	}
+
+	public int updatePreOrder(ArrayList<BasketBean> basketList) {
+
+		int updateResult = 0;
+		
+		PreparedStatement pstmt = null;
+		
+		try {
+			for(int i = 0; i < basketList.size(); i++) {
+				String sql = "DELETE from preorders where mem_num=? and table_num=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, basketList.get(i).getMem_num());
+				pstmt.setInt(2, basketList.get(i).getTable_num());
+				pstmt.executeUpdate();
+				
+				
+			}
+			for(int i = 0; i < basketList.size(); i++) {
+			
+				String sql = "INSERT INTO preorders(mem_num,table_num,item_num,item_qty,pre_datetime,pre_confirm) "
+						+ "VALUES(?,?,?,?,now(),?)";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, basketList.get(i).getMem_num());
+				pstmt.setInt(2, basketList.get(i).getTable_num());
+				pstmt.setInt(3, basketList.get(i).getItem_num());
+				pstmt.setInt(4, basketList.get(i).getItem_qty()); 
+				pstmt.setInt(5, 1); 
+
+				updateResult = pstmt.executeUpdate();
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  finally {
+			close(pstmt);
+		}		
+		
+		return updateResult;
 	}
 
 

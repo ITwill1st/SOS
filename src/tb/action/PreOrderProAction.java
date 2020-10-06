@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import action.Action;
 import order.svc.PreOrderService;
 import tb.svc.StringToOrderListService;
+import tb.svc.TablePreOrderUpdateService;
 import vo.ActionForward;
 import vo.BasketBean;
 
@@ -18,7 +19,7 @@ public class PreOrderProAction implements Action {
 		
 		ActionForward forward = null;
 		
-		int table_num = Integer.parseInt(request.getParameter("table_num"));
+		int table_num = Integer.parseInt(request.getParameter("tableNo").trim());
 		
 		int mem_num = Integer.parseInt(request.getParameter("mem_num"));
 		
@@ -32,10 +33,10 @@ public class PreOrderProAction implements Action {
 		
 		
 		// basket에 저장된 정보를 preorder 테이블에 저장하기 위해 서비스 호출 
-		PreOrderService pos = new PreOrderService();
-		int insertResult = pos.basketToPreOrder(basketList);
+		TablePreOrderUpdateService pos = new TablePreOrderUpdateService();
+		int updateResult = pos.updatePreOrder(basketList);
 		
-		if (insertResult>0) {
+		if (updateResult>0) {
 			
 			System.out.println("Preorder 성공!");
 			
@@ -44,9 +45,11 @@ public class PreOrderProAction implements Action {
 		}
 		
 		
-		forward = new ActionForward();
-		forward.setPath("/TablesMain.tb");
 		
+		forward = new ActionForward();
+		forward.setPath("/SOS/TablesMain.tb");
+		forward.setRedirect(true);
+				
 		return forward;
 	}
 

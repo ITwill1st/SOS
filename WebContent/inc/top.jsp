@@ -39,6 +39,17 @@
 								<li><a href="#">예약관리</a></li>
 								<li><a href="#">회원관리</a></li>
 								<li><a href="#">매출분석</a></li>
+<!-- 								<li><a href="OrderMain.or">Order</a></li> -->
+<!-- 								<li><a href="RsvMain.rsv">RsvMain</a></li> -->
+<!-- 								<li><a href="Login.me">Login</a></li> -->
+<!-- 								<li><a href="Join.me">Join</a></li> -->
+<!-- 								<li><a href="MyInfo.me">MyInfo</a></li> -->
+<!-- 								<li><a href="MyOrderList.me">MyOrderList</a></li> -->
+<!-- 								<li><a href="MyRsvList.rsv">MyRsvList</a></li> -->
+<!-- 								<li><a href="MyProfile.me">MyProfile</a></li> -->
+<!-- 								<li><a href="TablesMain.tb">Tables</a></li> -->
+<!-- 								<li><a href="ProductMGM.po">ProductMGM</a></li> -->
+<!-- 								<li><a href="ProfitAnalysis.pa">ProfitAnalysis</a></li> -->
 									<%}
 								} %>
 							</ul>
