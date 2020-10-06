@@ -16,6 +16,7 @@ ArrayList<ProductBean> menuList = (ArrayList<ProductBean>)request.getAttribute("
 int basketCount = (int)request.getAttribute("basketCount");
 // 카테고리
 ArrayList<ProductBean> category = (ArrayList<ProductBean>)request.getAttribute("category");
+
 %>
 <!DOCTYPE html>
 <html>
@@ -70,6 +71,55 @@ ArrayList<ProductBean> category = (ArrayList<ProductBean>)request.getAttribute("
     		</div>
 		</div>
     </aside>
+    
+    
+<!-- 카테고리 출력  -->
+<%for(ProductBean c : category) { %>  
+	<div class="col-lg-4 themenu_column">
+		<div class="themenu_col">
+			<div class="themenu_col_title">
+				<%=c.getItem_category() %>
+			</div>
+			<!--메뉴정보 출력  -->
+			<div class="dish_list" >
+				<div class="dish">
+					<div class="dish_title_container d-flex flex-xl-row flex-column align-items-start justify-content-start">
+						<div class="dish_title">
+							Pork Tenderloin in Green Pepper
+						</div>
+						<div class="dish_price">
+							$20
+						</div>
+					</div>
+					<div class="dish_contents">
+						<ul class="d-flex flex-row align-items-start justify-content-start flex-wrap">
+							<li>Pork</li>
+						</ul>
+					</div>
+					<div class="dish_order">
+						<a href="#">Order Now</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+			
+<%} %>    
+    
+    
+  
+    
     
 <!--전체 메뉴 출력  -->
 
