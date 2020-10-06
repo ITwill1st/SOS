@@ -129,7 +129,7 @@
 	
 				  <tr>
 				  <td style="text-align: center"><a  href="ProductDetail.po?item_num=<%=item.getItem_num()%>">
-				  <img src="${pageContext.request.contextPath}/product/productUpload/<%=item.getItem_img()%>" width="250px" height="120px"></a></td>
+				  <img src="<%=request.getContextPath() %>/product/productUpload/<%=item.getItem_img()%>" width="250px" height="120px"></a></td>
 				  <td> <%=item.getItem_num() %> </td>
 				  <td><%=item.getItem_name() %></td>
 				  <td> <%=item.getItem_price() %> </td>
