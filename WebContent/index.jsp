@@ -26,6 +26,10 @@
 	String mem_name = (String)session.getAttribute("mem_name");
 	String mem_phone = (String)session.getAttribute("mem_phone");
 	MemberBean mb=(MemberBean)session.getAttribute("memberInfo");
+	int mem_num = -1;
+	if(mem_id != null){
+	mem_num = mb.getMem_num();
+	}
 
 %>
 </head>

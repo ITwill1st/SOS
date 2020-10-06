@@ -105,7 +105,7 @@ public class RsvListCheckProAction implements Action {
 			} else {// 본인의 예약 리스트를 가져오는게 성공했을 경우
 				request.setAttribute("rsv_list", dto);
 				forward = new ActionForward();
-				forward.setPath("/rsv/list.jsp");
+				forward.setPath("/member/myRsvList.jsp");
 			}
 		}
 

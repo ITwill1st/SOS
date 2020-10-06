@@ -255,7 +255,7 @@ var birthJ = false;
 					<tr>
 						<td>패스워드 재확인</td>
 						<td>
-							<input type="password" name="mem_passwd2"  
+							<input type="password" name="mem_passwd2" id="mem_passwd2"
 							placeholder="8~16자리 영문,숫자,특수문자 조합"	placeholder="비번 재확인">
 						</td>
 					</tr>
@@ -275,8 +275,8 @@ var birthJ = false;
 					<tr>
 						<td>성별</td>
 						<td>
-							<input type="radio" name="mem_gender" value="true" checked="checked">남자
-							<input type="radio" name="mem_gender" value="false">여자
+							<input type="radio" name="mem_gender" value="1" checked="checked">남자
+							<input type="radio" name="mem_gender" value="0">여자
 						</td>
 					</tr>
 					<tr height="25px">

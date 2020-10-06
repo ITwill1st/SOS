@@ -36,10 +36,16 @@ public class MainPageProAction implements Action {
 		// mem_num과 table_num에 해당하는 장바구니 수량 받아오는 메서드 호출
 		int basketCount = bps.getBasketCount(basket);
 		
+		
+		
 		// 메인에 출력해줄 전체 메뉴 조회 
 		// 전체 메뉴 조회를 위한 MenuListService 서비스 호출 
 		MainPageProService mls = new MainPageProService();
 		ArrayList<ProductBean> menuList = mls.getMenuList();
+		
+		// 카테고리(Starter, Main, Dessert) 가져오기
+		MainPageProService mls2 = new MainPageProService();
+		ArrayList<ProductBean> category = mls2.getCategory();
 
 		// 초기화 
 		forward = new ActionForward();
@@ -53,6 +59,9 @@ public class MainPageProAction implements Action {
 		
 		request.setAttribute("table_num", table_num);
 		request.setAttribute("mem_num", mem_num);
+		
+		// 카테고리 전달
+		request.setAttribute("category", category);
 		
 				
 		return forward;

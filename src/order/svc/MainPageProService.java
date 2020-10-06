@@ -25,6 +25,23 @@ public class MainPageProService {
 		
 		return menuList;
 	}
+
+	// category 가져오기 
+	public ArrayList<ProductBean> getCategory() {
+		
+		Connection con = getConnection();
+		OrderDAO dao = OrderDAO.getInstance();
+		dao.setConnection(con);
+		
+		// OrderDAO의 selectCategory()메서드 호출하여 전체 카테고리 가져와서 ArrayList형식으로 담기 
+		
+		ArrayList<ProductBean> category = dao.selectCategory();
+		
+		close(con);
+		
+		return category;
+		
+	}
 	
 	
 }
