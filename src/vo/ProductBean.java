@@ -10,9 +10,9 @@ public class ProductBean {
 	private String item_category;
 	private String item_allergies;
 	private String item_img;
-	private int item_visable;
-
-	private int item_show;
+	private int item_visible;
+	private int read_count;
+	
 	public int getItem_num() {
 		return item_num;
 	}
@@ -68,18 +68,19 @@ public class ProductBean {
 	public void setItem_img(String item_img) {
 		this.item_img = item_img;
 	}
-	public int getItem_show() {
-		return item_show;
+	public int getItem_visible() {
+		return item_visible;
 	}
-	public void setItem_show(int item_show) {
-		this.item_show = item_show;
+	public void setItem_visible(int item_visible) {
+		this.item_visible = item_visible;
 	}
-	public int getItem_visable() {
-		return item_visable;
+	public int getRead_count() {
+		return read_count;
 	}
-	public void setItem_visable(int item_visable) {
-		this.item_visable = item_visable;
+	public void setRead_count(int read_count) {
+		this.read_count = read_count;
 	}
+	
 	
 	
 	

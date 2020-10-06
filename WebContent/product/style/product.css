@@ -1,72 +1,80 @@
 @charset "UTF-8";
-#registForm {
-    width: 500px;
-    height: 610px;
-    border: 1px solid red;
-    margin: auto;
+
+#productTop{
+	text-align: left;
+}
+#btnAdd{
+	text-align: left;
 }
 
-h2 {
-    text-align: center;
-}
+/* #registForm { */
+/*     width: 500px; */
+/*     height: 610px; */
+/*     border: 1px solid red; */
+/*     margin: auto; */
+/* } */
 
-table {
-    margin: auto;
-    width: 450px;
-}
+/* h2 { */
+/*     text-align: center; */
+/* } */
 
-.td_left {
-    width: 150px;
-    background: orange;
-}
+/* table { */
+/*     margin: auto; */
+/*     width: 450px; */
+/* } */
 
-.td_right {
-    width: 300px;
-    background: skyblue;
-}
+/* .td_left { */
+/*     width: 150px; */
+/*     background: orange; */
+/* } */
+
+/* .td_right { */
+/*     width: 300px; */
+/*     background: skyblue; */
+/* } */
 
 #commandCell {
     text-align: center;
 }
-#passForm{
-        width:400px;
-        margin:auto;
-        border : 1px solid orange;
-}
-#registForm {
-        width: 500px;
-        height: 610px;
-        border: 1px solid red;
-        margin: auto;
-    }
+/* #passForm{ */
+/*         width:400px; */
+/*         margin:auto; */
+/*         border : 1px solid orange; */
+/* } */
+/* #registForm { */
+/*         width: 500px; */
+/*         height: 610px; */
+/*         border: 1px solid red; */
+/*         margin: auto; */
+/*     } */
     
-    h2 {
-        text-align: center;
-    }
+/*     h2 { */
+/*         text-align: center; */
+/*     } */
     
-    table {
-        margin: auto;
-        width: 450px;
-        border: 1px solid darkgray;
-    }
+/*     table { */
+/*         margin: auto; */
+/*         width: 450px; */
+/*         border: 1px solid darkgray; */
+/*     } */
     
-    textarea {
-        resize: none;
-    }
+/*     textarea { */
+/*         resize: none; */
+/*     } */
     
-    .td_left {
-        width: 150px;
-        background: orange;
-    }
+/*     .td_left { */
+/*         width: 150px; */
+/*         background: orange; */
+/*     } */
     
-    .td_right {
-        width: 300px;
-        background: skyblue;
-    }
+/*     .td_right { */
+/*         width: 300px; */
+/*         background: skyblue; */
+/*     } */
     
-    #commandCell {
-        text-align: center;
-    }
-    header {
-        text-align: right;
-    }
+/*     #commandCell { */
+/*         text-align: center; */
+/*     } */
+/*     header { */
+/*         text-align: right; */
+/*     } */

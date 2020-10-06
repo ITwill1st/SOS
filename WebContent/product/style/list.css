@@ -8,7 +8,10 @@
     vertical-align: baseline;
     background: transparent;
 }
-
+table {
+	table-layout: fixed;
+	
+}
 ol, ul { 
 	float:left;
     list-style: none;
@@ -73,6 +76,16 @@ body {
     padding: 2%;
     background-color: #d0d0d0;
 }
+.content-main{
+    margin: 2%;
+    height: 730px;
+    width: 1750px;
+    padding: 2%;
+}
+#tableTop {
+	margin: 10px;
+}
+
 
 #canvas {
     border: 1px solid #000000;

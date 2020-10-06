@@ -104,13 +104,13 @@
 
 	
 <!-- ----------상품 리스트---------- -->	
-	<div class="content">	
+	<div class="content-main">	
 
 	   <div id = "left-list">
 	       <button id = "btnAdd" onclick='location.href="ProductAddForm.po"'>상품추가</button>
-				<table border="1px" id = "table" >
+				<table border="1px" id = "table">
 				
-					<tr style="margin-bottom: 20px;" >
+					<tr id = "tableTop" style="margin-bottom: 20px;"  >
 					<th>상품이미지</th>
 					<th>상품번호</th>
 					<th>상품이름</th>
