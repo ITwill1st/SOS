@@ -21,8 +21,16 @@
 <link href="plugins/jquery-timepicker/jquery.timepicker.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="../styles/main_styles.css">
 <link rel="stylesheet" type="text/css" href="../styles/responsive.css">
-<link rel="stylesheet" type="text/css" href="member/style/myInfo.css">
+<link rel="stylesheet" type="text/css" href="member/style/myOrderList.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<%
+ArrayList<OrderDTO> orderList = (ArrayList<OrderDTO>)request.getAttribute("orderList");
+String mem_id = (String)session.getAttribute("mem_id");
+String mem_email = (String)session.getAttribute("mem_email");
+String mem_name = (String)session.getAttribute("mem_name");
+String mem_phone = (String)session.getAttribute("mem_phone");
+MemberBean mb=(MemberBean)session.getAttribute("memberInfo");
+%>
 <title>member/myInfo.jsp</title>
 </head>
 <body>
@@ -49,40 +57,30 @@
 		</div>
 		<div class="scroll_icon"></div>
 	</div>
-<%
-ArrayList<OrderDTO> orderList = (ArrayList<OrderDTO>)request.getAttribute("orderList");
-String mem_id = (String)session.getAttribute("mem_id");
-String mem_email = (String)session.getAttribute("mem_email");
-String mem_name = (String)session.getAttribute("mem_name");
-String mem_phone = (String)session.getAttribute("mem_phone");
-MemberBean mb=(MemberBean)session.getAttribute("memberInfo");
-%>
 <div id="main">
 <h2>주문내역</h2>
-<div id="myinfo">
 <%
-for(int i = 0 ; i < orderList.size() ; i++){%>
-	<div style="border: 1px solid; width: 25%;">
-	주문 번호 : <%=orderList.get(i).getOrder_num()%> 이용날짜 : <%=orderList.get(i).getOrder_datetime()%><br>
-	<b>SOS</b><br>
-	<%if(orderList.get(i).getItem_qty() == 1){%>
-		<%=orderList.get(i).getItem_name()%>  <%=orderList.get(i).getItem_qty()%>개 가격 <%=orderList.get(i).getTotal_price()%><br><br>
+for(OrderDTO order : orderList){%>
+<div id="myinfo">
+	<h3>주문 번호 : <%=order.getOrder_num()%> 이용날짜 : <%=order.getOrder_datetime()%><br></h3>
+	<h5><b>SOS</b><br>
+	<%if(order.getItem_qty() == 1){%>
+		<%=order.getItem_name()%>  <%=order.getItem_qty()%>개 가격 <%=order.getTotal_price()%><br><br>
 		<%
 	} else {%>
-	<%=orderList.get(i).getItem_name()%> 외 <%=orderList.get(i).getItem_qty()%>개 가격 <%=orderList.get(i).getTotal_price()%><br><br>
+	<%=order.getItem_name()%> 외 <%=order.getItem_qty()%>개 가격 <%=order.getTotal_price()%><br><br>
 	<%
 	}
 %>
-<%-- 	<%if(orderList.get(i).getStore_review_chk() == 0){%> --%>
-<%-- 	<input type="button"value = "리뷰쓰기" onclick="location.href='ReviewWriteForm.re?order_num=<%=orderList.get(i).getOrder_num()%>'"> --%>
-<%-- 	<%} else {%> --%>
-<%-- 	<input type="button" disabled="disabled" value = "리뷰쓰기" onclick="location.href='ReviewWriteForm.re?order_num=<%=orderList.get(i).getOrder_num()%>'"> --%>
-<%-- 	<%}%> --%>
-	<input type="button" value ="상세보기" onclick="location.href='MyOrderListDetail.me?order_num=<%=orderList.get(i).getOrder_num()%>'"><input type="button" value ="뒤로가기" onclick="history.back()">
-	</div><br><%
+</h5>
+	<div class="detail">
+		<a href="MyOrderListDetail.me?order_num=<%=order.getOrder_num()%>">상세보기</a>
+	</div>
+	</div>
+	<%
 }
 %>
-</div>
+
 </div>
 <br>
 <br>
