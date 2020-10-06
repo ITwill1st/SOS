@@ -90,6 +90,16 @@ public class TableFrontController extends HttpServlet{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}else if(command.equals("/PreOrderAccept.tb")) {
+			
+			action = new PreOrderAcceptAction();
+		
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	
 			

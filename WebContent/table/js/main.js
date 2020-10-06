@@ -76,7 +76,7 @@ function draw() {
 			var tableNum = i + 1;
 			
 			//테이블번호와 preorder에 저장되어있는 테이블번호를 비교한다
-			if(tableNum == preorderInfo[c][0]){
+			if(preorderInfo[c][4] == 1 && tableNum == preorderInfo[c][0]){
 				ctx.fillStyle = "#000000";	
 				//메뉴종류가 많으면 메뉴를 함축한다.
 				if(nextLine[i] < pst[0][3]){
@@ -133,6 +133,8 @@ function rect(x,y,w,h) {
 
 $(document).click(function(e){
 
+	if(dialogOn == false){
+	
 	for(var i=0; i<pst.length; i++){
 		
 		
@@ -154,6 +156,7 @@ $(document).click(function(e){
 		  object = i;
 		 }		
 		
+	}
 	}
 
 });

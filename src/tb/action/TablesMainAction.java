@@ -22,16 +22,17 @@ public class TablesMainAction implements Action {
 		
 		ActionForward forward = null;
 		
+		//제품 리스트 불러오기
 		TableProductListService tableProductListService = new TableProductListService();
 		
 		ArrayList<ProductBean> product_info = tableProductListService.getArticle();
 		
-		
+		//테이블 리스트 불러오기
 		TableInfoProService tableInfoProService = new TableInfoProService();
 		
 		ArrayList<TableDTO> list = tableInfoProService.getArticle();
 			
-		
+		//preorder 정보 불러오기
 		TablePreOrderListService tablePreOrderListService = new TablePreOrderListService();
 		
 		ArrayList<PreOrderBean> list2 = tablePreOrderListService.getArticle();

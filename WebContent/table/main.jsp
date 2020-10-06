@@ -13,11 +13,18 @@
 <link rel="stylesheet" href="table/style/table.css">
 <script src="js/jquery.js"></script>
 <script src="table/js/main.js"></script>
+
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<!-- <script src="//code.jquery.com/jquery-3.2.1.min.js"></script> -->
+<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 </head>
 <body>
 
 <script>
 
+var dialogOn = true;
 
 var pst = [
 <%
@@ -36,11 +43,80 @@ var preorderInfo = [
 ArrayList<PreOrderBean> list2 = (ArrayList<PreOrderBean>)request.getAttribute("preorderInfo");
 for(int i=0;i<list2.size();i++){
 	%>
-	[<%=list2.get(i).getTable_num()%>,<%=list2.get(i).getMem_num()%>,"<%=list2.get(i).getItem_name()%>",<%=list2.get(i).getItem_qty()%>]	
+	[<%=list2.get(i).getTable_num()%>,<%=list2.get(i).getMem_num()%>,"<%=list2.get(i).getItem_name()%>",<%=list2.get(i).getItem_qty()%>,<%=list2.get(i).getPre_confirm()%>]	
 	<%if(i != (list2.size() -1) ){%>,<%}
 }
 %>
 ];
+
+//다이얼로그에 주문 처리되지 않은 표현할 주문 목록
+var preorderTable2 = [
+	<%
+	for(int i=0;i<list2.size();i++){
+		if(list2.get(i).getPre_confirm() == 0){
+		%>
+		<%=list2.get(i).getTable_num()%>
+		<%if(i != (list2.size() -1) ){%>,<%}
+		}
+	}
+	%>
+	];
+
+//번호순 정렬을 위한메서드
+preorderTable2.sort(function (a,b){ return a-b; });
+
+//중복제거를 한 값을 저장할 테이블
+var preorderTable = [];
+
+
+$( document ).ready(function() {
+	
+	//번호순 정렬 후 중복제거를 메서드
+	$.each(preorderTable2,function(i,value){
+	    if(preorderTable.indexOf(value) == -1 ) preorderTable.push(value);
+	});
+
+	
+	//다이얼로그에 접수/거절을 누르는 버튼
+	for(var i = 0; i < preorderTable.length; i++){		
+		
+		$('.dialog-content').append("<div class='dialog-preorder'>"
+		+ "<div class='dialog-preorder-title' >"+ preorderTable[i] + "번 테이블</div>"		
+		+ "<div id='table"+ preorderTable[i] +"'></div>"		
+		+ "<button class='btn-accept' value='"+ preorderTable[i] +"'>접수하기</button><button class='btn-cancel'>거절</button>"
+		+ "</div>");
+		
+// 		//다이얼로그에 메뉴리스트를 출력하는 메서드
+		for(var j = 0; j < preorderInfo.length; j++){
+			
+			if(preorderTable[i] == preorderInfo[j][0]){
+				
+				$('#table'+preorderTable[i]).append("<div>" + preorderInfo[j][2] + " - " + preorderInfo[j][3] + "개 </div>");
+				
+			}		
+		}
+					
+	}
+	
+	//다이얼로그에서 메뉴를 수락할 경우
+	$(document).on("click",".btn-accept",function(){
+		alert(this.value);
+		
+		location.href = "PreOrderAccept.tb?table_num=" + this.value;
+	});
+	
+	
+	$('#dialog-message').dialog({
+		modal: true,
+		width: '500px',
+		buttons: {
+			"닫기": function() { dialogOn = false;  $(this).dialog('close'); }
+
+		}
+	});
+	
+	
+});
 </script>
 <div class="top">			
 
@@ -94,6 +170,17 @@ This text is displayed if your browser does not support HTML5 Canvas.
 
 
 </div>
+
+<div id="dialog-message" title="주문 요청리스트" style='display:none'>
+	<div class="dialog-content">
+	</div>
+</div>
+
+
+
+
+
+
 
 </body>
 </html>

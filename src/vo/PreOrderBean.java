@@ -14,8 +14,15 @@ public class PreOrderBean {
 	
 	private String item_name;
 	private int item_price;
+	private int pre_confirm;
 	
 	
+	public int getPre_confirm() {
+		return pre_confirm;
+	}
+	public void setPre_confirm(int pre_confirm) {
+		this.pre_confirm = pre_confirm;
+	}
 	public String getItem_name() {
 		return item_name;
 	}

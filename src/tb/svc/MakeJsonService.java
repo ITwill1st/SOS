@@ -18,7 +18,7 @@ public class MakeJsonService {
 		
 		c = c.substring(0, c.length() - 1);
 
-		c = "[" + c + "]";
+		c = "[" + c + ",'전체메뉴']";
 		
 		return c;
 	}
