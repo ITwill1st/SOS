@@ -28,19 +28,24 @@ public class MemberLoginProService {
 
 	public int NonLogin() {
 		System.out.println("NonLoginService");
-		
-		int NonLoginSuccess = 0;
-		
+		int insertSuccess = -1;
+		int mem_num = -1;
 		Connection con = getConnection();
 		MemberDAO memberDAO = MemberDAO.getInstance();
 
 		memberDAO.setConnection(con);
 		
-		NonLoginSuccess = memberDAO.NonLogin();
+		mem_num = memberDAO.selectNotMember();
+		mem_num += 1;
+		insertSuccess = memberDAO.NonLogin(mem_num);
 		
-		if(NonLoginSuccess==1) {
-			commit(con);
-			System.out.println("commit 성공!");
+		if(insertSuccess!=-1) {
+			mem_num = memberDAO.selectNotMember();
+			if(mem_num!=-1) {
+				commit(con);
+				System.out.println("commit 성공!");
+				System.out.println(mem_num);
+			}
 		}else {
 			rollback(con);
 			System.out.println("실패!");
@@ -48,12 +53,8 @@ public class MemberLoginProService {
 		close(con);
 		
 		
-		return NonLoginSuccess;
+		return mem_num;
 	}
 	
-	
-	
-
-
 	
 }

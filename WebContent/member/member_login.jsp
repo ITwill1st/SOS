@@ -66,6 +66,7 @@ table {
 				<br> <input type="submit" value="로그인"> 
 				<input type="button" value="회원가입" onclick="location.href='MemberJoinForm.me'">
 				<input type="button" value="취소" onclick="history.back()"><br>
+				<a href="NonLogin.me">비회원</a>
 				<br> <a id="kakao-login-btn"></a>
 				
 				<script type="text/javascript">
