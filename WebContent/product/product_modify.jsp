@@ -35,68 +35,68 @@
 
     </div>
 
-	<!-- 상품 수정 -->
-<div class="content">  
-	
-		<form action="ProductModifyPro.po" method="post" name="boardForm">
-			<input type="hidden" name="item_num" value="<%=product.getItem_num() %>" />
-			<input type="hidden" name="page" value="<%=nowPage%>" />
+<!-- ----------상품 수정---------- -->
+		<div class="content">  
 			
-		<div class = view-left>
-			<img src="product/productUpload/<%=product.getItem_img()%>"> <br>
-            <input name="item_img" type="file" value = "<%=product.getItem_img() %>">
-			
-		</div>		
-		<div class = "view-left">
-			<table class="detail-talbe">
+				<form action="ProductModifyPro.po" method="post" name="boardForm">
+					<input type="hidden" name="item_num" value="<%=product.getItem_num() %>" />
+					<input type="hidden" name="page" value="<%=nowPage%>" />
 					
-				<tr>
-					<td>상품이름:
-						<input type="text" name="item_name"  value="<%=product.getItem_name() %>" required="required" />
-					</td>
-				</tr>
-				<tr>
-					<td>상품가격:
-						<input type="text" name="item_price"  value="<%=product.getItem_price() %>" required="required" />
-					</td>
-				</tr>
-				<tr>
-                    <td>카테고리:
-                        <input type="text" name="item_category"value="<%=product.getItem_category() %>" required="required" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>상품정보:
-                        <input type="text" name="item_info" value="<%=product.getItem_info() %>" required="required" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>칼로리:
-                        <input type="text" name="item_calorie" value="<%=product.getItem_calorie() %>" required="required" />
-                    </td>
-                </tr>
-				<tr>
-					<td>원산지:
-						<input type="text" name="item_origin" value="<%=product.getItem_origin()%>" required="required" />
-					</td>
-				</tr>
-				
-				
-				
-				
-				<tr><td>
-				<input type="submit"  value="수정" />&nbsp;&nbsp;
-				<input type="button"  value="뒤로" onclick="history.back()" /> 
-				</td></tr>
-				
-			
-			</table>
-		
-			
-	       	</form>	
-	    </div>
+						<div class = view-left>
+							<img src="product/productUpload/<%=product.getItem_img()%>" width="700px" > <br>
+				            <input name="item_img" type="file" value = "<%=product.getItem_img() %>" >
+							
+						</div>		
+						<div class = "view-left">
+							<table class="detail-talbe">
+									
+								<tr>
+									<td class ="td-th">상품이름</td><td>
+										<input type="text" name="item_name"  value="<%=product.getItem_name() %>" required="required" />
+									</td>
+								</tr>
+								<tr>
+									<td class ="td-th">상품가격</td><td>
+										<input type="text" name="item_price"  value="<%=product.getItem_price() %>" required="required" />
+									</td>
+								</tr>
+								<tr>
+				                    <td class ="td-th">카테고리</td><td>
+				                        <input type="text" name="item_category"value="<%=product.getItem_category() %>" required="required" />
+				                    </td>
+				                </tr>
+				                <tr>
+				                    <td class ="td-th">상품정보</td><td>
+				                        <textarea name="item_info" required="required"><%=product.getItem_info() %> </textarea>
+				                    </td>
+				                </tr>
+				                <tr>
+				                    <td class ="td-th">칼로리</td><td>
+				                        <input type="text" name="item_calorie" value="<%=product.getItem_calorie() %>" required="required" />
+				                    </td>
+				                </tr>
+								<tr>
+									<td class ="td-th">원산지</td><td>
+										<input type="text" name="item_origin" value="<%=product.getItem_origin()%>" required="required" />
+									</td>
+								</tr>
+								
+								<tr>
+								    <td colspan="2" style="border-bottom: none; text-align: right;">
+								<input type="submit"  value="수정" />&nbsp;&nbsp;
+								<input type="button"  value="뒤로" onclick="history.back()" /> 
+								    </td>
+								</tr>
+								
+							
+							</table>
+						
+						</div>
+			       	</form>	
+	       
 	
-	<!--   --------사이드메뉴------------ -->
+	
+<!--   --------사이드메뉴------------ -->
 	   
         
                     <div class="right-bar">
@@ -119,22 +119,7 @@
                             <button>설정</button>
                         </div>
                     </div>
-        
+            </div>
 	
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

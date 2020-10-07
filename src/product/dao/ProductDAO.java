@@ -197,7 +197,7 @@ public class ProductDAO {
 		
 		try {
 			String sql = "UPDATE product SET item_name=?, item_price=?,"
-					+ "item_origin=?, item_calorie=?, item_info=?, item_category=?"
+					+ "item_origin=?, item_calorie=?, item_info=?, item_category=? , item_img=?"
 					+ " WHERE item_num=?";
 			pstmt=con.prepareStatement(sql);
 			
@@ -208,8 +208,8 @@ public class ProductDAO {
 			pstmt.setInt(4,productBean.getItem_calorie());
 			pstmt.setString(5,productBean.getItem_info());
 			pstmt.setString(6,productBean.getItem_category());
-//			pstmt.setString(8, productBean.getItem_img());
-			pstmt.setInt(7,productBean.getItem_num());
+			pstmt.setString(7, productBean.getItem_img());
+			pstmt.setInt(8,productBean.getItem_num());
 			
 			updateCount = pstmt.executeUpdate();
 		} catch (SQLException e) {
