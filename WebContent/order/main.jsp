@@ -50,6 +50,7 @@ ArrayList<ProductBean> category = (ArrayList<ProductBean>)request.getAttribute("
 				</div>
 			
 			</div>
+			
  
  
 <!-- 고정된 장바구니/결제  -->
@@ -76,9 +77,10 @@ ArrayList<ProductBean> category = (ArrayList<ProductBean>)request.getAttribute("
     <br>
     <br>
     
+    
 <!-- 카테고리 및 아이템 출력  -->
 <%for(ProductBean c : category) { %>  
-	<div class="col-lg-4 themenu_column">
+	<div class="col-lg-4 themenu_column" style="float: left;">
 		<div class="themenu_col">
 			<div class="themenu_col_title">
 			<input type="hidden"  id="category_<%=c.getItem_category() %>" value="<%=c.getItem_category() %>">
@@ -113,24 +115,26 @@ ArrayList<ProductBean> category = (ArrayList<ProductBean>)request.getAttribute("
 	
 <%}%>    
 
-    
+
+<div>
+
+</div>
 <!-- 하단에 전체 메뉴 출력  -->
 
 <%for(ProductBean item : menuList) {
 %>
-<div class="sig">
+	<div class="sig" style="clear: both;">
 		<div class="sig_content_container">
 			<div class="container">
 				<div class="row">
 					<div class="col-lg-7">
 						<div class="sig_content">
 							<div class="sig_subtitle page_subtitle"><%=item.getItem_category() %></div>
-							<div class="sig_title"><h1><a href="detail.or?item_num=<%=item.getItem_num()%>&mem_num=<%=mem_num %>&table_num=<%=table_num %>"> 
-  		 	    			<%=item.getItem_name() %></a></h1></div>
+							<div class="sig_title"><h1><%=item.getItem_name() %></h1></div>
 							<div class="rating_r sig_rating rating_r_5"><i></i><i></i><i></i><i></i><i></i></div>
 							<div class="sig_name_container d-flex flex-row align-items-start justify-content-start">
-								<div class="sig_name"><%=item.getItem_info() %> </div>
-								<div class="sig_price ml-auto"><%=item.getItem_price() %>원</div>
+								<div class="sig_name"><%=item.getItem_info() %></div>
+								<div class="sig_price ml-auto"><%=item.getItem_price() %></div>
 							</div>
 							<div class="sig_content_list">
 								<ul class="d-flex flex-row align-items-center justify-content-start">
@@ -147,7 +151,7 @@ ArrayList<ProductBean> category = (ArrayList<ProductBean>)request.getAttribute("
 			</div>
 		</div>
 		<div class="sig_image_container">
-			<div class="container">
+			<div class="container_test">
 				<div class="row">
 					<div class="col-lg-7 offset-lg-5">
 						<div class="sig_image">
@@ -158,12 +162,12 @@ ArrayList<ProductBean> category = (ArrayList<ProductBean>)request.getAttribute("
 				</div>
 			</div>
 		</div>
-		</div>
-		</div>
+	</div>
 
 <%}  %>
 
 <!-- footer -->
 <jsp:include page="../inc/bottom.jsp"/>
+</div>
 </body>
 </html>
