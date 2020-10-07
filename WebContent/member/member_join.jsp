@@ -5,32 +5,56 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="The Venue template project">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="styles/bootstrap-4.1.2/bootstrap.min.css">
+<link href="plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.carousel.css">
+<link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
+<link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/animate.css">
+<link href="plugins/colorbox/colorbox.css" rel="stylesheet" type="text/css">
+<link href="plugins/jquery-datepicker/jquery-ui.css" rel="stylesheet" type="text/css">
+<link href="plugins/jquery-timepicker/jquery.timepicker.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="styles/main_styles.css">
+<link rel="stylesheet" type="text/css" href="styles/responsive.css">
 <style type="text/css">
-	#joinFormArea {
-		margin: auto;
-		width: 400px;
-		height: 560px;
-		border: 2px double purple;
-		border-radius: 10px;
-		text-align: center;
+input[type="text"],input[type="password"],input[type="email"]{
+	width: 250px;
+	font-size:15px;
 	}
-	
+#joinFormArea { 
+		top:+150px;
+		margin:0 auto;
+		width: 800px; 
+		height: 700px; 
+		border: 2px double purple; 
+		border-radius: 10px; 
+ 		text-align: center; 
+ 		background-color: white;
+ 	} 
 	fieldset {
-		text-align: center;
-		border: none;
-	}
+ 	text-align: left;  
+ 	border: none; 
+	} 
 	
-	#selectButton {
-		margin-top: 10px;
-	}
+	#selectButton { 
+		margin-top: 10px; 
+ 	} 
 	
-	table {
-		width: 350px;
-		margin: auto;
-	}
-	tr{
-		width: 200px;
-	}
+ 	table {
+ 		width: 600px; 
+ 		margin: auto; 
+ 		margin-left: 300px;
+   		margin-right: auto;
+ 		
+ 	}
+
+ 	td{width:150px; margin-right: 200px;
+ 		
+ 	 }
+ 	
 </style>
 <link rel="stylesheet" href="table/style/table.css">
 <script src="js/jquery.js"></script><script type="text/javascript">
@@ -79,10 +103,10 @@ jQuery(document).ready(function () {
 					specCharRegex.exec(mem_passwd.value)) {
 //  			alert('유효성 검사 통과');	
 			// 지정된 태그 내에 메세지 표시
-				element.innerHTML = "적합한 패스워드";
+				element.innerHTML = "올바른 패스워드입니다.";
 			} else { // 유효성 검사를 통과하지 못했을 경우
 // 			alert('유효성 검사 탈락');
-				element.innerHTML = "적합하지 않은 패스워드";
+				element.innerHTML = "8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.";
 			}
 		}else{
 				element.innerHTML = "";
@@ -200,16 +224,26 @@ var birthJ = false;
  </script>
 </head>
 <body>
-	<section id="joinFormArea">
+<!-- <div class="super_container"> -->
+<!-- header -->
+
+<jsp:include page="../inc/top.jsp"/>
+<!-- /header -->
+<div class="home">
+<!-- 		<div class="parallax_background parallax-window" data-parallax="scroll" data-image-src="images/home.jpg" data-speed="0.8"></div> -->
+<!-- 		<div style="top:0;width:70%;height:70%;margin:0px auto;" data-parallax="scroll" data-image-src="images/home.jpg" data-speed="0.8"> -->
+<div style="top:0;height:120%;margin:0px auto;" data-parallax="scroll" data-image-src="images/home.jpg" data-speed="0.8">
+		<section id="joinFormArea">
 		<h1>회원가입</h1>
+		<br>
 		<form action="MemberJoinPro.me" id="join" method="post" name="joinForm">
 			<fieldset>
-				<table>
+				<table style="margin-left: auto; margin-right: auto;">
 				<tr>
 					<td></td>
 				</tr>
 					<tr>
-						<td>이름</td>
+						<td style="font-size: 18px;">이름</td>
 						<td>
 							<input type="text" name="mem_name" id="mem_name">
 						</td>
@@ -218,8 +252,7 @@ var birthJ = false;
 						<td></td>
 					</tr>
 					<tr>
-					<tr>
-						<td>닉네임</td>
+						<td style="font-size: 18px;">닉네임</td>
 						<td>
 							<input type="text" name="mem_nickname" id="mem_nickname">
 						</td>
@@ -228,35 +261,31 @@ var birthJ = false;
 						<td></td>
 					</tr>
 					<tr>
-						<td>아이디</td>
+						<td style="font-size: 18px;">아이디</td>
 						<td>
 							<input type="text" name="mem_id" id="mem_id"
-								placeholder="4~12자리 영문,숫자 조합">
+								placeholder=" 4~12자리 영문,숫자 조합">
 						</td>
 						<td><input type="button" value="중복체크" id="btn">	</td>
 					</tr>
 					<tr height="35px">
-						<td colspan="2"><span id="checkIdResult"><!-- 자바스크립스에 의해 메세지 출력할 공간 --></span></td>
-					</tr>
-					<tr height="35px">
-						<td></td>
-					</tr>
+						<td colspan="2"><span style="color:red" id="checkIdResult"><!-- 자바스크립스에 의해 메세지 출력할 공간 --></span></td>
 					<tr>
-						<td>패스워드</td>
+						<td style="font-size: 18px;">패스워드</td>
 						<td>	
 							<input type="password" name="mem_passwd" id="mem_passwd"
-								placeholder="8~16자리 영문,숫자,특수문자 조합" onkeyup="checkPasswd(this)">
+								placeholder=" 8~16자리 영문,숫자,특수문자 조합" onkeyup="checkPasswd(this)">
 						</td>
 					</tr>
 					<tr height="35px">
-						<td colspan="2"><span id="checkPasswdResult"><!-- 자바스크립스에 의해 메세지 출력할 공간 --></span></td>
+						<td colspan="2"><span style="color:red" id="checkPasswdResult"><!-- 자바스크립스에 의해 메세지 출력할 공간 --></span></td>
 						<td></td>
 					</tr>
 					<tr>
-						<td>패스워드 재확인</td>
+						<td style="font-size: 18px;">패스워드 재확인</td>
 						<td>
 							<input type="password" name="mem_passwd2" id="mem_passwd2"
-							placeholder="8~16자리 영문,숫자,특수문자 조합"	placeholder="비번 재확인">
+							placeholder=" 8~16자리 영문,숫자,특수문자 조합"	placeholder="비번 재확인">
 						</td>
 					</tr>
 					<tr height="35px">
@@ -264,16 +293,16 @@ var birthJ = false;
 						<td></td>
 					</tr>
 					<tr>
-						<td>E-Mail</td>
+						<td style="font-size: 18px;">E-Mail</td>
 						<td><input type="email" name="mem_email" id="mem_email" 
-						placeholder="ex)zheor@naver.com" onkeyup="checkEmail(this)"></td>
+						placeholder=" ex)zheor@naver.com" onkeyup="checkEmail(this)"></td>
 					</tr>
 					<tr height="25px">
-						<td colspan="2"><span id="checkEmail"><!-- 자바스크립스에 의해 메세지 출력할 공간 --></span></td>
+						<td colspan="2"><span style="color:red" id="checkEmail"><!-- 자바스크립스에 의해 메세지 출력할 공간 --></span></td>
 						<td></td>
 					</tr>
 					<tr>
-						<td>성별</td>
+						<td style="font-size: 18px;">성별</td>
 						<td>
 							<input type="radio" name="mem_gender" value="1" checked="checked">남자
 							<input type="radio" name="mem_gender" value="0">여자
@@ -284,7 +313,7 @@ var birthJ = false;
 						<td></td>
 					</tr>
 					<tr>
-						<td>전화번호</td>
+						<td style="font-size: 18px;">전화번호</td>
 						<td><input type="text" name="mem_phone" id="mem_phone"
 						placeholder=" - 없이 입력" onKeyup="inputPhoneNumber(this)"maxlength="13"></td>
 					</tr>
@@ -293,24 +322,58 @@ var birthJ = false;
 						<td></td>
 					</tr>
 					<tr>
-						<td>생년월일</td>
+						<td style="font-size: 18px;">생년월일</td>
 						<td><input type="text" name="mem_birth" id="mem_birth"
-						placeholder="ex)19930316" onkeyup="checkBirthday(this)" maxlength="8"></td>
+						placeholder=" ex)19930316" onkeyup="checkBirthday(this)" maxlength="8"></td>
 					</tr>
 					<tr height="25px">
-						<td colspan="2"><span id="checkBirth"><!-- 자바스크립스에 의해 메세지 출력할 공간 --></span></td>
+						<td colspan="2"><span style="color:red" id="checkBirth"><!-- 자바스크립스에 의해 메세지 출력할 공간 --></span></td>
 						<td></td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<input type="submit" value="가입" />
-							<input type="button" value="취소" onclick="history.back()" />
-						</td>
 					</tr>
 					
 				</table>
 			</fieldset>
+					<input type="submit" value="가입" style="font-size: 15px;"/>&nbsp;&nbsp;&nbsp;
+					<input type="button" value="취소" style="font-size: 15px;" onclick="history.back()" />
 		</form>
 	</section>
+		
+		
+		
+		</div>
+<!-- 		<div class="home_container"> -->
+<!-- 			<div class="container"> -->
+<!-- 				<div class="row"> -->
+<!-- 					<div class="col"> -->
+<!-- 						<div class="home_content text-center"> -->
+<!-- 						</div> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+		<div class="scroll_icon"></div>
+	</div>
+	
+	
+	
+<jsp:include page="../inc/bottom.jsp"/>
+<!-- /footer -->
+
+
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="styles/bootstrap-4.1.2/popper.js"></script>
+<script src="styles/bootstrap-4.1.2/bootstrap.min.js"></script>
+<script src="plugins/greensock/TweenMax.min.js"></script>
+<script src="plugins/greensock/TimelineMax.min.js"></script>
+<script src="plugins/scrollmagic/ScrollMagic.min.js"></script>
+<script src="plugins/greensock/animation.gsap.min.js"></script>
+<script src="plugins/greensock/ScrollToPlugin.min.js"></script>
+<script src="plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+<script src="plugins/easing/easing.js"></script>
+<script src="plugins/parallax-js-master/parallax.min.js"></script>
+<script src="plugins/colorbox/jquery.colorbox-min.js"></script>
+<script src="plugins/jquery-datepicker/jquery-ui.js"></script>
+<script src="plugins/jquery-timepicker/jquery.timepicker.js"></script>
+<script src="js/custom.js"></script>
 </body>
 </html>
