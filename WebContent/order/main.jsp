@@ -16,7 +16,6 @@ ArrayList<ProductBean> menuList = (ArrayList<ProductBean>)request.getAttribute("
 int basketCount = (int)request.getAttribute("basketCount");
 // 카테고리
 ArrayList<ProductBean> category = (ArrayList<ProductBean>)request.getAttribute("category");
-
 %>
 <!DOCTYPE html>
 <html>
@@ -32,6 +31,7 @@ ArrayList<ProductBean> category = (ArrayList<ProductBean>)request.getAttribute("
 <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
 <script src="js/jquery.js"></script>
 <script src="https://kit.fontawesome.com/a372e2fae4.js" crossorigin="a372e2fae4"></script>
+
 </head>
 <body>
 <!--상단바 -->
@@ -51,7 +51,7 @@ ArrayList<ProductBean> category = (ArrayList<ProductBean>)request.getAttribute("
 			
 			</div>
  
-    
+ 
 <!-- 고정된 장바구니/결제  -->
  
    <aside class="as-shopping-basket">
@@ -72,23 +72,29 @@ ArrayList<ProductBean> category = (ArrayList<ProductBean>)request.getAttribute("
 		</div>
     </aside>
     
+    <br>
+    <br>
+    <br>
     
-<!-- 카테고리 출력  -->
+<!-- 카테고리 및 아이템 출력  -->
 <%for(ProductBean c : category) { %>  
 	<div class="col-lg-4 themenu_column">
 		<div class="themenu_col">
 			<div class="themenu_col_title">
+			<input type="hidden"  id="category_<%=c.getItem_category() %>" value="<%=c.getItem_category() %>">
 				<%=c.getItem_category() %>
 			</div>
+			<div class="dish_list">
 			<!--메뉴정보 출력  -->
-			<div class="dish_list" >
+			<%for(ProductBean menu : menuList) {%>
+			<%if (c.getItem_category().equals(menu.getItem_category()))  {%>
 				<div class="dish">
 					<div class="dish_title_container d-flex flex-xl-row flex-column align-items-start justify-content-start">
 						<div class="dish_title">
-							Pork Tenderloin in Green Pepper
+							<%=menu.getItem_name() %>
 						</div>
 						<div class="dish_price">
-							$20
+							<%=menu.getItem_price() %>
 						</div>
 					</div>
 					<div class="dish_contents">
@@ -97,31 +103,18 @@ ArrayList<ProductBean> category = (ArrayList<ProductBean>)request.getAttribute("
 						</ul>
 					</div>
 					<div class="dish_order">
-						<a href="#">Order Now</a>
+						<a href="">order Now</a>
 					</div>
 				</div>
+			<%} }%>	
 			</div>
 		</div>
 	</div>	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-			
-<%} %>    
+<%}%>    
+
     
-    
-  
-    
-    
-<!--전체 메뉴 출력  -->
+<!-- 하단에 전체 메뉴 출력  -->
 
 <%for(ProductBean item : menuList) {
 %>
