@@ -7,13 +7,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="review/js/jquery.js"></script>
+<script src="../SOS/js/jquery.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {	
-	alert("aaa");
-	$.getJSON("review/JSONRE_reviewListInfo.jsp", function(data) {
-		$.each(data,function(index, rdata) {
-			alert("aaa2");
+	$.getJSON('review/JSONRE_reviewListInfo.jsp', function(rdata) {
+		alert("aaa2");
+		$.each(rdata, function(index, item) {
 			$('#div').append(item_num);
 		});
 	});

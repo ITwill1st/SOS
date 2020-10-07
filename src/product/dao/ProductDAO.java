@@ -44,7 +44,8 @@ public class ProductDAO {
 						
 			}
 			
-			sql = "INSERT INTO product VALUES(?,?,?,?,?,?,?,?,?,?)";
+			sql = "INSERT INTO product(item_num,item_name,item_price,item_origin"
+					+ ",item_calorie,item_info,item_category,item_allergies,item_img) VALUES(?,?,?,?,?,?,?,?,?)";
 			pstmt=con.prepareStatement(sql);
 			
 			pstmt.setInt(1,num);
@@ -56,7 +57,8 @@ public class ProductDAO {
 			pstmt.setString(7,pb.getItem_category());
 			pstmt.setString(8,pb.getItem_allergies());
 			pstmt.setString(9, pb.getItem_img());
-			pstmt.setInt(10, pb.getItem_visable());
+			
+			
 			
 			insertProduct = pstmt.executeUpdate();
 			
@@ -100,9 +102,9 @@ public class ProductDAO {
 		
 		try {
 			
-			String sql = "SELECT * FROM product  WHERE item_visable =? ";
+			String sql = "SELECT * FROM product  WHERE item_visible =? ";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, 0);
+			pstmt.setInt(1, 1);
 			rs = pstmt.executeQuery();
 			
 			productList = new ArrayList<ProductBean>();
@@ -139,9 +141,9 @@ public class ProductDAO {
 		int deleteCount = 0;
 		
 		try {
-			String sql = "UPDATE product SET item_visable=? WHERE item_num=? ";
+			String sql = "UPDATE product SET item_visible=? WHERE item_num=? ";
 			pstmt=con.prepareStatement(sql);
-			pstmt.setInt(1,1);
+			pstmt.setInt(1,0);
 			pstmt.setInt(2,item_num);
 			deleteCount = pstmt.executeUpdate();
 		} catch (SQLException e) {
@@ -226,8 +228,9 @@ public class ProductDAO {
 			try {
 
 				// 전체 category 조회
-				String sql = "select distinct item_category from product";
+				String sql = "select distinct item_category from product where item_visible =?";
 				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1,1);
 				rs = pstmt.executeQuery();
 
 				while (rs.next()) {
@@ -257,10 +260,10 @@ public class ProductDAO {
 	        try {
 	           
 	           // 해당 카테고리에 해당하는 아이템 가져오기 
-	           String sql = "SELECT * FROM product WHERE item_category=? AND item_visable=?";
+	           String sql = "SELECT * FROM product WHERE item_category=? AND item_visible=?";
 	           pstmt = con.prepareStatement(sql);
 	           pstmt.setString(1, category); // 카테고리
-	           pstmt.setInt(2, 0); // 상품관리에서 삭제되지 않은 아이템 
+	           pstmt.setInt(2, 1); // 상품관리에서 삭제되지 않은 아이템 
 	           
 	           rs =pstmt.executeQuery();
 	           

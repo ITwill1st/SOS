@@ -31,10 +31,11 @@ public class MemberMyInfoAction implements Action {
 		if(mb!= null) {
 			
 			if(dto!=null) {
-				session.setAttribute("mem_id", request.getParameter("mem_id"));
-				
+				session.setAttribute("mem_id", mem_id);
+			    session.setAttribute("memberInfo", mb);
+			    String mem_phone = mb.getMem_phone();
+			    session.setAttribute("mem_phone", mb.getMem_phone());
 				// UserInfoForm.jsp에 회원정보를 전달하기 위해 request에 MemberBean을 세팅한다.
-				session.setAttribute("memberInfo", mb);
 				
 				request.setAttribute("rsv_list", dto);
 				

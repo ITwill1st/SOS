@@ -19,6 +19,7 @@ import member.action.MemberListAction;
 import member.action.MemberLoginProAction;
 import member.action.MemberSnsLoginProAction;
 import member.action.MyOrderListAction;
+import member.action.MyResvationListAction;
 import vo.ActionForward;
 
 @WebServlet("*.me")
@@ -113,6 +114,14 @@ public class MemberFrontController extends HttpServlet {
 				}
 			}else if(command.equals("/NonLogin.me")) {
 				action = new MemberNonMemberAction();
+				try {
+					forward = action.execute(request, response);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			} else if(command.equals("/MyRsvList.me")) {
+				action = new MyResvationListAction();
 				try {
 					forward = action.execute(request, response);
 				} catch (Exception e) {

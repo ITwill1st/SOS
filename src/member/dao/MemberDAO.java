@@ -411,7 +411,7 @@ public class MemberDAO {
 		ArrayList<OrderDTO> orderList = new ArrayList<OrderDTO>();
 		
 		try {
-			String sql = "select * from orders where mem_num=?";
+			String sql = "select * from orders o JOIN product p ON (o.item_num = p.item_num) where mem_num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, mem_num);
 			rs = pstmt.executeQuery();
@@ -423,6 +423,7 @@ public class MemberDAO {
 				orderDTO.setMem_num(rs.getInt("mem_num"));
 				orderDTO.setTable_num(rs.getInt("table_num"));
 				orderDTO.setItem_num(rs.getInt("item_num"));
+				orderDTO.setItem_name(rs.getString("item_name"));
 				orderDTO.setItem_qty(rs.getInt("item_qty"));
 				orderDTO.setItem_price(rs.getInt("item_price"));
 				orderDTO.setTotal_price(rs.getInt("total_price"));
