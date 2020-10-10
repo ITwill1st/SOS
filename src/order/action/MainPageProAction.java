@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import action.Action;
 import order.svc.BasketProService;
@@ -17,12 +18,14 @@ public class MainPageProAction implements Action {
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
-		// 임시 mem_num
-		int mem_num=1;
-		// 임시 table_num 전달 
-		int table_num =1;
-
+		
 		ActionForward forward = null;
+				
+		HttpSession session= request.getSession(); 
+		// 임시 mem_num
+		int mem_num= (int)session.getAttribute("mem_num");
+		// 임시 table_num
+		int table_num = (int)session.getAttribute("table_num");
 				
 		// 메인화면 진입과 동시에 장바구니 조회
 		// mem_num, table_num에 따른 장바구니 조회하기 위한 basketProService 서비스 호출 
@@ -51,19 +54,29 @@ public class MainPageProAction implements Action {
 		forward = new ActionForward();
 				
 		// main.jsp로 이동 
-		forward.setPath("/order/main.jsp");
+		forward.setPath("/SOS/order/main.jsp");
+		forward.setRedirect(true);
+				
+//		// 메인페이지에 뿌려줄 menuList(전체메뉴)와  basketCount(장바구니 수량) 전달 
+//		request.setAttribute("menuList", menuList);
+//		request.setAttribute("basketCount", basketCount);
+//		
+//		request.setAttribute("table_num", table_num);
+//		request.setAttribute("mem_num", mem_num);
+//		
+//		// 카테고리 전달
+//		request.setAttribute("category", category);
+		
 				
 		// 메인페이지에 뿌려줄 menuList(전체메뉴)와  basketCount(장바구니 수량) 전달 
-		request.setAttribute("menuList", menuList);
-		request.setAttribute("basketCount", basketCount);
+		session.setAttribute("menuList", menuList);
+		session.setAttribute("basketCount", basketCount);
 		
-		request.setAttribute("table_num", table_num);
-		request.setAttribute("mem_num", mem_num);
+		session.setAttribute("table_num", table_num);
+		session.setAttribute("mem_num", mem_num);
 		
 		// 카테고리 전달
-		request.setAttribute("category", category);
-		
-				
+		session.setAttribute("category", category);
 		return forward;
 		
 	}

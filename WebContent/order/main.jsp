@@ -6,16 +6,24 @@
       
 <%
 // 임시 mem_num
-int mem_num= (int)request.getAttribute("mem_num");
+int mem_num= (int)session.getAttribute("mem_num");
 // 임시 table_num
-int table_num = (int)request.getAttribute("table_num");
+int table_num = (int)session.getAttribute("table_num");
 
 // 전체 메뉴
-ArrayList<ProductBean> menuList = (ArrayList<ProductBean>)request.getAttribute("menuList");
+// ArrayList<ProductBean> menuList = (ArrayList<ProductBean>)request.getAttribute("menuList");
 // 장바구니 수량
-int basketCount = (int)request.getAttribute("basketCount");
+// int basketCount = (int)request.getAttribute("basketCount");
 // 카테고리
-ArrayList<ProductBean> category = (ArrayList<ProductBean>)request.getAttribute("category");
+// ArrayList<ProductBean> category = (ArrayList<ProductBean>)request.getAttribute("category");
+
+
+// 전체 메뉴
+ArrayList<ProductBean> menuList = (ArrayList<ProductBean>)session.getAttribute("menuList");
+// 장바구니 수량
+int basketCount = (int)session.getAttribute("basketCount");
+// 카테고리
+ArrayList<ProductBean> category = (ArrayList<ProductBean>)session.getAttribute("category");
 %>
 <!DOCTYPE html>
 <html>
@@ -24,10 +32,10 @@ ArrayList<ProductBean> category = (ArrayList<ProductBean>)request.getAttribute("
 <meta charset="UTF-8">
 <title>main page</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" type="text/css" href="styles/bootstrap-4.1.2/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="./styles/main_styles.css">
-<link rel="stylesheet" type="text/css" href="order/style/order.css">
-<link rel="stylesheet" type="text/css" href="styles/responsive.css">
+<link rel="stylesheet" type="text/css" href="/SOS/styles/bootstrap-4.1.2/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/SOS/styles/main_styles.css">
+<link rel="stylesheet" type="text/css" href="/SOS/order/style/order.css">
+<link rel="stylesheet" type="text/css" href="/SOS/styles/responsive.css">
 <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
 <script src="js/jquery.js"></script>
 <script src="https://kit.fontawesome.com/a372e2fae4.js" crossorigin="a372e2fae4"></script>
@@ -51,7 +59,8 @@ ArrayList<ProductBean> category = (ArrayList<ProductBean>)request.getAttribute("
 			
 			</div>
 			
- 
+<h1>테이블 No  : <%=table_num %></h1>
+<h1>멤버 No  : <%=mem_num %></h1>
  
 <!-- 고정된 장바구니/결제  -->
  
@@ -60,13 +69,13 @@ ArrayList<ProductBean> category = (ArrayList<ProductBean>)request.getAttribute("
 	     <div class="shopping-basket-inner">
 	 		<div class="user-card clearfix">
 	      		<div class="user-photo">
-	       			<a href="BasketList.or?mem_num=<%=mem_num %>&table_num=<%=table_num %>"><i class="fas fa-shopping-basket fa-2x" style="color:#8c7c74;"></i></a>
+	       			<a href="/SOS/BasketList.or?mem_num=<%=mem_num %>&table_num=<%=table_num %>"><i class="fas fa-shopping-basket fa-2x" style="color:#8c7c74;"></i></a>
 	        		<span class="user-status" aria-label="Active"><%=basketCount %></span>
 	     		</div>
 	    	</div>
 	    	<div class="user-card clearfix">
     			<div class="user-photo">
-        			<a href="Order.or?mem_num=<%=mem_num %>&table_num=<%=table_num %>"><i class="fab fa-cc-visa fa-2x" style="color:#8c7c74;" ></i></a>
+        			<a href="/SOS/Order.or?mem_num=<%=mem_num %>&table_num=<%=table_num %>"><i class="fab fa-cc-visa fa-2x" style="color:#8c7c74;" ></i></a>
      			</div>
     		</div>
     		</div>
@@ -144,7 +153,7 @@ ArrayList<ProductBean> category = (ArrayList<ProductBean>)request.getAttribute("
 									<li>Veggies</li>
 								</ul>
 							</div>
-							<div class="button sig_button trans_200"><a href="detail.or?item_num=<%=item.getItem_num()%>&mem_num=<%=mem_num %>&table_num=<%=table_num %>">Order Now</a></div>
+							<div class="button sig_button trans_200"><a href="/SOS/detail.or?item_num=<%=item.getItem_num()%>&mem_num=<%=mem_num %>&table_num=<%=table_num %>">Order Now</a></div>
 						</div>
 					</div>
 				</div>
@@ -155,8 +164,8 @@ ArrayList<ProductBean> category = (ArrayList<ProductBean>)request.getAttribute("
 				<div class="row">
 					<div class="col-lg-7 offset-lg-5">
 						<div class="sig_image">
-							<div class="background_image" style="background-image:url(product/productUpload/<%=item.getItem_img() %>)"></div>
-							<img src="product/productUpload/<%=item.getItem_img() %>" alt="">
+							<div class="background_image" style="background-image:url(/SOS/product/productUpload/<%=item.getItem_img() %>)"></div>
+							<img src="/SOS/product/productUpload/<%=item.getItem_img() %>" alt="">
 						</div>
 					</div>
 				</div>

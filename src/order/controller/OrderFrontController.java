@@ -17,6 +17,7 @@ import order.action.BasketToPreOrder;
 import order.action.DeleteBasketProAction;
 import order.action.BasketProAction;
 import order.action.MenuDetailAction;
+import order.action.NonMemberOrderAction;
 import order.action.MainPageProAction;
 import order.action.OrderProAction;
 import vo.ActionForward;
@@ -126,9 +127,22 @@ public class OrderFrontController extends HttpServlet{
 				e.printStackTrace();
 			}
 				
-		} 
-		
-	
+		} else if(command.equals("/StartOrder.or")) {
+			// QR코드 찍었을때 진입 화면
+			forward = new ActionForward();
+			forward.setPath("/SOS/order/test.jsp");
+			forward.setRedirect(true);
+		} else if(command.equals("/NonMemberOrder.or")) {
+			// 비회원 로그인 
+			action = new NonMemberOrderAction();
+			
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+				
+		}
 		
 		
 		

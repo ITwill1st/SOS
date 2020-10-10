@@ -19,6 +19,7 @@ public class MenuDetailAction implements Action {
 		
 		ActionForward forward = null;
 
+		System.out.println("MenuDetailAction");
 		// mem_num, table_num
 		int mem_num = Integer.parseInt(request.getParameter("mem_num"));
 		int table_num = Integer.parseInt(request.getParameter("table_num"));

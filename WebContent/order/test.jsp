@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%
+// 임시 table_num 
+// 실제 구현 시 qr코드로 받아올예정
+int table_num = 1;
+%>
 <!DOCTYPE HTML>
-<!--
-	Aerial by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
+
 <html>
 	<head>
 		<title>Silent OrderSystem</title>
@@ -26,8 +28,8 @@
 						<p>Extraordinary &nbsp;&bull;&nbsp; BTS &nbsp;&bull;&nbsp; BlackPink in your Area</p>
 						<nav>
 							<ul>
-								<li><a href="#" class="icon brands fa-twitter">회원<span class="label">Twitter</span></a></li>
-								<li><a href="#" class="icon brands fa-facebook-f">비회원<span class="label">Facebook</span></a></li>
+								<li><a href="#" class="icon brands fa-twitter">회원<span class="label"></span></a></li>
+								<li><a href="/SOS/NonMemberOrder.or?table_num=<%=table_num %>" class="icon brands fa-facebook-f">비회원<span class="label"></span></a></li>
 							</ul>
 						</nav>
 					</header>
