@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import member.action.MemberJoinProAction;
+import member.action.MemberLoginProAction;
 import order.action.AJAXMinusProAction;
 import order.action.AJAXPlusProAction;
 import order.action.BasketListAction;
@@ -19,6 +21,8 @@ import order.action.BasketProAction;
 import order.action.MenuDetailAction;
 import order.action.NonMemberOrderAction;
 import order.action.MainPageProAction;
+import order.action.MemberOrderJoinProAction;
+import order.action.MemberOrderLoginProAction;
 import order.action.OrderProAction;
 import vo.ActionForward;
 
@@ -133,7 +137,7 @@ public class OrderFrontController extends HttpServlet{
 			forward.setPath("/SOS/order/test.jsp");
 			forward.setRedirect(true);
 		} else if(command.equals("/NonMemberOrder.or")) {
-			// 비회원 로그인 
+			// 비회원 로그인 선택
 			action = new NonMemberOrderAction();
 			
 			try {
@@ -142,12 +146,36 @@ public class OrderFrontController extends HttpServlet{
 				e.printStackTrace();
 			}
 				
+		} else if(command.equals("/MemberOrder.or")) {
+			// 회원 로그인 선택 
+			forward = new ActionForward();
+			forward.setPath("/SOS/order/order_login.jsp");
+			forward.setRedirect(true);
+			
+		} else if (command.equals("/MemberOrderLoginPro.or")) {
+			// 회원 로그인 
+			action = new MemberOrderLoginProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else if (command.equals("/MemberOrderJoinForm.or")) {
+			// 회원 가입 (회원정보작성페이지)
+    		forward = new ActionForward();
+    		forward.setPath("/SOS/order/order_join.jsp");
+    		forward.setRedirect(true);
+    	} else if(command.equals("/MemberOrderJoinPro.or")){
+    		// 회원 가입 
+			action = new MemberOrderJoinProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		
-		
-		
-		
-		
 		
 		
 		
