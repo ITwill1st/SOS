@@ -66,7 +66,7 @@ public class OrderProAction implements Action {
 					
 					
 			forward = new ActionForward();
-			forward.setPath("/OrderMain.or");		
+			forward.setPath("/ReviewList.re?mem_num="+mem_num);		
 						
 		} else {
 			

@@ -42,7 +42,7 @@ for(int i = 0 ; i < product_list.size() ; i++){
 		<%
 	}
 %>
-<input type="submit" value="리뷰등록">
+<input type="submit" value="리뷰등록"><input type="button" value="돌아가기" onclick="location.href='http://localhost:8080/SOS/StartOrder.or'">
 </form>
 </div>
 </body>

@@ -4,15 +4,22 @@ import java.sql.Timestamp;
 
 public class ReviewDTO {
 	
-	int item_num;
-	int review_comment_num;
-	String review_comment;
-	int review_rating;
-	Timestamp review_datetime;
-	String review_re_comment;
-	int review_re_checker;
-	int mem_num;
+	private int item_num;
+	private String item_name;
+	private int review_comment_num;
+	private String review_comment;
+	private int review_rating;
+	private Timestamp review_datetime;
+	private String review_re_comment;
+	private int review_re_checker;
+	private int mem_num;
 	
+	public String getItem_name() {
+		return item_name;
+	}
+	public void setItem_name(String item_name) {
+		this.item_name = item_name;
+	}
 	public int getItem_num() {
 		return item_num;
 	}

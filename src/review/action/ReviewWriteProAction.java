@@ -23,6 +23,7 @@ public class ReviewWriteProAction implements Action{
 		
 		for(int i = 0 ; i < review_count ; i++) {
 			
+			// form 태그에서 인덱스 번호를 부여하여 파라미터로 넘겨줌
 			// 인덱스를 통해 구분 해놓은 요소들 가져오기
 			String review_comment = request.getParameter("review_comment_"+i);
 			int item_num = Integer.parseInt(request.getParameter("item_num_"+i));

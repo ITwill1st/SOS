@@ -7,47 +7,59 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="../SOS/js/jquery.js"></script>
-<script type="text/javascript">
-$(document).ready(function() {	
-	$.getJSON('review/JSONRE_reviewListInfo.jsp', function(rdata) {
-		alert("aaa2");
-		$.each(rdata, function(index, item) {
-			$('#div').append(item_num);
-		});
-	});
-	console(log);
-});
-</script>
+<script src="/SOS/js/jquery.js"></script>
 <%
 ArrayList<ReviewDTO> reviewList = (ArrayList<ReviewDTO>)request.getAttribute("reviewList");
 %>
 </head>
 <body>
+<script type="text/javascript">
+// $(document).ready(function() {		
+// 	$.ajax({
+// 		url: "/SOS/AJAXRE_ReviewList.re",
+// 		type:"POST",
+// 		dataType: "json",
+// 		success: function(data) {
+// 			alert("aaa");
+// 		},
+// 		error: function(data) {
+// 			console.log("에러!");
+// 		}
+// 	});
+// 	$.getJSON("/SOS/AJAXRE_ReviewList.re", function(rdata) {
+// 		alert("aaa2")
+// 		$.each(rdata, function(index, item) {
+// 			alert("aaa3")
+// 			$('#div').html("aaa"+item_num);
+// 		});
+// 	});
+// 	console(log);
+// });
+</script>
 <h1>댓글 모아보기</h1>
 <%for(ReviewDTO review : reviewList){%>
 <script type="text/javascript">
-$(document).ready(function() {
+$(document).ready(function() {	
 	var star = "";
 		for(var x = 0 ; x < <%=review.getReview_rating()%> ; x++) {
 			star += "★";
 		}
 	$("#starRating_<%=review.getReview_comment_num()%>").html(star);
+
 });
 </script>
 <div id="div">
-	메뉴이름 <%=review.getItem_num()%> 평점 : <div id="starRating_<%=review.getReview_comment_num()%>"></div> <%=review.getReview_datetime() %><br>
+	메뉴이름 <%=review.getItem_name()%> 평점 : <div id="starRating_<%=review.getReview_comment_num()%>"></div> <%=review.getReview_datetime() %><br>
 	<%=review.getReview_comment()%><br>
 </div>
 <div>
-<%-- 	<%if(review.getReview_re_checker() == 0){%> --%>
 		<textarea rows="3" cols="30" name="review_re_comment" placeholder="사장님 댓글을 입력해주세요." id="re_comment<%=review.getReview_comment_num()%>"></textarea><br>
 		<input type="submit" value="등록" id="btnSubmit<%=review.getReview_comment_num()%>">
-<%-- 	<%}%> --%>
 </div>
 <script type="text/javascript">
-	$('#btnSubmit<%=review.getReview_comment_num()%>').click(function() {
-		// btnSubmit 버튼 클릭시 ajax 작동
+	$("#btnSubmit<%=review.getReview_comment_num()%>").click(function() {
+		
+// 		btnSubmit 버튼 클릭시 ajax 작동
 		var comment = document.getElementById("re_comment<%=review.getReview_comment_num()%>").value;
 		// textarea에 있는 텍스트 가져오기
 		$.ajax({
@@ -59,13 +71,15 @@ $(document).ready(function() {
 			data :{"review_re_comment" : comment},
 			    // {키, 값} 형태로 데이토 전송 
 			success: function(data) {
-				location.reload(true);
+				
 			},
 			error: function(data) {
 				console.log("에러!");
-			}
-			
-		})
+			}			
+		});
+		setTimeout(function(){
+			location.reload();
+			},500);
 	});
 </script>
 		<%

@@ -258,7 +258,7 @@ public class ReviewDAO {
 		ArrayList<ReviewDTO> reviewList = new ArrayList<ReviewDTO>();
 		
 		try {
-			sql = "select * from review where review_re_checker=0";
+			sql = "select * from review r JOIN product p ON (r.item_num = p.item_num) where review_re_checker=0";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
@@ -266,6 +266,7 @@ public class ReviewDAO {
 				ReviewDTO rdt = new ReviewDTO();
 
 				rdt.setItem_num(rs.getInt("item_num"));
+				rdt.setItem_name(rs.getString("item_name"));
 				rdt.setReview_comment_num(rs.getInt("review_comment_num"));
 				rdt.setReview_comment(rs.getString("review_comment"));
 				rdt.setReview_rating(rs.getInt("review_rating"));

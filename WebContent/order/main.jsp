@@ -75,6 +75,7 @@ ArrayList<ProductBean> category = (ArrayList<ProductBean>)session.getAttribute("
 	    	</div>
 	    	<div class="user-card clearfix">
     			<div class="user-photo">
+    			<!-- 결제 창  -->
         			<a href="/SOS/Order.or?mem_num=<%=mem_num %>&table_num=<%=table_num %>"><i class="fab fa-cc-visa fa-2x" style="color:#8c7c74;" ></i></a>
      			</div>
     		</div>
