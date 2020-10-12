@@ -5,6 +5,9 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
+
 import action.Action;
 import order.svc.BasketProService;
 import order.svc.PreOrderService;
@@ -19,6 +22,8 @@ public class BasketToPreOrder implements Action {
 		
 		// 장바구니 table에 담긴 항목을 preorder테이블에 담기 
 		ActionForward forward = null;
+		
+		HttpSession session= request.getSession(); 
 		
 		// mem_num & table_num 가져오기
 		int mem_num = Integer.parseInt(request.getParameter("mem_num"));
@@ -56,6 +61,9 @@ public class BasketToPreOrder implements Action {
 				
 				System.out.println("Preorder 성공!");
 				
+				//통신을 위한 세션 메서드
+				session.setAttribute("preorder", "true");
+				
 				// 장바구니 항목이 preorder 테이블에 insert 성공했을시 기존 장바구니 테이블 삭제하기 
 				BasketProService bps2 = new BasketProService();
 				int deleteResult = bps2.deleteBasketTable(mem_num,table_num);
@@ -72,7 +80,7 @@ public class BasketToPreOrder implements Action {
 			
 			
 			forward = new ActionForward();
-			forward.setPath("/OrderMain.or");
+			forward.setPath("/OrderMain.or?");
 			
 			
 		}

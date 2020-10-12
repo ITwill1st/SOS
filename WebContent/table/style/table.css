@@ -293,7 +293,8 @@ input, select {
 }
 
 .items img{
-	width: 100%;
+	width: 220px;
+	height: 160px;
 }
 
 .tableProductList-MenuByCategory{

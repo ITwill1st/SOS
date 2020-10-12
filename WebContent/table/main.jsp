@@ -3,7 +3,7 @@
 <%@page import="vo.TableDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,51 +15,43 @@
 <script src="table/js/main.js"></script>
 
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <!-- <script src="//code.jquery.com/jquery-3.2.1.min.js"></script> -->
 <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 </head>
 <body>
 
-<script>
+	<script>
 
-var dialogOn = true;
+var dialogOn = false;
 
 var pst = [
-<%
-ArrayList<TableDTO> list = (ArrayList<TableDTO>)request.getAttribute("tableInfo");
+<%ArrayList<TableDTO> list = (ArrayList<TableDTO>) request.getAttribute("tableInfo");
 
-for(int i=0;i<list.size();i++){
-	%>
+for (int i = 0; i < list.size(); i++) {%>
 	[<%=list.get(i).getTable_x()%>,<%=list.get(i).getTable_y()%>,<%=list.get(i).getTable_w()%>,<%=list.get(i).getTable_h()%>]	
-	<%if(i != (list.size() -1) ){%>,<%}
-}
-%>
+	<%if (i != (list.size() - 1)) {%>,<%}
+}%>
 ];
 
 var preorderInfo = [
-<%
-ArrayList<PreOrderBean> list2 = (ArrayList<PreOrderBean>)request.getAttribute("preorderInfo");
-for(int i=0;i<list2.size();i++){
-	%>
+<%ArrayList<PreOrderBean> list2 = (ArrayList<PreOrderBean>) request.getAttribute("preorderInfo");
+for (int i = 0; i < list2.size(); i++) {%>
 	[<%=list2.get(i).getTable_num()%>,<%=list2.get(i).getMem_num()%>,"<%=list2.get(i).getItem_name()%>",<%=list2.get(i).getItem_qty()%>,<%=list2.get(i).getPre_confirm()%>]	
-	<%if(i != (list2.size() -1) ){%>,<%}
-}
-%>
+	<%if (i != (list2.size() - 1)) {%>,<%}
+}%>
 ];
 
 //다이얼로그에 주문 처리되지 않은 표현할 주문 목록
 var preorderTable2 = [
-	<%
-	for(int i=0;i<list2.size();i++){
-		if(list2.get(i).getPre_confirm() == 0){
-		%>
+	<%for (int i = 0; i < list2.size(); i++) {
+	if (list2.get(i).getPre_confirm() == 0) {%>
 		<%=list2.get(i).getTable_num()%>
-		<%if(i != (list2.size() -1) ){%>,<%}
-		}
-	}
-	%>
+		<%if (i != (list2.size() - 1)) {%>,<%}
+}
+}%>
 	];
 
 //번호순 정렬을 위한메서드
@@ -98,6 +90,11 @@ $( document ).ready(function() {
 					
 	}
 	
+	//다이얼로그가 열려야되는지 확인하는 메서드
+	if(preorderTable.length > 0){
+		dialogOn = true;
+	}
+	
 	//다이얼로그에서 메뉴를 수락할 경우
 	$(document).on("click",".btn-accept",function(){
 		alert(this.value);
@@ -105,43 +102,70 @@ $( document ).ready(function() {
 		location.href = "PreOrderAccept.tb?table_num=" + this.value;
 	});
 	
-	
-	$('#dialog-message').dialog({
-		modal: true,
-		width: '500px',
-		buttons: {
-			"닫기": function() { dialogOn = false;  $(this).dialog('close'); }
 
-		}
-	});
+	//주문이 왔을때 다이얼로그를 연다
+	if(dialogOn == true){			
+		
+// 		var audio = new Audio("table/style/alram.mp3");
+// 		audio.play();
+			
+		$('#dialog-message').dialog({
+				modal: true,
+				width: '500px',
+				buttons: {
+				"닫기": function() { dialogOn = false;  $(this).dialog('close'); }
+
+			}
+		});	
+	}
+	
+
+	var url = "ws://localhost:8080/SOS/websocket";
+    var webSocket = null;
+	
+    webSocket = new WebSocket(url);
+    
+    webSocket.onopen = function(e) {
+//         console.log(e);
+    }
+
+    
+    webSocket.onmessage = function(e) {
+    	location.reload(true);
+    }
 	
 	
 });
+
+
+
 </script>
-<div class="top">			
 
-					<div class="logo_img">					
-					<img alt="" src="inc/SOS logo_v2.png" height="70px">
-					</div>
-	
-					<div class="logo">					
-						<p class="logo_title">Silent Order</p>
-						<p class="logo_subtitle">restaurant</p>
-					</div>
-					
-					<div class="logo_pos">
-						<p class="pos_title">POS Manager</p>
-					</div>
+	<div class="top">
 
-</div>
+		<div class="logo_img">
+			<img alt="" src="inc/SOS logo_v2.png" height="70px">
+		</div>
+
+		<div class="logo">
+			<p class="logo_title">Silent Order</p>
+			<p class="logo_subtitle">restaurant</p>
+		</div>
+
+		<div class="logo_pos">
+			<p class="pos_title">POS Manager</p>
+		</div>
+
+	</div>
 
 
 
 
-<div class="content">
 
-<section>
-<canvas id="canvas" width="1400" height="720">
+	<div class="content">
+
+		<section>
+			<canvas id="canvas" width="1400" height="720">
 This text is displayed if your browser does not support HTML5 Canvas.
 </canvas>
 
@@ -166,16 +190,14 @@ This text is displayed if your browser does not support HTML5 Canvas.
 				</div>
 			</div>
 
-</section>		
+		</section>
 
 
-</div>
-
-<div id="dialog-message" title="주문 요청리스트" style='display:none'>
-	<div class="dialog-content">
 	</div>
-</div>
 
+	<div id="dialog-message" title="주문 요청리스트" style='display: none'>
+		<div class="dialog-content"></div>
+	</div>
 
 
 
