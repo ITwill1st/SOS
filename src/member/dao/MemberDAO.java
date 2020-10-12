@@ -74,7 +74,7 @@ public class MemberDAO {
 		ResultSet rs = null;
 		try{
 			
-			String sql = "INSERT into member3 values(?,?,?,?,?,?,?,?,?,now())";
+			String sql = "INSERT into member values(?,?,?,?,?,?,?,?,?,now())";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1,mem_num);
 			pstmt.setString(2, null);
@@ -105,7 +105,7 @@ public class MemberDAO {
 		ResultSet rs=null;	
 		try {
 			
-			String sql="select max(mem_num) from member3";
+			String sql="select max(mem_num) from member";
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			if(rs.next()){

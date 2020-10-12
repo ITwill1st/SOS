@@ -115,7 +115,7 @@ ArrayList<ProductBean> category = (ArrayList<ProductBean>)session.getAttribute("
 						</ul>
 					</div>
 					<div class="dish_order">
-						<a href="">order Now</a>
+						<a href="#item_<%=menu.getItem_name() %>">order Now</a>
 					</div>
 				</div>
 			<%} }%>	
@@ -133,7 +133,7 @@ ArrayList<ProductBean> category = (ArrayList<ProductBean>)session.getAttribute("
 
 <%for(ProductBean item : menuList) {
 %>
-	<div class="sig" style="clear: both;">
+	<div class="sig" style="clear: both;" id="item_<%=item.getItem_name() %>">
 		<div class="sig_content_container">
 			<div class="container">
 				<div class="row">
@@ -154,7 +154,10 @@ ArrayList<ProductBean> category = (ArrayList<ProductBean>)session.getAttribute("
 									<li>Veggies</li>
 								</ul>
 							</div>
+							<div style="display: inline;">
 							<div class="button sig_button trans_200"><a href="/SOS/detail.or?item_num=<%=item.getItem_num()%>&mem_num=<%=mem_num %>&table_num=<%=table_num %>">Order Now</a></div>
+							<div class="button sig_button trans_200"><a href="#">전체메뉴</a></div>
+							</div>
 						</div>
 					</div>
 				</div>
