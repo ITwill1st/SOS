@@ -11,14 +11,6 @@ int mem_num= (int)session.getAttribute("mem_num");
 int table_num = (int)session.getAttribute("table_num");
 
 // 전체 메뉴
-// ArrayList<ProductBean> menuList = (ArrayList<ProductBean>)request.getAttribute("menuList");
-// 장바구니 수량
-// int basketCount = (int)request.getAttribute("basketCount");
-// 카테고리
-// ArrayList<ProductBean> category = (ArrayList<ProductBean>)request.getAttribute("category");
-
-
-// 전체 메뉴
 ArrayList<ProductBean> menuList = (ArrayList<ProductBean>)session.getAttribute("menuList");
 // 장바구니 수량
 int basketCount = (int)session.getAttribute("basketCount");
@@ -59,8 +51,8 @@ ArrayList<ProductBean> category = (ArrayList<ProductBean>)session.getAttribute("
 			
 			</div>
 			
-<h1>테이블 No  : <%=table_num %></h1>
-<h1>멤버 No  : <%=mem_num %></h1>
+<%-- <h1>테이블 No  : <%=table_num %></h1> --%>
+<%-- <h1>멤버 No  : <%=mem_num %></h1> --%>
  
 <!-- 고정된 장바구니/결제  -->
  
@@ -148,10 +140,6 @@ ArrayList<ProductBean> category = (ArrayList<ProductBean>)session.getAttribute("
 							</div>
 							<div class="sig_content_list">
 								<ul class="d-flex flex-row align-items-center justify-content-start">
-									<li>Pork</li>
-									<li>Tenderloin</li>
-									<li>Green Pepper</li>
-									<li>Veggies</li>
 								</ul>
 							</div>
 							<div style="display: inline;">

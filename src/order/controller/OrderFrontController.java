@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import action.Action;
 import member.action.MemberJoinProAction;
@@ -133,9 +134,19 @@ public class OrderFrontController extends HttpServlet{
 				
 		} else if(command.equals("/StartOrder.or")) {
 			// QR코드 찍었을때 진입 화면
+			int table_num=1;
+			if(request.getParameter("table_num")!=null) {
+				// qr코드 찍히면 qr코드의 table_num 넘어올 수 있도록 
+				table_num = Integer.parseInt(request.getParameter("table_num"));
+			} 
+			
+			HttpSession session= request.getSession(); 
+			session.setAttribute("table_num", table_num);
+			
 			forward = new ActionForward();
 			forward.setPath("/SOS/order/test.jsp");
 			forward.setRedirect(true);
+			
 		} else if(command.equals("/NonMemberOrder.or")) {
 			// 비회원 로그인 선택
 			action = new NonMemberOrderAction();
