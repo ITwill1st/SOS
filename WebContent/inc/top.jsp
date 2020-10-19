@@ -36,8 +36,8 @@
 								<li><a href="#">테이블</a></li>
 								<li><a href="#">상품관리</a></li>
 								<li><a href="#">예약관리</a></li>
-								<li><a href="#">회원관리</a></li>
 								<li><a href="#">매출분석</a></li>
+								<li><a href="Re_ReviewList.re">리뷰관리</a></li>
 <!-- 								<li><a href="OrderMain.or">Order</a></li> -->
 <!-- 								<li><a href="RsvMain.rsv">RsvMain</a></li> -->
 <!-- 								<li><a href="Login.me">Login</a></li> -->
