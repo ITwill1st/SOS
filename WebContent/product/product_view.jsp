@@ -54,7 +54,7 @@
 		        <tr><td class ="td-th">    원산지 </td><td> <%=productBean.getItem_origin() %></td></tr>
 	            
 	           <tr><td colspan="2" style="border-bottom: none; text-align: right;" >
-	<%-- 	<%     if(mem_id.equals("admin")){ %> --%>
+		<%     if(mem_id.equals("admin")){ %>
 				<a href="ProductModifyForm.po?item_num=<%=productBean.getItem_num()%>&page=<%=nowPage %>">
 				<input type="button" value="수정" ></a>
 				<input type = "button"  value = "삭제" onclick="button_event();">
@@ -69,7 +69,7 @@
 									}
 								}
 							 </script>
-	<%-- 		<%} %> --%>
+			<%} %>
 			     <a href="ProductList.po?page=<%=nowPage %>"><input type="button"  value="목록" ></a>
 			     </td></tr>
 			

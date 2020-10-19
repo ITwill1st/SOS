@@ -18,7 +18,7 @@ public class ProductDeleteProAction implements Action {
 		ActionForward forward = null;
 		
 		int item_num = Integer.parseInt(request.getParameter("item_num"));
-		
+		System.out.println(item_num);
 		boolean isDeleteSuccess = ProductDeleteProService.removeProduct(item_num);
 	
 		if (!isDeleteSuccess) {
