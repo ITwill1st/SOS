@@ -114,7 +114,8 @@ jQuery(document).ready(function () {
 	}
 	
 	function checkBirthday(mem_birth){
-		var regEx = /([0-9]{2}(0[1-9]|1[0-2])(0[1-9]|[1,2][0-9]|3[0,1]))/;
+		var regEx = /^(19[0-9][0-9]|20\d{2})(0[0-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])$/;
+
 
 		var element = document.getElementById('checkBirth'); // checkBirth 값을 ID 로 갖는 태그 찾기
 		

@@ -26,14 +26,25 @@
 <script src="https://kit.fontawesome.com/a372e2fae4.js" crossorigin="a372e2fae4"></script>
 <%
 	request.setCharacterEncoding("UTF-8");
-	String mem_id = (String)session.getAttribute("mem_id");
-	String mem_email = (String)session.getAttribute("mem_email");
-	String mem_name = (String)session.getAttribute("mem_name");
-	String mem_phone = (String)session.getAttribute("mem_phone");
+
+	String mem_id = null; 
+	String mem_email = null;
+	String mem_name = null;
+	String mem_phone = null;
 	MemberBean mb=(MemberBean)session.getAttribute("memberInfo");
 	int mem_num = -1;
 	if(mem_id != null){
-	mem_num = mb.getMem_num();
+		mem_id = (String)session.getAttribute("mem_id");
+		mem_num = mb.getMem_num();
+	}
+	if(mem_email != null){
+		mem_email = (String)session.getAttribute("mem_email");
+	}
+	if(mem_name != null){
+		mem_name = (String)session.getAttribute("mem_name");
+	}
+	if(mem_phone != null){
+		mem_phone = (String)session.getAttribute("mem_phone");
 	}
 
 	// 전체 메뉴

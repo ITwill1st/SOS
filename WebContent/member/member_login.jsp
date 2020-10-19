@@ -128,7 +128,9 @@ input[type="text"],input[type="password"]{
     						var gender = res.kakao_account.gender;	// 유저의 성별
     						var nickname = res.properties.nickname;	// 유저의 닉네임
     						var name = res.properties.name;
-   							location.href='SnsLogin.me?mem_id='+id+"&mem_email="+email+"&mem_birth="+birth+"&mem_gender="+gender+"&mem_name="+name+"&mem_nickname="+nickname;
+    						var age_range = res.kakao_account.age_range;
+   							location.href='SnsLogin.me?mem_id='+id+"&mem_email="+email+"&mem_birth="+birth+"&mem_gender="+gender+
+   									"&mem_name="+name+"&mem_nickname="+nickname+"&age_range="+age_range;
 
 //    						$.ajax('SnsLogin.me',{
 //    					         data:{

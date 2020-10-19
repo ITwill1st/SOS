@@ -53,7 +53,7 @@ public class RsvDAO {
 				num=rs.getInt(1)+1;
 			}
 			
-			sql="insert into reservation values(?,?,?,?,?)";
+			sql="insert into reservation values(?,?,?,?,?,?)";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.setString(2,dto.getRsv_date());
@@ -93,13 +93,14 @@ public class RsvDAO {
 				num=rs.getInt(1)+1;
 			}
 			
-			sql="insert into reservation values(?,?,?,?,?)";
+			sql="insert into reservation values(?,?,?,?,?,?)";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.setString(2,dto.getRsv_date());
-			pstmt.setInt(3, dto.getRsv_pax());
-			pstmt.setInt(4, dto.getRsv_check());
-			pstmt.setString(5, dto.getMem_email());
+			pstmt.setString(3, dto.getRsv_time());
+			pstmt.setInt(4, dto.getRsv_pax());
+			pstmt.setInt(5, dto.getRsv_check());
+			pstmt.setString(6, dto.getMem_email());
 			
 			//예약 내용을 DB에 저장완료 후 리턴값 지정
 			resultUpdate=pstmt.executeUpdate();
@@ -200,7 +201,7 @@ public class RsvDAO {
 		
 		return allList;
 	}
-
+	
 	//비회원 예약 조회를 위한 메서드 정의
 	public RsvDTO selectNonMember(String mem_email) {
 		RsvDTO dto=null;
@@ -252,6 +253,4 @@ public class RsvDAO {
 		
 		return resultCount;
 	}
-	
-	
 }
