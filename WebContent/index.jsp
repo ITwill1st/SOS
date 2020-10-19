@@ -38,7 +38,7 @@
 	if(session.getAttribute("mem_email") != null) mem_name = (String)session.getAttribute("mem_name");
 	if(session.getAttribute("mem_phone") != null) mem_phone = (String)session.getAttribute("mem_phone");
 // 	if(mb.getMem_num() != -1) mem_num = mb.getMem_num();
-
+	if(session.getAttribute("mem_email") != null) session.setAttribute("mem_email", mem_email);
 	// 전체 메뉴
 	ArrayList<ProductBean> menuList = (ArrayList<ProductBean>)session.getAttribute("menuList");
 	ArrayList<ProductBean> category = (ArrayList<ProductBean>)session.getAttribute("category");
@@ -108,16 +108,17 @@
 						<div class="res_stars page_subtitle">5 Stars</div>
 						<div class="res_title">Make a Reservation</div>
 						<div class="res_form_container">
-							<form action="RsvView.rsv" id="res_form" class="res_form" method="post">
+							<form action="RsvInsert.rsv" id="res_form" class="res_form" method="post">
 								<div class="d-flex flex-sm-row flex-column align-items-center justify-content-start">
+									<input type="hidden" name="mem_email" value="<%=mem_email%>">
 									<input type="text" id="datepicker" class="res_input" name="date" required="required">
 									<input type="text" class="res_input timepicker" name="time" required="required">
 									<select class="res_select" name="pax">
-										<option disabled="" selected="">2 person</option>
-										<option>3 person</option>
-										<option>4 person</option>
-										<option>5 person</option>
-										<option>6 person</option>
+										<option selected="selected">2</option>
+										<option>3</option>
+										<option>4</option>
+										<option>5</option>
+										<option>6</option>
 									</select>
 								<button type="submit" class="res_button">Make a Reservation</button>
 								</div>

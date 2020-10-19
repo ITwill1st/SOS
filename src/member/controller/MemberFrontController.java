@@ -20,6 +20,7 @@ import member.action.MemberLoginProAction;
 import member.action.MemberSnsLoginProAction;
 import member.action.MyOrderListAction;
 import member.action.MyResvationListAction;
+import rsv.action.RsvListProAction;
 import vo.ActionForward;
 
 @WebServlet("*.me")
@@ -121,7 +122,7 @@ public class MemberFrontController extends HttpServlet {
 					e.printStackTrace();
 				}
 			} else if(command.equals("/MyRsvList.me")) {
-				action = new MyResvationListAction();
+				action = new RsvListProAction();
 				try {
 					forward = action.execute(request, response);
 				} catch (Exception e) {

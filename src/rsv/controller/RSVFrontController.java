@@ -13,6 +13,7 @@ import action.Action;
 import rsv.action.RsvCheckProAction;
 import rsv.action.RsvDateCheckProAction;
 import rsv.action.RsvDeleteProAction;
+import rsv.action.RsvInsertProAction;
 import rsv.action.RsvListCheckProAction;
 import rsv.action.RsvSubmitProAction;
 import vo.ActionForward;
@@ -70,6 +71,14 @@ public class RSVFrontController extends HttpServlet{
 			try {
 				forward=action.execute(request, response);
 			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		} else if(command.equals("/RsvInsert.rsv")) {
+			action = new RsvInsertProAction();
+			try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

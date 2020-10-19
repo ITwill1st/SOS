@@ -1,3 +1,5 @@
+<%@page import="vo.RsvDTO"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="vo.MemberBean"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -19,9 +21,17 @@
 <link href="plugins/jquery-timepicker/jquery.timepicker.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="../styles/main_styles.css">
 <link rel="stylesheet" type="text/css" href="../styles/responsive.css">
-<link rel="stylesheet" type="text/css" href="member/style/myInfo.css">
+<link rel="stylesheet" type="text/css" href="member/style/myOrderList.css">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>member/myInfo.jsp</title>
+<%
+ArrayList<RsvDTO> rsvList = (ArrayList<RsvDTO>)request.getAttribute("rsvList");
+String mem_id = (String)session.getAttribute("mem_id");
+String mem_email = (String)session.getAttribute("mem_email");
+String mem_name = (String)session.getAttribute("mem_name");
+String mem_phone = (String)session.getAttribute("mem_phone");
+MemberBean mb=(MemberBean)session.getAttribute("memberInfo");
+%>
 </head>
 <body>
 <!-- header -->
@@ -47,26 +57,23 @@
 		</div>
 		<div class="scroll_icon"></div>
 	</div>
-<%
-String mem_id = (String)session.getAttribute("mem_id");
-String mem_email = (String)session.getAttribute("mem_email");
-String mem_name = (String)session.getAttribute("mem_name");
-String mem_phone = (String)session.getAttribute("mem_phone");
-MemberBean mb=(MemberBean)session.getAttribute("memberInfo");
-%>
 <div id="main">
 <h2>예약내역</h2>
+<%for(RsvDTO rsvDTO : rsvList){ %>
 <div id="myinfo">
-<h3>예약번호 : aaaaaaaa</h3><br>
-<h3>예약날짜 : aaaaaaa</h3><br>
-<h3>예약시간 : aaaaaaa</h3><br>
-<h3>이메일   : aaaaaaaa</h3><br>
+<h3>예약번호 : <%=rsvDTO.getRsv_num()%></h3><br>
+<h3>예약날짜 : <%=rsvDTO.getRsv_date() %></h3><br>
+<h3>예약시간 : <%=rsvDTO.getRsv_time() %></h3><br>
+<h3>이메일   : <%=rsvDTO.getMem_email() %></h3><br>
 </div>
-</div>
+<%} 
+%>
+
 <br>
 <br>
 <br>
 <br><br><br><br>
+</div>
 <%-- <c:if test="${sessionScope.id eq 'admin'}"> --%>
 <%-- 		<c:forEach var="dto" items="${rsv_All}"> --%>
 <!-- 			<table border="1"> -->
@@ -111,7 +118,7 @@ MemberBean mb=(MemberBean)session.getAttribute("memberInfo");
 <!-- 		</tr> -->
 <!-- 	</table> -->
 <%-- 	</c:if> --%>
-	</div>
+
 <!-- /footer -->
 <jsp:include page="../inc/bottom.jsp"/>
 <!-- /footer -->

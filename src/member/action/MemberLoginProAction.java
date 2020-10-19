@@ -39,7 +39,7 @@ public class MemberLoginProAction implements Action {
 		    session.setAttribute("memberInfo", mb);
 		    String mem_phone = mb.getMem_phone();
 		    session.setAttribute("mem_phone", mb.getMem_phone());
-		    
+		    session.setAttribute("mem_email", mb.getMem_email());
 		    System.out.println(mem_phone);
 			
 			forward=new ActionForward();
