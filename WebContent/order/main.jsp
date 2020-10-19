@@ -25,9 +25,12 @@ ArrayList<ProductBean> category = (ArrayList<ProductBean>)session.getAttribute("
 <title>main page</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" type="text/css" href="/SOS/styles/bootstrap-4.1.2/bootstrap.min.css">
+
 <link rel="stylesheet" type="text/css" href="/SOS/styles/main_styles.css">
 <link rel="stylesheet" type="text/css" href="/SOS/order/style/order.css">
 <link rel="stylesheet" type="text/css" href="/SOS/styles/responsive.css">
+
+
 <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
 <script src="js/jquery.js"></script>
 <script src="https://kit.fontawesome.com/a372e2fae4.js" crossorigin="a372e2fae4"></script>

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import mgr.staff.action.MainAction;
 import mgr.staff.action.ManagerStaffJoinAction;
 import vo.ActionForward;
 
@@ -26,16 +27,19 @@ public class ManagerStaffFrontController extends HttpServlet {
     	String command = request.getServletPath();
 		
     	if(command.equals("/Main.do")) {
-    		forward = new ActionForward();
-    		forward.setPath("/index.jsp");
-    		forward.setRedirect(false);
+    		action = new MainAction();
+    		try {
+				forward = action.execute(request, response);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     	}
     	
     	
 		
     	
-    	if(forward!=null) {
-    		
+    	if(forward!=null) {   		
     		if(forward.isRedirect()) {
     			response.sendRedirect(forward.getPath());
     		}else {

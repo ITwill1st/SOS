@@ -10,7 +10,6 @@ import vo.ProductBean;
 
 public class MainPageProService {
 	
-	
 	// product 테이블에 담긴 전체 메뉴리스트 가져오기 ///
 	public ArrayList<ProductBean> getMenuList() {
 		

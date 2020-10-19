@@ -99,3 +99,14 @@
 	background: #282828;
 	height: 40px;
 }
+
+/*********************************
+2. Detail 페이지 - review 
+*********************************/
+
+#reviewMain {
+	margin-left: auto;
+	margin-right: auto;
+	width: 500px;
+	height: auto;
+}

@@ -74,10 +74,9 @@ function checkNumber(event) {
 
 </form>
 </div>
-</div>
-
 
 <br><br><br>
+<div id="reviewMain">
 <hr>
 <h2>댓글</h2>
 <%
@@ -102,6 +101,6 @@ $(document).ready(function() {
 <%
 }
 %>
-
+</div>
 </body>
 </html>

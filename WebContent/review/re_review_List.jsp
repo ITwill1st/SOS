@@ -7,36 +7,37 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="review/style/review.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="/SOS/styles/bootstrap-4.1.2/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/SOS/styles/main_styles.css">
+<link rel="stylesheet" type="text/css" href="/SOS/order/style/order.css">
+<link rel="stylesheet" type="text/css" href="/SOS/styles/responsive.css">
+<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+<script src="https://kit.fontawesome.com/a372e2fae4.js" crossorigin="a372e2fae4"></script>
 <script src="/SOS/js/jquery.js"></script>
 <%
 ArrayList<ReviewDTO> reviewList = (ArrayList<ReviewDTO>)request.getAttribute("reviewList");
 %>
 </head>
 <body>
-<script type="text/javascript">
-// $(document).ready(function() {		
-// 	$.ajax({
-// 		url: "/SOS/AJAXRE_ReviewList.re",
-// 		type:"POST",
-// 		dataType: "json",
-// 		success: function(data) {
-// 			alert("aaa");
-// 		},
-// 		error: function(data) {
-// 			console.log("에러!");
-// 		}
-// 	});
-// 	$.getJSON("/SOS/AJAXRE_ReviewList.re", function(rdata) {
-// 		alert("aaa2")
-// 		$.each(rdata, function(index, item) {
-// 			alert("aaa3")
-// 			$('#div').html("aaa"+item_num);
-// 		});
-// 	});
-// 	console(log);
-// });
-</script>
-<h1>댓글 모아보기</h1>
+<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="themenu_title_bar_container">
+						<div class="themenu_stars text-center page_subtitle">Silent Order</div>
+						<div class="themenu_rating text-center">
+							<div class="rating_r rating_r_5"><i></i><i></i><i></i><i></i><i></i></div>
+						</div>
+						<div class="themenu_title_bar d-flex flex-column align-items-center justify-content-center">
+							<div class="themenu_title">Review</div>
+						</div>
+					</div>
+				</div>
+			
+			</div>
+		</div>
+<div id="reviewMain">
 <%for(ReviewDTO review : reviewList){%>
 <script type="text/javascript">
 $(document).ready(function() {	
@@ -53,7 +54,9 @@ $(document).ready(function() {
 	<%=review.getReview_comment()%><br>
 </div>
 <div>
-		<textarea rows="3" cols="30" name="review_re_comment" placeholder="사장님 댓글을 입력해주세요." id="re_comment<%=review.getReview_comment_num()%>"></textarea><br>
+		<textarea rows="3" cols="30" name="review_re_comment" style="border: 1px solid;" 		
+		placeholder="사장님 댓글을 입력해주세요." id="re_comment<%=review.getReview_comment_num()%>">
+		</textarea><br>
 		<input type="submit" value="등록" id="btnSubmit<%=review.getReview_comment_num()%>">
 </div>
 <script type="text/javascript">
@@ -79,11 +82,14 @@ $(document).ready(function() {
 		});
 		setTimeout(function(){
 			location.reload();
-			},500);
+			},300);
 	});
 </script>
 		<%
 }
 %>
+</div>
+<div style="clear: both;"></div>
+<jsp:include page="../inc/bottom.jsp"/>
 </body>
 </html>
