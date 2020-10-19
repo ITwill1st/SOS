@@ -53,6 +53,18 @@ String mem_email = (String)session.getAttribute("mem_email");
 String mem_name = (String)session.getAttribute("mem_name");
 String mem_phone = (String)session.getAttribute("mem_phone");
 MemberBean mb=(MemberBean)session.getAttribute("memberInfo");
+String gender = null;
+if(mb.getMem_gender()==1){
+	
+	gender = "남자";
+	
+}else if(mb.getMem_gender()==0){
+	gender = "여자";
+
+}else{
+	gender = "비회원";
+}
+	
 %>
 <div id="main">
 <h2>회원정보</h2>
@@ -63,7 +75,7 @@ MemberBean mb=(MemberBean)session.getAttribute("memberInfo");
 <h3>이름 :<%=mb.getMem_name() %></h3><br>
 <h3>가입날짜:<%=mb.getMem_regdate() %></h3><br>
 <h3>이메일:<%=mb.getMem_email() %></h3><br>
-<h3>성별:<%=mb.getMem_gender() %></h3><br>
+<h3>성별:<%=gender %></h3><br>
 <h3>전화번호:<%=mb.getMem_phone()%></h3><br>
 <h3>생일:<%=mb.getMem_birth() %></h3><br>
 </div>

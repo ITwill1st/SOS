@@ -156,7 +156,6 @@ input[type="text"],input[type="password"]{
   							
   						console.log(authObj);
   						var token = authObj.access_token;   
-//   						alert("로그인 되었습니다.");
 					},
   						fail: function(err) {
   							alert(JSON.stringify(err));
