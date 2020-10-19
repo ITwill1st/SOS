@@ -33,7 +33,7 @@
 								<li><a href="#pro_list">Menu</a></li>
 								<% if (mem_id != null) {
  				 					if (mem_id.equals("admin") || mem_id.equals("owner")) {%>
-								<li><a href="#">테이블</a></li>
+								<li><a href="TablesMain.tb">테이블</a></li>
 								<li><a href="#">상품관리</a></li>
 								<li><a href="#">예약관리</a></li>
 								<li><a href="#">매출분석</a></li>
@@ -96,7 +96,7 @@
 				<li><a href="#">Menu</a></li>
 				<% if (mem_id != null) {
 	 					if (mem_id.equals("admin") || mem_id.equals("owner")) {%>
-				<li><a href="#">테이블</a></li>
+				<li><a href="TablesMain.tb">테이블</a></li>
 				<li><a href="#">상품관리</a></li>
 				<li><a href="#">예약관리</a></li>
 				<li><a href="#">회원관리</a></li>

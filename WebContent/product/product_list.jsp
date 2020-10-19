@@ -169,10 +169,10 @@
 		
 		            <div class="right-bar">
 		                <div class="right-bar-List">
-		                    <button>주문 내역</button>
+		                    <button onclick="location.href='TablesMain.tb'">주문 내역</button>
 		                </div>
 		                <div class="right-bar-List">
-		                    <button onclick="location.href='MyRsvList.rsv">예약 내역</button>
+		                    <button onclick="location.href='MyRsvList.rsv'">예약 내역</button>
 		                </div>
 		                <div class="right-bar-List">
 		                    <button onclick="location.href='ProductList.po'">상품 관리</button>

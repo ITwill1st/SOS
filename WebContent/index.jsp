@@ -120,7 +120,11 @@
 										<option>5</option>
 										<option>6</option>
 									</select>
+									<%if(mem_email == null){ %>
+									<button type="submit" disabled="disabled" class="res_button">Make a Reservation</button>
+									<%} else{ %>
 								<button type="submit" class="res_button">Make a Reservation</button>
+								<%} %>
 								</div>
 							</form>
 						</div>

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
-import rsv.action.RsvCheckProAction;
+import rsv.action.RsvAllListProAction;
 import rsv.action.RsvDateCheckProAction;
 import rsv.action.RsvDeleteProAction;
 import rsv.action.RsvInsertProAction;
@@ -52,15 +52,8 @@ public class RSVFrontController extends HttpServlet{
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}else if(command.equals("/MyRsvList.rsv")) {
-			action=new RsvListCheckProAction();
-			try {
-				forward=action.execute(request, response);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 		}else if(command.equals("/RsvCheck.rsv")) {
-			action=new RsvCheckProAction();
+			action=new RsvAllListProAction();
 			try {
 				forward=action.execute(request, response);
 			} catch (Exception e) {
@@ -79,6 +72,13 @@ public class RSVFrontController extends HttpServlet{
 				forward = action.execute(request, response);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else if(command.equals("/RsvList.rsv")) {
+			action=new RsvAllListProAction();
+			try {
+				forward=action.execute(request, response);
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}

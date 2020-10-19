@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.logging.SimpleFormatter;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -265,6 +268,42 @@ public class RsvDAO {
 			String sql="select * from reservation where mem_email=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, mem_email);
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				RsvDTO dto = new RsvDTO();
+				dto.setMem_email(rs.getString("mem_email"));
+				dto.setRsv_date(rs.getString("rsv_date"));
+				dto.setRsv_num(rs.getInt("rsv_num"));
+				dto.setRsv_pax(rs.getInt("rsv_pax"));
+				dto.setRsv_time(rs.getString("rsv_time"));
+				dto.setRsv_check(rs.getInt("rsv_check"));
+				RsvList.add(dto);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return RsvList;
+	}
+	
+public ArrayList<RsvDTO> AllRsvList() {
+		
+		ArrayList<RsvDTO> RsvList= new ArrayList<RsvDTO>();
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+		Date date = new Date();
+		date.setDate(date.getDate() + 3);
+		String today = sdf.format(new Date());
+		String afterDay = sdf.format(date); 
+		System.out.println(today);
+		System.out.println(afterDay);
+		try {
+			String sql="select * from reservation where rsv_date between ? and ?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, today);
+			pstmt.setString(2, afterDay);
 			rs=pstmt.executeQuery();
 			
 			while(rs.next()) {
