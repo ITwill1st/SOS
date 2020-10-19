@@ -33,17 +33,17 @@
 	String mem_phone = null;
 	MemberBean mb=(MemberBean)session.getAttribute("memberInfo");
 	int mem_num = -1;
-	if(mem_id != null){
+	if((String)session.getAttribute("mem_id") != null){
 		mem_id = (String)session.getAttribute("mem_id");
 		mem_num = mb.getMem_num();
 	}
-	if(mem_email != null){
+	if((String)session.getAttribute("mem_email") != null){
 		mem_email = (String)session.getAttribute("mem_email");
 	}
-	if(mem_name != null){
+	if((String)session.getAttribute("mem_name") != null){
 		mem_name = (String)session.getAttribute("mem_name");
 	}
-	if(mem_phone != null){
+	if((String)session.getAttribute("mem_phone") != null){
 		mem_phone = (String)session.getAttribute("mem_phone");
 	}
 
