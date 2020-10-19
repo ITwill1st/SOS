@@ -71,7 +71,7 @@ public class MemberJoinProAction implements Action {
 				session.setAttribute("mem_phone", request.getParameter("mem_phone"));
 				forward = new ActionForward();
 				forward.setRedirect(true);
-				forward.setPath("Main.me");
+				forward.setPath("Main.do");
 			}
 		}
 		

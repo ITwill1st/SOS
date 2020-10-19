@@ -32,20 +32,12 @@
 	String mem_name = null;
 	String mem_phone = null;
 	MemberBean mb=(MemberBean)session.getAttribute("memberInfo");
-	int mem_num = -1;
-	if((String)session.getAttribute("mem_id") != null){
-		mem_id = (String)session.getAttribute("mem_id");
-		mem_num = mb.getMem_num();
-	}
-	if((String)session.getAttribute("mem_email") != null){
-		mem_email = (String)session.getAttribute("mem_email");
-	}
-	if((String)session.getAttribute("mem_name") != null){
-		mem_name = (String)session.getAttribute("mem_name");
-	}
-	if((String)session.getAttribute("mem_phone") != null){
-		mem_phone = (String)session.getAttribute("mem_phone");
-	}
+// 	int mem_num = -1;
+	if(session.getAttribute("mem_id") != null) mem_id = (String)session.getAttribute("mem_id");
+	if(session.getAttribute("mem_email") != null) mem_email = (String)session.getAttribute("mem_email");
+	if(session.getAttribute("mem_email") != null) mem_name = (String)session.getAttribute("mem_name");
+	if(session.getAttribute("mem_phone") != null) mem_phone = (String)session.getAttribute("mem_phone");
+// 	if(mb.getMem_num() != -1) mem_num = mb.getMem_num();
 
 	// 전체 메뉴
 	ArrayList<ProductBean> menuList = (ArrayList<ProductBean>)session.getAttribute("menuList");

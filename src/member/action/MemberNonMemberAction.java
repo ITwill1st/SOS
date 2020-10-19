@@ -24,7 +24,7 @@ public class MemberNonMemberAction implements Action {
 			session.setAttribute("mem_num", mem_num);
 			
 			forward=new ActionForward();
-			forward.setPath("Main.me");
+			forward.setPath("Main.do");
 			forward.setRedirect(false);
 		}
 		

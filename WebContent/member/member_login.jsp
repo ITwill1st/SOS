@@ -120,7 +120,7 @@ input[type="text"],input[type="password"]{
   						Kakao.API.request({
    							url: '/v2/user/me',
    							success: function(res) {  
-     					    alert(JSON.stringify(res)); //<---- kakao.api.request 에서 불러온 결과값 json형태로 출력
+//      					    alert(JSON.stringify(res)); //<---- kakao.api.request 에서 불러온 결과값 json형태로 출력
      						
      					    var id = res.id;    				// 유저의 카카오톡 고유 id
     						var email = res.kakao_account.email;   	// 유저의 이메일
@@ -128,9 +128,8 @@ input[type="text"],input[type="password"]{
     						var gender = res.kakao_account.gender;	// 유저의 성별
     						var nickname = res.properties.nickname;	// 유저의 닉네임
     						var name = res.properties.name;
-    						var age_range = res.kakao_account.age_range;
    							location.href='SnsLogin.me?mem_id='+id+"&mem_email="+email+"&mem_birth="+birth+"&mem_gender="+gender+
-   									"&mem_name="+name+"&mem_nickname="+nickname+"&age_range="+age_range;
+   									"&mem_name="+name+"&mem_nickname="+nickname;
 
 //    						$.ajax('SnsLogin.me',{
 //    					         data:{
@@ -156,8 +155,8 @@ input[type="text"],input[type="password"]{
   							});
   							
   						console.log(authObj);
-  						var token = authObj.access_token;
-  						
+  						var token = authObj.access_token;   
+//   						alert("로그인 되었습니다.");
 					},
   						fail: function(err) {
   							alert(JSON.stringify(err));

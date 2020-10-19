@@ -39,10 +39,11 @@ public class MemberLoginProAction implements Action {
 		    session.setAttribute("memberInfo", mb);
 		    String mem_phone = mb.getMem_phone();
 		    session.setAttribute("mem_phone", mb.getMem_phone());
+		    
 		    System.out.println(mem_phone);
 			
 			forward=new ActionForward();
-			forward.setPath("Main.me");
+			forward.setPath("Main.do");
 			forward.setRedirect(false);
 			
 		}else if(isLoginSuccess==0) {
