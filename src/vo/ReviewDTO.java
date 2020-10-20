@@ -13,6 +13,7 @@ public class ReviewDTO {
 	private String review_re_comment;
 	private int review_re_checker;
 	private int mem_num;
+	private String mem_nickname;
 	
 	public String getItem_name() {
 		return item_name;
@@ -67,6 +68,12 @@ public class ReviewDTO {
 	}
 	public void setMem_num(int mem_num) {
 		this.mem_num = mem_num;
+	}
+	public String getMem_nickname() {
+		return mem_nickname;
+	}
+	public void setMem_nickname(String mem_nickname) {
+		this.mem_nickname = mem_nickname;
 	}
 
 	

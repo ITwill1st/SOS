@@ -92,9 +92,11 @@ $(document).ready(function() {
 </script>
 
 <%
-	ReviewDTO rdt = reviewList.get(i);%>
+	ReviewDTO rdt = reviewList.get(i);
+	String nickname = rdt.getMem_nickname();
+	if(nickname == null) nickname = "guest";%>
 <table border="1" style="width: 366px; height: 70px; text-align: left;">
-	<tr><td><%=rdt.getMem_num()%></td><td><div id="starRating_<%=reviewList.get(i).getReview_comment_num()%>"></div></td></tr>
+	<tr><td><%=nickname%></td><td><div id="starRating_<%=reviewList.get(i).getReview_comment_num()%>"></div></td></tr>
 	<tr><td colspan="2"><%=rdt.getReview_comment()%></td></tr>
 </table>
 <br>

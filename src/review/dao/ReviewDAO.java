@@ -76,7 +76,7 @@ public class ReviewDAO {
 		ArrayList<ReviewDTO> reviewList = new ArrayList<ReviewDTO>();
 
 		try {
-			String sql = "select * from review where item_num=?";
+			String sql = "select * from review r JOIN member m ON (r.member_num = m.mem_num) where item_num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, item_num);
 			rs = pstmt.executeQuery();
@@ -92,6 +92,7 @@ public class ReviewDAO {
 				rdt.setReview_re_comment(rs.getString("review_re_comment"));
 				rdt.setReview_re_checker(rs.getInt("review_re_checker"));
 				rdt.setMem_num(rs.getInt("member_num"));
+				rdt.setMem_nickname(rs.getString("mem_nickname"));
 
 				reviewList.add(rdt);
 
