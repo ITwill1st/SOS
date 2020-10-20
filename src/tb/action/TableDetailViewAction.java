@@ -25,7 +25,6 @@ public class TableDetailViewAction implements Action {
 		
 		String tableNo = request.getParameter("tableNo");
 		
-		
 		//메뉴불러오기
 		TableDetailViewService tableDetailViewService = new TableDetailViewService();	
 		ArrayList<ProductBean> list = tableDetailViewService.getArticle();
@@ -50,7 +49,7 @@ public class TableDetailViewAction implements Action {
 		
 		String category = makeJsonService.getCategoryJson(iteratorCategory);
 		
-//		System.out.println(category);
+		System.out.println(category);
 		
 		request.setAttribute("category", category);
 		request.setAttribute("menu", list);

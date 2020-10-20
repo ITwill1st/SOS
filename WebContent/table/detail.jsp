@@ -74,7 +74,7 @@
 		
 		//전체메뉴 출력
 		<%for(int i=0; i< menu.size(); i++){%>
-		$('.tableProductList-MenuByCategory').append("<div class=items><button onclick='selectThis(this.value);' value='<%=menu.get(i).getItem_name() + ',' + menu.get(i).getItem_price() + ',' + menu.get(i).getItem_num()%>'><%=menu.get(i).getItem_name()%><img alt='' src='product/productUpload/<%=menu.get(i).getItem_img()%>'><%=menu.get(i).getItem_price()%></button></div>");
+		$('.tableProductList-MenuByCategory').append("<div class=items><button onclick='selectThis(this.value);' value='<%=menu.get(i).getItem_name() + ',' + menu.get(i).getItem_price() + ',' + menu.get(i).getItem_num()%>'>"+<%=menu.get(i).getItem_name()%>+"<img alt='' src='product/productUpload/<%=menu.get(i).getItem_img()%>'>"+<%=menu.get(i).getItem_price()%>+"</button></div>");
 
 			<%}%>
 	
@@ -237,7 +237,11 @@
 				<table><tr></tr></table>
 				</div>
 				
-				<div class="tableProductList-MenuByCategory"></div>
+				<div class="tableProductList-MenuByCategory">
+				<%for(int i = 0 ; i < menu.size() ; i++){%>
+					<div class="items"><button onclick=""><img src="product/productUpload/<%=menu.get(i).getItem_img()%>"></button></div>
+				<%}%>
+				</div>
 
 			</div>
 		</div>
